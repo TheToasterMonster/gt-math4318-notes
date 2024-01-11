@@ -1,0 +1,260 @@
+\chapter{Jan.~11 --- The Mean Value Theorem}
+
+\section{The Mean Value Theorem}
+\begin{lemma}
+  Let $I \subseteq \R$ be open, $f : I \to \R$
+  is differentiable at $x_0 \in I$ and $f'(x_0) \ne 0$.
+  Suppose $f'(x_0) > 0$, then there exists $\delta > 0$
+  such that for any $x \in (x_0 - \delta, x_0 + \delta)$,
+  \begin{enumerate}
+    \item if $x > x_0$, then $f(x) > f(x_0)$,
+    \item if $x < x_0$, then $f(x) < f(x_0)$.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Take $\epsilon = f'(x_0) / 2$. By the
+  definition of the derivative, there exists
+  $\delta > 0$ such that for ay $|x - x_0| < \delta$,
+  we have
+  \[
+    \left| \frac{f(x) - f(x_0)}{x - x_0} - f'(x_0) \right|
+    < \epsilon = \frac{1}{2} f'(x_0).
+  \]
+  By the triangle inequality,
+  \[
+    \frac{f(x) - f(x_0)}{x - x_0}
+    > \frac{1}{2} f'(x_0) > 0.
+  \]
+  This quotient being positive immediately implies
+  the desired results.
+\end{proof}
+
+\begin{theorem}
+  If $f(x)$ is differentiable in an open interval
+  $I$ and $f$ obtains its local maximum (or minimum)
+  at $x_0 \in I$, then $f'(x_0) = 0$.
+\end{theorem}
+
+\begin{proof}
+  Suppose otherwise that $f'(x_0) \ne 0$. Assume without
+  loss of generality that $f'(x_0) > 0$. Then by the
+  previous lemma, there exists $\delta > 0$ such that
+  for $x \in (x_0 - \delta, x_0 + \delta)$, if $x > x_0$
+  then $f(x) > f(x_0)$ and if $x < x_0$ then
+  $f(x) < f(x_0)$. So $x_0$ cannot be a local maximum
+  or minimum, which is a contradiction.
+\end{proof}
+
+\begin{theorem}[Rolle's middle value theorem]
+  Let $f(x)$ be continuous on $[a, b]$ and
+  differentiable in $(a, b)$. Suppose $f(a) = f(b)$,
+  then there exists $x_0 \in (a, b)$ such that
+  $f'(x_0) = 0$.
+\end{theorem}
+
+\begin{proof}
+  Since $f$ is continuous on a compact set, it obtains
+  both a maximum and minimum on $[a, b]$. Let
+  $M$ be the maximum and $m$ be the minimum. If
+  $M = m$, then $f(x) \equiv M$ and $f'(x) = 0$
+  everywhere. If $M > m$, then at least one of the maximum
+  or minimum must be obtained at an interior point
+  $x_0 \in (a, b)$ since $f(a) = f(b)$. By the previous
+  theorem, $f'(x_0) = 0$ at this point and we are done.
+\end{proof}
+
+\begin{example}
+  Show that the equation
+  $4ax^3 + 3bx^2 + 2cx = a + b + c$ has at least one
+  root in $(0, 1)$.
+\end{example}
+
+\begin{proof}
+  Consider the equation
+  \[
+    4ax^3 + 3bx^2 + 2cx - (a + b + c) = 0.
+  \]
+  Notice that the left hand side is the derivative
+  of the function
+  \[f(x) = ax^4 + bx^3 + cx^2 - (a + b + c)x.\]
+  So we just need to show that $f'(x) = 0$ for some
+  $x$. For this, we can check that $f(0) = f(1) = 0$,
+  and thus by Rolle's theorem there exists
+  $x_0 \in (0, 1)$ such that $f'(x_0) = 0$. So
+  $x_0$ is a root.
+\end{proof}
+
+\begin{theorem}[Lagrange's middle value theorem]
+  Let $f_9x)$ be continuous on $[a, b]$ and differentiable
+  in $(a, b)$. Then there exists $x_0 \in (a, b)$
+  such that
+  \[f'(x_0) = \frac{f(b) - f(a)}{b - a}.\]
+\end{theorem}
+
+\begin{proof}
+  Subtract the secant line through $(a, f(a))$ and
+  $(b, f(b))$ from $f(x)$ to get
+  \[g(x) = f(x) - \frac{f(b) - f(a)}{b - a} (x - a).\]
+  Note that $g(a) = g(b) = f(a)$. So by Rolle's theorem,
+  there exists $x_0 \in (a, b)$ such that $g'(x_0) = 0$.
+  But
+  \[
+    0 = g'(x_0) = f'(x_0) - \frac{f(b) - f(a)}{b - a},
+  \]
+  which is the desired result.
+\end{proof}
+
+\begin{corollary}
+  Suppose $f \in C([a, b])$, i.e. $f$ is continuous
+  on $[a, b]$, and that $f$ is differentiable in
+  $(a, b)$. Then the following statements are equivalent:
+  \begin{enumerate}
+    \item $f'(x) \ge 0$ in $(a, b)$,
+    \item $f(x)$ is increasing, i.e. if $x_1 > x_2$,
+      then $f(x_1) \ge f(x_2)$.
+  \end{enumerate}
+  In particular, if $f'(x) > 0$ in $(a, b)$, then
+  $f(x)$ is strictly increasing, i.e. if $x_1 > x_2$,
+  then $f(x_1) > f(x_2)$.
+\end{corollary}
+
+\begin{proof}
+  $(2 \Rightarrow 1)$ For any $x_0 \in (a, b)$,
+  \[
+    f'(x_0) = \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h} \ge 0
+  \]
+  since $f(x_0 + h) - f(x_0) \ge 0$ for $h > 0$
+  as $f$ is increasing.
+
+  $(1 \Rightarrow 2)$ Take $x_1 > x_2$, then
+  by Lagrange's theorem there exists $\xi \in (x_2, x_1)$
+  such that
+  \[f(x_2) - f(x_1) = f'(\xi)(x_2 - x_1) \ge 0.\]
+  So $f(x_1) \ge f(x_2)$. The strict version follows
+  from changing the above inequality to a strict one.
+\end{proof}
+
+\section{Applications}
+\begin{example}
+  Show that
+  \[\frac{2}{2x + 1} < \ln(1 + 1 / x)\]
+  for any $x > 0$.
+\end{example}
+
+\begin{proof}
+  Let $f(x) = 2 / (2x + 1) - \ln(1 + 1 / x)$. Taking
+  the derivative yields
+  \[
+    f'(x) = \frac{1}{(2x + 1)^2 x (x + 1)} > 0,
+  \]
+  so $f$ is strictly increasing in $(0, \infty)$.
+  Note that $f \to 0$ as $x \to \infty$, so $f(x) < 0$
+  for all $x > 0$.
+\end{proof}
+
+\begin{example}
+  Show that $b / a > b^a / a^b$
+  when $b > a > 1$.
+\end{example}
+
+\begin{proof}
+  Take log on both sides to get
+  $\ln b - \ln a > a \ln b - b \ln a$. This gives
+  \[
+    (b - 1)\ln a > (a - 1) \ln b
+    \quad \iff \quad \frac{\ln a}{a - 1} > \frac{\ln b}{b - 1}.
+  \]
+  Note that this is a monotonicity property. So
+  let $f(x) = (\ln x) / (x - 1)$ for $x > 1$. Then
+  \[
+    f'(x) = \frac{x - 1 - x\ln x}{x(x - 1)^2} < 0
+  \]
+  when $x > 1$ because $x - 1 - x \ln x < 0$. To see
+  the last claim, define $g(x) = x - 1 - x \ln x$
+  and note that $g'(x) = -\ln x < 0$ for $x > 1$.
+  But $g(0) = 0$, so $g(x) < 0$ for $x > 1$. So $f$
+  is strictly decreasing.
+\end{proof}
+
+\begin{example}
+  Show that
+  \[
+    \lim_{x \to 0} \frac{e^x - e^{\sin x}}{x - \sin x} = 1.
+  \]
+  Let $f(x) = e^x$. Then there exists $\xi$ between
+  $x$ and $\sin x$ such that
+  \[
+    e^x - e^{\sin x} = (x - \sin x) e^{\xi(x)},
+  \]
+  where the choice of $\xi$ may vary for different $x$.
+  Then
+  \[
+    \lim_{x \to 0} \frac{e^x - e^{\sin x}}{x - \sin x} = 
+    \lim_{x \to 0} e^{\xi(x)}.
+  \]
+  Now note that $\xi(x)$ is always between $x$ and
+  $\sin x$, which both tend to $0$ as $x \to 0$. So by
+  the squeeze theorem we have $\xi(x) \to 0$ as $x \to 0$
+  and thus $e^{\xi(x)} \to 1$ as $x \to 0$.
+\end{example}
+
+\section{Cauchy's Mean Value Theorem}
+\begin{theorem}[Cauchy's middle value theorem]
+  Let $f, g \in C([a, b])$ and $f, g$ be differentiable
+  in $(a, b)$. Suppose $g'(x) \ne 0$ for any
+  $x \in (a, b)$. Then there exists $x_0 \in (a, b)$
+  such that
+  \[
+    \frac{f'(x_0)}{g'(x_0)} = \frac{f(b) - f(a)}{g(b) - g(a)}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Use a similar construction as before and let
+  \[
+    F(x) = f(x) - f(a) - \frac{f(b) - f(a)}{g(b) - g(a)} (g(x) - g(a)).
+  \]
+  Note that $F(b) = F(a) = 0$, so by Rolle's theorem
+  there exists $x_0 \in (a, b)$ such that
+  $F'(x_0) = 0$. Then
+  \[0 = F'(x_0) = f'(x_0) - \frac{f(b) - f(a)}{g(b) - g(a)} g'(x_0),\]
+  which implies the desired result.
+\end{proof}
+
+\begin{remark}
+  The $g'(x) \ne 0$ condition guarantees that
+  $g$ is monotone, even if $g'$ may fail to be
+  continuous.
+\end{remark}
+
+\begin{remark}
+  If $g$ is a monotonically increasing function,
+  we can view $g$ as a mapping
+  $g : [a, b] \to [g(a), g(b)]$, which we can view
+  as a change of variables $x \mapsto u$. Since $g$ is
+  monotone, we have an inverse $x = g^{-1}(u)$. Then
+  \[f(x) = f(g^{-1}(u)) = (f \circ g^{-1})(u) = \widetilde{f}(u).\]
+  By Lagrange's theorem,
+  \[
+  \frac{\widetilde{f}(g(b)) - \widetilde{f}(g(a))}{g(b) - g(a)}
+    = \widetilde{f}'(u_0)
+  \]
+  for some $u_0 \in (g(a, g(b))$. Now note that
+  \[
+    \widetilde{f}(g(b)) = (f \circ g^{-1})(g(b)) = f(b),
+    \quad \widetilde{f}(g(a)) = f(a).
+  \]
+  So the left-hand side is precisely
+  \[
+    \text{LHS} = \frac{f(b) - f(a)}{g(b) - g(a)}.
+  \]
+  By the chain rule, we have
+  \[
+    \text{RHS} = \widetilde{f}'(u_0) = (f \circ g^{-1})'(u_0)
+    = f'(g^{-1}(u_0)) (g^{-1})'(u_0)
+    = f'(x_0) \frac{1}{g'(x_0)}.
+  \]
+  This recovers Cauchy's mean value theorem. So they are
+  equivalent even if Cauchy's seems stronger.
+\end{remark}
