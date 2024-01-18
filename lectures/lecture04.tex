@@ -1,0 +1,267 @@
+\chapter{Jan.~18 --- hi}
+
+\section{Common Taylor Polynomials}
+We have
+\begin{align*}
+  e^x &= 1 + x + \frac{x^2}{2!} + \dots + \frac{x^n}{n!} + o(x^n), \\
+  \sin x &= x - \frac{x^3}{3!} + \frac{x^5}{5!} - \dots
+  + \frac{(-1)^{n - 1} x^{2n - 1}}{(2n - 1)!} + o(x^{2n}), \\
+  \cos &= 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \dots
+  + \frac{(-1)^n x^{2n}}{(2n)!} + o(x^{2n + 1}), \\
+  (1 + x)^\alpha &= 1 + \alpha x + \frac{\alpha(\alpha - 1)}{2!} x^2 + \dots + \frac{\alpha(\alpha - 1) \dots (\alpha - n + 1)}n! x^n + o(x^n), \\
+  \ln (1 + x) &= x - \frac{x^2}{2} + \frac{x^3}{3}
+  + \dots + (-1)^{n - 1} \frac{x^n}{n} + o(x^n).
+\end{align*}
+
+\section{Combining Taylor Polynomials}
+\begin{remark}
+  If $a = 0$ and $f(x)$ is even in $(-b, b)$, then
+  \[
+    f(x) = \sum_{k = 0}^{n / 2} a_k x^{2k} + o(x^n).
+  \]
+  Similarly if $f(x)$ is odd in $(-b, b)$, then
+  \[
+    f(x) = \sum_{k = 0}^{n / 2} a_k x^{2k + 1} + o(x^{n + 1}).
+  \]
+\end{remark}
+
+\begin{remark}
+To create new Taylor polynomials from known ones,
+we can observe that if
+$f(x) = P_n(x) + o((x - a)^n)$ and $g(x) = Q_n(x) + o((x - a)^n)$, then
+\[
+  f(x) + g(x) = (P_n(x) + Q_n(x)) + o((x - a)^n)
+  \quad \text{and} \quad
+  f(x) g(x) = \underbrace{(P_n(x) Q_n(x))}_{\text{take first $n$ terms}} + o((x - a)^n).
+\]
+If $P_n(x) = \sum_{k = 0}^n a_k (x - a)^k$ and
+$Q_n(x) = \sum_{k = 0}^n b_k (x - a)^k$, then
+$f(x)g(x)$ has Taylor polynomial
+$\sum_{k = 0}^n c_k (x - a)^k$ where
+\[c_k = \sum_{i = 0}^k a_i b_{k - i}.\]
+If $h(x) = f(x) / g(x)$ and $g(x) \ne 0$ near $x = a$,
+then $f(x) = h(x) g(x)$. Let $h(x) = \sum_{k = 0}^n c_k (x - a)^k + o((x - a)^n)$, then
+\[
+  a_k = \sum_{i = 0}^k c_i b_{k - i}
+\]
+for $0 \le k \le n$, after which we can solve for the
+$c_k$.
+\end{remark}
+
+\begin{example}
+Find the Taylor polynomial for $\tan x$ up to $n = 5$.
+\end{example}
+
+\begin{proof}
+Note that $\tan x$ is odd, so we can write
+\[
+  \tan x = x + a_3 x^3 + a_5 x^5 + o(x^5).
+\]
+Now since $\tan x = \sin x / \cos x$, we have
+$\sin x = \tan x \cos x$, so
+\[
+  x - \frac{x^3}{6} + \frac{x^5}{5!} + o(x^5)
+  = (x + a_3 x^3 + a_5x^5)(1 - \frac{x^2}{2!} + \frac{x^4}{4!})
+\]
+We can solve to get
+\[
+  \begin{cases}
+    -\frac{1}{6} = -\frac{1}{2} + a_3 \\
+    \frac{1}{5!} = \frac{1}{4!} - \frac{a_3}{2!} + a_5
+  \end{cases}
+  \implies \quad
+  a_3 = -\frac{1}{3}, \quad
+  a_5 = \frac{2}{15}
+\]
+as the coefficients for the Taylor polynomial.
+\end{proof}
+
+\begin{remark}
+  If
+  \[
+    f'(x) = \sum_{k = 0}^n b_k (x - a)^k + o((x - a)^n),
+  \]
+  then the anti-derivative of $f(x)$ has
+  \[f(x) = f(x_0) + \sum_{k = 0}^n a_{k + 1} (x - a){k + 1} + o((x - a)^{n + 1}),\]
+  where $a_{k + 1} = b_k / (k + 1)$ for $0 \le k \le n$.
+  This is because
+  \[
+    b_k = \frac{(f')^{(k)}(a)}{k!} = \frac{f^{(k + 1)}(a)}{k!}
+    \quad \text{and} \quad
+    a_{k + 1} = \frac{f^{(k + 1)}(a)}{k + 1}
+    = \frac{1}{k + 1} \frac{f^{(k + 1)}(a)}{k!}
+    = \frac{b_k}{k + 1}.
+  \]
+\end{remark}
+
+\begin{example}
+  Find the Taylor polynomial for $f(x) = \arctan x$.
+\end{example}
+
+\begin{proof}
+  Recall that
+  \[f'(x) = \frac{1}{1 + x^2} = \sum_{k = 0}^n (-1)^k x^{2k}.\]
+  Using the above we get
+  \[
+    f(x) = \arctan x = \sum_{k = 0}^n (-1)^k \frac{x^{2k + 1}}{2k + 1} + o(x^{2n + 2})
+  \]
+  as the Taylor polynomial.
+\end{proof}
+
+\section{Applications for Taylor Polynomials}
+\subsection{Finding Limits}
+\begin{remark}
+Let $f(x) = ax^n + o(x^n)$ as $x \to 0$
+and $g(x) = bx^n + o(x^n)$ where $b \ne 0$.
+Then
+\[
+  \lim_{x \to 0} \frac{f(x)}{g(x)} = \frac{a}{b}.
+\]
+\end{remark}
+
+\begin{remark}
+  For the polynomial of $f(g(x))$, we can do
+  \[
+    f(u) = \sum_{k = 0}^n a_k (u - g(a))^k + o((u - g(a))^n),
+    \quad \text{where} \quad
+    u = g(x) = \sum_{k = 0}^n b_k(x - a)^k + o((x - a)^n).
+  \]
+  Then we can substitute  in $u = g(x)$ to find the
+  overall polynomial.
+\end{remark}
+
+\begin{example}
+  Find
+  \[
+    \lim_{x \to 0} \frac{\sqrt{1 + 2 \tan x} - e^x + x^2}{\arcsin x - \sin x}.
+  \]
+\end{example}
+
+\begin{proof}
+  Note that
+  \begin{align*}
+    \sqrt{1 + 2\tan x} - e^x + x^2 &= \frac{2x^3}{3} + o(x^3), \\
+    \arcsin x - \sin x &= \frac{x^3}{3} + o(x^3).
+  \end{align*}
+  So the desired limit is $2$.
+\end{proof}
+
+\begin{remark}
+  If $f(x) = ax^n + o(x^n)$ and $g(x) = bx^m + o(x^m)$
+  for $a, b \ne 0$, then
+  \[
+    \lim_{x \to 0} \frac{f(x)}{g(x)} = \begin{cases}
+      a / b & \text{if $m = n$}, \\
+      0 & \text{if $m < n$}, \\
+      \infty & \text{if $m > n$}.
+    \end{cases}
+  \]
+\end{remark}
+
+\begin{example}
+  Assume $f(x) = 1 + ax^n + o(x^n)$ where
+  $a \ne 0$ and
+  \[
+    g(x) = \frac{1}{bx^n + o(x^n)}, \quad \text{i.e.} \quad
+    \frac{1}{g(x)} = bx^n + o(x^n).
+  \]
+  for $b \ne 0$. Then
+  \[
+    \lim_{x \to 0} f(x)^{g(x)} = e^{a / b}.
+  \]
+  Let $y(x) = f(x)^{g(x)}$, then
+  $\ln y(x) = g(x) \ln f(x)$. Note that
+  \[
+    \ln f(x) = \ln(1 + ax^n + o(x^n))
+    = ax^n + o(x^n),
+  \]
+  so that
+  \[
+    \frac{\ln f(x)}{1 / g(x)} = \frac{ax^n + o(x^n)}{bx^n + o(x^n)} \to \frac{a}{b}
+  \]
+  as $x \to 0$. Thus $\ln y(x) \to a / b$ and
+  $y(x) \to e^{a / b}$ as $x \to 0$.
+\end{example}
+
+\begin{example}
+  Find
+  \[
+    \lim_{x \to 0} \left[\cos(xe^x) - \ln (1 - x) - x\right]^{\cot x^3}.
+  \]
+\end{example}
+
+\begin{proof}
+  Here we have
+  \[
+    f(x) = \cos(xe^x) - \ln(1 - x) - x
+    = 1 - \frac{2}{3} x^3 + o(x^3) \quad
+    \text{and} \quad \frac{1}{g(x)} = \tan x^3 = x^3 + o(x^3).
+  \]
+  Thus the limit is $e^{-2 / 3}$.
+\end{proof}
+
+\subsection{Estimation}
+\begin{example}
+  Let $f(x)$ be twice differentiable in $[0, 1]$ and
+  $f(0) = f(1)$. Further assume $|f''(x)| \le M$
+  for $0 \le x \le 1$. Prove that
+  $|f'(x)| \le M / 2$ for $0 \le x \le 1$.
+\end{example}
+
+\begin{proof}
+  Recall that Lagrange's form of Taylor's theorem says
+  \[
+    f(x) = f(a) + f'(a) (x - a) + \frac{f''(\xi)}{2!}(x - a)^2
+  \]
+  for some $\xi$ between $a$ and $x$. Thus for any
+  $x \in (0, 1)$, we have
+  \[
+    f(1) = f(x) + f'(x)(1 - x) + \frac{f''(\xi_1)}{2}(1 - x)^2.
+  \]
+  Similarly, we have
+  \[
+    f(0) = f(x) + f'(x)(-x) + \frac{f''(\xi_2)}{2}x^2.
+  \]
+  Here $x \le \xi_1 \le 1$ and $0 \le \xi_2 \le x$.
+  Since $f(1) = f(2)$, we can solve for $f'(x)$ to get
+  \[
+    f'(x) = \frac{f''(\xi_2)x^2 - f''(\xi_1)(1 - x)^2}{2}.
+  \]
+  Then taking absolute values yields
+  \[
+    |f'(x)| \le M \left(\frac{x^2 + (1 - x)^2}{2}\right) \le \frac{M}{2} \max_{0 \le x \le 1} \left[x^2 + (1 - x)^2\right]
+    = \frac{M}{2},
+  \]
+  as desired.
+\end{proof}
+
+\begin{example}
+  Let $f(x)$ be twice differentiable in $[0, 1]$ and
+  $f'(a) = f'(b) = 0$. Then there exists $\xi \in (a, b)$
+  such that
+  \[
+    |f''(\xi)| \ge 4 \frac{|f(a) - f(b)|}{(b - a)^2}.
+  \]
+\end{example}
+
+\begin{proof}
+  Note that this is equivalent to
+  \[
+    |f(b) - f(a)| \le f''(\xi)\left(\frac{b - a}{2}\right)^2.
+  \]
+  Then we have
+  \[
+    f\left(\frac{b + a}{2}\right) = f(a) + \frac{f''(\xi_1)}{2}\left(\frac{b - a}{2}\right)^2
+    = f(b) - \frac{f''(\xi_2)}{2}\left(\frac{b - a}{2}\right)^2,
+  \]
+  so that
+  \[
+    f(b) - f(a) = \frac{f''(\xi_2) + f''(\xi_1)}{2} \left(\frac{b - a}{2}\right)^2.
+  \]
+  From here we have
+  \[
+    |f(b) - f(a)| \le \underbrace{\frac{|f''(\xi_1)| + |f''(\xi_2)|}{2}}_{= |f''(\xi)|} \left(\frac{b - a}{2}\right)^2
+  \]
+  for some $\xi \in (a, b)$ by Darboux's lemma, as
+  desired.
+\end{proof}
