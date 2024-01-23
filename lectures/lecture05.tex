@@ -1,0 +1,325 @@
+\chapter{Jan.~23 --- The Riemann Integral}
+
+\section{The Anti-Derivative}
+
+Recall the \emph{anti-derivative} from calculus:
+
+\begin{definition}
+  Let $f : U \to \R$ where $U$ is an interval in $\R$.
+  If there exists a differentiable function $F : U \to \R$
+  such that $F'(x) = f(x)$ for all $x \in U$, then
+  $F(x)$ is an \emph{anti-derivative} of $f$, denoted
+  \[F(x) = \int f(x)\, dx.\]
+  This is also called the \emph{indefinite integral} of
+  $f$.
+\end{definition}
+
+\begin{remark}
+  The anti-derivatives of a function can differ by a
+  constant.
+\end{remark}
+
+\begin{example}
+  Find an anti-derivative of $f(x) = |x|$ for $x \in \R$.
+\end{example}
+
+\begin{proof}
+  If $x > 0$, we have $f(x) = x$ and so
+  $F(x) = x^2 / 2$. If $x < 0$, then $f(x) = -x$
+  and so $F(x) = -x^2 / 2$. We can also write this as
+  \[
+    F(x) = x \cdot \frac{|x|}{2}.
+  \]
+  Clearly for $x \ne 0$, we have $F'(x) = f(x)$. At
+  $x = 0$, we have
+  \[
+    \lim_{x \to 0} \frac{F(x) - f(0)}{x} = \lim_{x \to 0}
+    \frac{1}{2} |x| = 0,
+  \]
+  so $F'(0) = f(0)$ and $F$ is an anti-derivative of $f$.
+\end{proof}
+
+\begin{remark}
+  The eventual goal is to show that any continuous
+  function $f : [a, b] \to \R$ has an anti-derivative.
+\end{remark}
+
+\begin{example}
+  Find an anti-derivative for
+  \[
+    f(x) =
+    \begin{cases}
+      1 & \text{if } x > 0\\
+      0 & \text{if } x \le 0 \\
+      -1 & \text{if } x < 0.
+    \end{cases}
+  \]
+\end{example}
+
+\begin{proof}
+  We can try to use $F(x) = |x|$, but recall that $F$ is
+  not differentiable at $x = 0$. More generally, suppose
+  that $f(x)$ has some anti-derivative $F(x)$, i.e.
+  $f(x) = F'(x)$. By Darboux's theorem, $f(x)$ must
+  take all values in $(-1, 1)$, which is a contradiction
+  with the definition of $f$.
+\end{proof}
+
+\begin{remark}
+  If $f(x)$ has a jump discontinuity, then it has no
+  anti-derivative.
+\end{remark}
+
+\section{The Riemann Integral}
+Recall from calculus that if $f(x)$ is defined in
+$[a, b]$ and $F'(x) = f(x)$, then we have\footnote{This is the \emph{fundamental theorem of calculus}.}
+\[
+  \int_a^b f(x)\, dx = F(x) \Big|_a^b = F(b) - F(a).
+\]
+We called this the \emph{definite integral} of $f$ in
+calculus, but we would like a more rigorous definition.
+
+\begin{definition}
+  Let $a, b \in \R$ and $a < b$. A \emph{partition} of
+  the interval $[a, b]$ is a finite sequence of
+  numbers $x_0, x_1, \dots, x_n$ such that
+  $a = x_0 < x_1 < \dots < x_n = b$.
+\end{definition}
+
+\begin{definition}
+  The \emph{width} of a partition $x_0, x_1 , \dots, x_n$ is
+  $\max\{x_i - x_{i - 1} : i = 1, 2, \dots, n\}$.
+\end{definition}
+
+\begin{definition}
+  For any partition $x_0, x_1, \dots, x_n$, define the
+  \emph{Riemann sum} to be
+  \[
+    S = \sum_{i = 1}^n f(x_i') (x_i - x_{i - 1}),
+  \]
+  where $x_i'$ is any point between $x_{i - 1}$ and
+  $x_i$, inclusive.\footnote{The geometric intuition of the Riemann sum is an approximation for the \emph{area} under the graph of $f$ by rectangles.}
+\end{definition}
+
+\begin{definition}
+  Let $a, b \in \R$ with $a < b$ and $f : [a, b] \to \R$.
+  We say $f$ is \emph{Riemann integrable} on $[a, b]$ if
+  there exists $A \in \R$ such that for all
+  $\epsilon > 0$, there exists $\delta > 0$ such that
+  $|S - A| < \epsilon$ whenever $S$ is any Riemann
+  sum for a partition of $[a, b]$ with width less than
+  $\delta$. We call $A$ the \emph{Riemann integral} of
+  $f$ on $[a, b]$ and denote it by
+  \[
+    A = \int_a^b f(x)\, dx.
+  \]
+\end{definition}
+
+\begin{remark}
+  If $f$ is Riemann integrable, then
+  \[
+    A = \int_a^b f(x)\, dx
+  \]
+  is unique. This is because if $A$ and $A'$ are two
+  numbers for the Riemann integral, then for any
+  $\epsilon > 0$, there exists $\delta > 0$ such that
+  \[
+    |A - S| < \epsilon \quad \text{and} \quad
+    |A' - S| < \epsilon
+  \]
+  for any Riemann sum $S$ associated with a partition of
+  width less than $\delta$. Then
+  \[
+    |A - A'| \le |A - S| + |A' - S| < 2\epsilon,
+  \]
+  so $A = A'$ and thus the Riemann integral is unique.
+\end{remark}
+
+\begin{example}
+  Let $f(x) = c$ on $[a, b]$, a constant function. Then for any partition $x_0, x_1, \dots, x_n$,
+  \[
+    S = \sum_{i = 1}^n f(x_i') (x_i - x_{i - 1}) =
+    \sum_{i = 1}^n c (x_i - x_{i - 1}) = c(b - a)
+    \implies \int_a^b c\, dx = c(b - a).
+  \]
+\end{example}
+
+\begin{example}
+  Fix $\xi \in [a, b]$ and let $f : [a, b] \to \R$
+  be defined by
+  \[
+    f(x) = \begin{cases}
+      0 & \text{if } x \ne \xi \\
+      c & \text{if } x = \xi.
+    \end{cases}
+  \]
+  Check that
+  \[
+    A = \int_a^b f(x)\, dx = 0.
+  \]
+\end{example}
+
+\begin{proof}
+  For any partition $a = x_0 < x_1 < \dots < x_n = b$
+  with width $\delta$, we have
+  \[
+    |S| = \left|\sum_{i = 1}^n f(x_i') (x_i - x_{i - 1})\right|
+    \le |c| 2\delta
+  \]
+  since $\xi$ can be in at most two of the intervals of
+  the partition. Then for any $\epsilon > 0$,
+  choose $\delta = \epsilon / (2|c|)$, so that
+  $|S| < \epsilon$ for any partition of width less
+  than $\delta$. From this we can conclude that $A = 0$.
+\end{proof}
+
+\begin{example}
+  Consider a step function.
+  Let $\alpha, \beta \in [a, b]$ with $\alpha < \beta$.
+  Define $f : [a, b] \to \R$ by
+  \[
+    f(x) = \begin{cases}
+      1 & \text{if } x \in (\alpha, \beta) \\
+      0 & \text{if } x \notin (\alpha, \beta) \text{ and } x \in [a, b].
+    \end{cases}
+  \]
+  Note that $f$ has no anti-derivative, but it
+  is Riemann integrable. In fact,
+  \[
+    \int_a^b f(x)\, dx = \beta - \alpha.
+  \]
+  To see this, take any partition
+  $a = x_0 < x_1 < \dots < x_n = b$ with width less
+  than $\delta$. Then
+  \[
+    S = \sum_{i = 1}^n f(x_i') (x_i - x_{i - 1}) =
+    \sum_{[x_{i - 1}, x_i] \cap [\alpha, \beta] \ne \varnothing} f(x_i') (x_i - x_{i - 1}).
+  \]
+  Each partition is in two classes: Either (1) it
+  only partially intersects $[\alpha, \beta]$ or (2)
+  it is contained in $[\alpha, \beta]$. So
+  \[
+    S = \underbrace{1 (\text{total length of intervals of class 2})}_{I_1}
+    + \underbrace{|f(x_i')| (\text{total length of intervals of class 1})}_{I_2}.
+  \]
+  We have $|I_1 - (\beta - \alpha)| < 2 \delta$ and
+  $|I_2| < 2\delta$ since there are at most two intervals
+  of class 1. So
+  \[
+    |S - (\beta - \alpha)| \le |I_1| + |I_2| < 4\delta.
+  \]
+  So $f(x)$ is Riemann integrable and
+  \[
+    \int_a^b f(x)\, dx = \beta - \alpha,
+  \]
+  as desired.
+\end{example}
+
+\begin{example}
+  Define $f : [a, b] \to \R$ by
+  \[
+    f(x) = \begin{cases}
+      1 & \text{if $x$ is rational} \\
+      0 & \text{if $x$ is irrational}.
+    \end{cases}
+  \]
+  Then $f(x)$ is not Riemann integrable. For
+  any partition $a = x_0 < x_1 < \dots < x_n = b$,
+  \[
+    S = \sum_{i = 1}^n f(x_i') (x_i - x_{i - 1}) =
+    \begin{cases}
+      b - a & \text{if $x_i'$ are all rational} \\
+      0 & \text{if $x_i'$ are all irrational}.
+    \end{cases}
+  \]
+  We can always choose $x_i'$ to be in either case
+  since the rationals and irrationals are both dense
+  in $\R$. So there is no $A \in \R$ such that
+  $|A - S| < \epsilon$, no matter how small we take
+  $\delta$ to be.
+\end{example}
+
+\begin{remark}
+  The function $f$ from the previous example is not
+  Riemann integrable, but it is Lebesgue integrable.
+  In fact,
+  \[
+    L = \int_a^b f(x)\, dx = 0
+  \]
+  with respect to the Lebesgue measure. This
+  is because the set of rational numbers
+  $\Q$ has measure zero.
+\end{remark}
+
+\section{Properties of the Riemann Integral}
+\begin{prop}
+We have the following linearity properties of the Riemann integral:
+\begin{enumerate}
+  \item If $f, g : [a, b] \to \R$ are Riemann integrable, then
+  $f \pm g$ are also integrable and
+  \[
+    \int_a^b (f \pm g) \, dx = \int_a^b f(x)\, dx \pm \int_a^b g(x)\, dx
+  \]
+  \item For any $c \in \R$, $cf$ is integrable
+    and
+    \[
+      \int_a^b cf \, dx = c \int_a^b f(x)\, dx.
+    \]
+\end{enumerate}
+\end{prop}
+
+\begin{proof}
+  See textbook, fairly straightforward.
+\end{proof}
+
+\begin{remark}
+  Since we only discuss Riemann integration in this
+  class, we will sometimes simply say ``integrable''
+  instead of ``Riemann integrable.''
+\end{remark}
+
+\begin{prop}
+  If $f : [a, b] \to \R$ is integrable and $f(x) \ge 0$,
+  then
+  \[
+    \int_a^b f(x)\, dx \ge 0.
+  \]
+\end{prop}
+
+\begin{proof}
+  Let
+  \[A = \int_a^b f(x)\, dx.\]
+  Then for any $\epsilon > 0$, there exists $\delta > 0$
+  such that for any partition of width $< \delta$,
+  we have $|A - S| < \epsilon$. But
+  \[
+    S = \sum_{i = 1}^n f(x_i') (x_i - x_{i - 1}) \ge 0,
+  \]
+  Then we have $A > S - \epsilon \ge -\epsilon$, so
+  taking $\epsilon \to 0$ gives $A \ge 0$.
+\end{proof}
+
+\begin{corollary}
+  If $f, g : [a, b] \to \R$ are integrable and
+  $f(x) \ge g(x)$ for all $x \in [a, b]$, then
+  \[
+    \int_a^b f(x)\, dx \ge \int_a^b g(x)\, dx.
+  \]
+\end{corollary}
+
+\begin{proof}
+  By linearity,
+  \[
+    \int_a^b f(x)\, dx - \int_a^b g(x)\, dx =
+    \int_a^b (f(x) - g(x))\, dx \ge 0
+  \]
+  since $f(x) - g(x) \ge 0$ by assumption.
+\end{proof}
+
+\begin{corollary}
+  If $f : [a, b] \to \R$ is integrable and
+  $m \le f(x) \le M$ for all $x \in [a, b]$, then
+  \[
+    m(b - a) \le \int_a^b f(x)\, dx \le M(b - a).
+  \]
+\end{corollary}
