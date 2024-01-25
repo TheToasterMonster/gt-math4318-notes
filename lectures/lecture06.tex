@@ -1,0 +1,341 @@
+\chapter{Jan.~25 --- Riemann Integrability}
+
+\section{Conditions for Integrability}
+\begin{lemma}
+  A function $f : [a, b] \to \R$ is integrable if and only if
+  for any $\epsilon > 0$, there exists $\delta > 0$
+  such that $|S_1 - S_2| < \epsilon$ whenever $S_1$
+  and $S_2$ are Riemann sums for partitions of
+  width less than $\delta$.
+  \label{lem:first-integrable}
+\end{lemma}
+
+\begin{proof}
+  $(\Rightarrow)$ If $f$ is integrable, then for
+  any $\epsilon > 0$, there exists $\delta > 0$ such that
+  \[
+    \left|S - \int_a^b f(x)\, dx\right| < \frac{\epsilon}{2}
+  \]
+  for any Riemann sum $S$ of a partition with width
+  less than $\delta$. Then
+  \[
+    |S_1 - S_2| \le
+    \left|S_1 - \int_a^b f(x)\, dx\right| +
+    \left|S_2 - \int_a^b f(x)\, dx\right| <
+    \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon,
+  \]
+  as desired.
+
+  $(\Leftarrow)$ Take the special partition into intervals
+  of equal length, with width $(a - b) / n$. Pick
+  the middle point in each interval, and let
+  \[
+    S_n = \sum_{i = 1}^n f(x_i') (x_i - x_{i - 1})
+  \]
+  be the corresponding Riemann sum. Now we check that
+  $\{S_n\}_{n = 1}^\infty$ is a Cauchy sequence. This is
+  because for any $\epsilon > 0$, if $N$ is large
+  enough, then for any $n, m \ge N$, we have
+  $|S_n - S_m| < \epsilon$ if $1 / N < \delta$. Then
+  $\{S_n\}_{n = 1}^\infty$ converges, so let
+  $\lim_{n \to \infty} S_n = A$. Now for any
+  $\epsilon > 0$, there exists $\delta > 0$ such that
+  for any Riemann sum $S$ with width $< \delta$,
+  if $1 / n < \delta$, then $|S_n - S| < \epsilon / 2$.
+  So
+  \[
+    |S - A| \le |S_n - S| + |S_n - A|
+    < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon,
+  \]
+  if $n$ is large enough. Thus
+  \[
+    A = \int_a^b f(x)\, dx
+  \]
+  exists and is the Riemann integral of $f$.
+\end{proof}
+
+\begin{remark}
+Recall the step function $f : [a, b] \to \R$ given by
+\[
+  f(x) =
+  \begin{cases}
+    1 & \text{if } x \in (\alpha, \beta) \subseteq [a, b] \\
+    0 & \text{if } x \notin (\alpha, \beta).
+  \end{cases}
+\]
+Last time we saw that $f$ is integrable and that
+\[
+  \int_a^b f(x)\, dx = \beta - \alpha.
+\]
+Now let us consider a more general step function. We
+call $f$ a \emph{step function} on $[a, b]$ if there
+exists
+a partition $x_0 < x_1 < \dots < x_n$ of $[a, b]$ such
+that $f(x)$ is constant on each subinterval
+$(x_{i - 1}, x_i)$.
+\end{remark}
+
+\begin{lemma}
+  If $f : [a, b] \to \R$ is a step function for
+  a partition $x_0 < x_1 < \dots < x_n$ and
+  $f(x) = c_i$ when $x \in (x_{i - 1}, x_i)$, then
+  $f$ is integrable and
+  \[
+    \int_a^b f(x)\, dx = \sum_{i = 1}^n c_i (x_i - x_{i - 1}).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Define
+  \[
+    \varphi_i(x) = \begin{cases}
+      1 & \text{if } x \in (x_{i - 1}, x_i) \\
+      0 & \text{otherwise}.
+    \end{cases}
+  \]
+  Now let
+  \[
+    h = f - \sum_{i = 1}^n c_i \varphi_i.
+  \]
+  Then $h(x)$ is nonzero only at $\{x_i\}_{i = 0}^n$.
+  Each $\varphi_i$ is integrable and $h$ is integrable
+  with
+  \[
+    \int_a^b h(x)\, dx = 0,
+  \]
+  so $f$ is also integrable and
+  \[
+    \int_a^b f(x)\, dx
+    = \sum_{i = 1}^{n} c_i \int_a^b \varphi_i(x)\, dx
+    = \sum_{i = 1}^n c_i (x_i - x_{i - 1})
+  \]
+  by linearity and the integral of a simple
+  step function that we calculated before.
+\end{proof}
+
+\begin{prop}
+  A function $f : [a, b] \to \R$ is integrable if
+  and only if for any $\epsilon > 0$, there exist
+  step functions $f_1, f_2$ such that
+  $f_1(x) \le f(x) \le f_2(x)$ for all $x \in [a, b]$
+  and
+  \[
+    \int_a^b (f_2 - f_1)\, dx < \epsilon.
+  \]
+\end{prop}
+
+\begin{proof}
+  $(\Leftarrow)$ For any $\epsilon > 0$, choose
+  step functions $f_1, f_2$ such that
+  \[
+    \int_a^b (f_2 - f_1)\, dx < \frac{\epsilon}{3}.
+  \]
+  Then there exists $\delta > 0$ such that for any
+  partition with width $< \delta$, the Riemann
+  sums $S_1, S_2$ for $f_1, f_2$ satisfy
+  \[
+    |S_1 - \int_a^b f_1(x)\, dx| < \frac{\epsilon}{3}
+    \quad\text{and}\quad
+    |S_2 - \int_a^b f_2(x)\, dx| < \frac{\epsilon}{3}.
+  \]
+  So for any partition width $< \delta$, the Riemann sum
+  of $f$ is
+  \[
+    S = \sum_{i = 1}^n f(x_i') (x_i - x_{i - 1}),
+  \]
+  and $S_1 \le S \le S_2$ since
+  \[
+    S_1 = \sum_{i = 1}^n f_1(x_i') (x_i - x_{i - 1})
+    \quad \text{and} \quad
+    S_2 = \sum_{i = 1}^n f_2(x_i') (x_i - x_{i - 1}).
+  \]
+  So $S$ is in the interval $(S_1, S_2)$, which has
+  length $< \epsilon$ by the triangle inequality on the
+  previous results. For any two Riemann sums of
+  $f$ with partitions of width $< \delta$, we have
+  $|S' - S''| < \epsilon$. Thus $f$ is integrable.
+
+  $(\Rightarrow)$ First we show that $f$ is bounded
+  in $[a, b]$. This is because for any $\epsilon > 0$,
+  there exists $\delta > 0$ such that any two Riemann
+  sums $S_1, S_2$ corresponding to partitions of
+  width $< \delta$.
+  satisfy $|S_1 - S_2| < \epsilon$. Let
+  \[
+    S_1 = \sum_{i = 1}^n f(x_i') (x_i - x_{i - 1}),
+  \]
+  and replace $x_{i_0}' \in (x_{i_0 - 1}, x_{i_0})$
+  with $x_{i_0}'' \in (x_{i_0 - 1}, x_{i_0})$. Keep
+  $x_i'$ for $i \ne i_0$. Define this new Riemann sum
+  to be $S_2$. Then
+  \[
+    |S_2 - S_1| \le |f(x_{i_0}'') - f(x_{i_0}')| |x_{i_0} - x_{i_0 - 1}|
+    < \epsilon,
+  \]
+  so that
+  \[
+    |f(x_{i_0}'')| \le |f(x_{i_0}')| + \frac{\epsilon}{x_{i_0} - x_{i_0 - 1}},
+  \]
+  i.e. $f$ is bounded in $(x_{i_0 - 1}, x_{i_0})$ since
+  $x_{i_0}''$ was arbitrary. Since we also picked $i_0$
+  arbitrarily, we can repeat this for any
+  interval to conclude that $f$ is bounded in $[a, b]$.
+
+  Now for any partition $x_0 < x_1 < \dots < x_n$
+  with width $< \delta$, define
+  \[
+    m_i = \inf \{f(x) : x \in (x_{i - 1}, x_i)\}
+    \quad \text{and} \quad
+    M_i = \sup \{f(x) : x \in (x_{i - 1}, x_i)\}.
+  \]
+  Define the step function
+  \[
+    f_1(x) =
+    \begin{cases}
+      m_i & \text{if } x \in (x_{i - 1}, x_i) \\
+      \min\{m_1, \dots, m_n\} & \text{if } x = x_i \text{ for } i = 0, \dots, n.
+    \end{cases}
+  \]
+  Similarly define
+  \[
+    f_2(x) =
+    \begin{cases}
+      M_i & \text{if } x \in (x_{i - 1}, x_i) \\
+      \max\{M_1, \dots, M_n\} & \text{if } x = x_i \text{ for } i = 0, \dots, n.
+    \end{cases}
+  \]
+  Observe that $f_1(x) \le f(x) \le f_2(x)$ for
+  any $x \in [a, b]$ by construction. Now we verify
+  that
+  \[
+    \int_a^b (f_2 - f_1)\, dx < \epsilon
+  \]
+  if $\delta > 0$ is small enough. This is because
+  for any $\eta > 0$, there exists $x_i', x_i'' \in [x_{i - 1}, x_i]$
+  such that $f(x_i') < m_i + \eta$ and
+  $f(x_i'') > M_i - \eta$. Then
+  \[
+    \sum_{i = 1}^n (f(x_i'') - f(x_i'))(x_i - x_{i - 1})
+    > \sum_{i = 1}^n (M_i - m_i - 2\eta)(x_i - x_{i - 1})
+    = \int_a^b (f_2 - f_1)\, dx - 2\eta(b - a).
+  \]
+  If $\delta > 0$ is small enough, then
+  \[
+    \sum_{i = 1}^n (f(x_i'') - f(x_i'))(x_i - x_{i - 1})
+    < \epsilon
+  \]
+  since this a difference of two Riemann sums with
+  partitions of width $< \delta$. Thus
+  \[
+    \int_a^b (f_2 - f_1)\, dx < \epsilon + 2\eta(b - a).
+  \]
+  But $\eta$ was arbitrary, so taking $\eta \to 0$
+  gives the desired result.
+\end{proof}
+
+\begin{theorem}
+  If $f : [a, b] \to \R$ is continuous, then $f$ is
+  integrable.
+\end{theorem}
+
+\begin{proof}
+  Since $f$ is continuous on the compact set $[a, b]$,
+  it is uniformly continuous. So for any $\epsilon > 0$,
+  there exists $\delta > 0$ such that for any
+  $x', x'' \in [a, b]$, we have
+  $|f(x') - f(x'')| < \epsilon$ whenever
+  $|x' - x''| < \delta$. Now let $S_1, S_2$
+  be two Riemann sums
+  with partitions of width $< \delta$. Assume without
+  loss of generality that $S_1, S_2$ are defined
+  over the same partition (we can always combine two
+  partitions to give a finer partition, if necessary).
+  Let
+  \[
+    S_1 = \sum_{i = 1}^n f(x_i') (x_i - x_{i - 1})
+    \quad \text{and} \quad
+    S_2 = \sum_{i = 1}^n f(x_i'') (x_i - x_{i - 1}).
+  \]
+  Then
+  \[
+    |S_1 - S_2| \le \sum_{i = 1}^n |f(x_i') - f(x_i'')| (x_i - x_{i - 1})
+    < \epsilon \sum_{i = 1}^n (x_i - x_{i - 1})
+    = \epsilon (b - a).
+  \]
+  Since $\epsilon > 0$ was arbitrary, we conclude that
+  that $f$ is integrable by Lemma \ref{lem:first-integrable}.
+\end{proof}
+
+\section{The Fundamental Theorem of Calculus}
+\begin{theorem}[Fundamental theorem of calculus]
+  If $f : [a, b] \to \R$ has anti-derivative
+  $F : [a, b] \to \R$ and $f \in \mathcal{R}(a, b)$,\footnote{Here $\mathcal{R}(a, b)$ is the class of Riemann integrable functions on $[a, b]$.}
+  then
+  \[
+    \int_a^b f(x)\, dx = F(b) - F(a).
+  \]
+\end{theorem}
+
+\begin{proof}
+  Since $f$ is integrable, let
+  \[
+    A = \int_a^b f(x)\, dx.
+  \]
+  For any $\epsilon > 0$, there exists $\delta > 0$
+  such that for any Riemann sum $S$ with partition of
+  width $< \delta$, we have $|S - A| < \epsilon$. Let
+  $x_0 < x_1 < \dots < x_n$ be a partition of
+  width $< \delta$. Then by telescoping,
+  \[
+    F(b) - F(a) = \sum_{i = 1}^n (F(x_i) - F(x_{i - 1}))
+    = \sum_{i = 1}^n f(x_i') (x_i - x_{i - 1})
+  \]
+  by Lagrange's mean value theorem, where
+  $x_i' \in (x_{i - 1}, x_i)$. Then
+  \[
+    |F(b) - F(a) - A| = |S - A| < \epsilon,
+  \]
+  so letting $\epsilon \to 0$ gives $F(b) - F(a) = A$.
+\end{proof}
+
+\begin{remark}
+  The fundamental theorem of calculus requires both
+  being Riemann integrable and having an anti-derivative,
+  which do not always overlap. In fact, neither is
+  a subset of the other.
+\end{remark}
+
+\begin{example}
+  The step function
+  \[
+    f(x) =
+    \begin{cases}
+      -1 & \text{if } 0 \le x \le 1 \\
+      1 & \text{if } 1 < x \le 2
+    \end{cases}
+  \]
+  is integrable but has no anti-derivative.
+\end{example}
+
+\begin{example}
+  Define
+  \[
+    F(x) =
+    \begin{cases}
+      0 & \text{if } x = 0 \\
+      x^2 \sin(1/x) & \text{if } x \ne 0.
+    \end{cases}
+  \]
+  Then we have
+  \[
+    F'(x) = f(x) =
+    \begin{cases}
+      0 & \text{if } x = 0 \\
+      (-2 / x)(\cos(1 / x^2)) + 2x \sin(1 / x^2) & \text{if } x \ne 0.
+    \end{cases}
+  \]
+  We can check that $F'(0) = 0$ via the definition
+  of the derivative. Note that $f$ has an anti-derivative,
+  namely $F$. However, $f$ is not integrable since
+  it is not bounded near $x = 0$.
+\end{example}
