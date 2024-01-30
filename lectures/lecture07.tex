@@ -1,0 +1,244 @@
+\chapter{Jan.~30 --- More Integrability}
+
+\section{Conditions for an Anti-Derivative}
+\begin{lemma}
+  \label{lem:split-integral}
+  Let $c \in (a, b)$. Then $f \in \mathcal{R}([a, b])$ if and only if $f \in \mathcal{R}([a, c])$ and $f \in \mathcal{R}([c, b])$. Moreover,
+  \[
+    \int_a^b f(x) \, dx = \int_a^c f(x) \, dx + \int_c^b f(x) \, dx. \tag{$*$}
+  \]
+\end{lemma}
+
+\begin{proof}
+  $(\Rightarrow)$ If $f \in \mathcal{R}([a, b])$, then
+  for any $\epsilon > 0$, there exist two step
+  functions $f_1, f_2$ such that $f_1 \le f \le f_2$
+  and
+  \[
+    \int_a^b (f_2 - f_1) \, dx < \epsilon.
+  \]
+  Let $f_1, f_2$ be the restrictions to $[a, c]$.
+  Then still $f_1 \le f \le f_2$ on $[a, c]$ and
+  \[
+    \int_a^c (f_2 - f_1)\, \le
+    \int_a^b (f_2 - f_1) < \epsilon
+  \]
+  since $f_2 - f_1$ is a nonnegative step function. (Note
+  that the desired result is easy to verify for step
+  functions.)
+  So $f \in \mathcal{R}([a, c])$, and the same
+  argument works to show that $f \in \mathcal{R}([c, b])$.
+
+  $(\Leftarrow)$ If $f \in \mathcal{R}([a, c])$ and
+  $f \in \mathcal{R}([c, b])$, then for any
+  $\epsilon > 0$, there exist step functions
+  $g_1, g_2, h_1, h_2$ such that
+  $g_1 \le f \le g_2$ on $[a, c]$,
+  $h_1 \le f \le h_2$ on $[c, b]$, and
+  \[
+    \int_a^c (g_2 - g_1)\, dx < \epsilon,
+    \quad
+    \int_c^b (h_2 - h_1)\, dx < \epsilon.
+  \]
+  Now define
+  \[
+    f_i = \begin{cases}
+      g_i & \text{if } x \in [a, c) \\
+      h_i & \text{if } x \in [c, b]
+    \end{cases}
+  \]
+  for $i = 1, 2$. Then $f_1 \le f \le f_2$ on $[a, b]$,
+  and
+  \[
+    \int_a^b (f_2 - f_1)\, dx
+    = \int_a^c (g_2 - g_1)\, dx + \int_c^b (h_2 - h_1)\, dx
+    < 2\epsilon,
+  \]
+  so $f \in \mathcal{R}([a, b])$. Now to prove $(*)$,
+  note that $f \in \mathcal{R}([a, c])$, so for
+  any $\epsilon > 0$ there exist Riemann sums $S_1$
+  on $[a, c]$ and $S_2$ on $[c, b]$ such that
+  \[
+    |S_1 - \int_a^c f(x)\, dx| < \frac{\epsilon}{3},
+    \quad
+    |S_2 - \int_c^b f(x)\, dx| < \frac{\epsilon}{3}.
+  \]
+  Now choose $\delta > 0$ such that if the Riemann
+  sum $S$ has partition with
+  width $< \delta$, then
+  \[
+    |S - \int_a^c f(x)\, dx| < \frac{\epsilon}{3},
+    \quad
+    |S - \int_c^b f(x)\, dx| < \frac{\epsilon}{3},
+    \quad
+    |S - \int_a^b f(x)\, dx| < \frac{\epsilon}{3}.
+  \]
+  Now combine $S_1, S_2$ on $[a, b]$ to be a Riemann
+  sum $S = S_1 + S_2$, so that
+  \[
+    |S - \int_a^b f(x)\, dx| < \frac{\epsilon}{3}.
+  \]
+  By the triangle inequality on the previous results,
+  \[
+    \left| \int_a^b f(x)\, dx - \left(\int_a^c f(x)\, dx + \int_c^b f(x)\, dx\right)\right| < \epsilon.
+  \]
+  Since $\epsilon$ is arbitrarily small, we conclude that
+  \[
+    \int_a^b f(x)\, dx = \int_a^c f(x)\, dx + \int_c^b f(x)\, dx
+  \]
+  as desired.
+\end{proof}
+
+\begin{remark}
+  The formula $(*)$ is true for any three numbers
+  $a, b, c$, as long as $f$ is integrable. This is
+  because by convention, if $a > b$, then
+  \[
+    \int_a^b f(x)\, dx = -\int_b^a f(x)\, dx.
+  \]
+\end{remark}
+
+\begin{theorem}
+  If $f : [a, b] \to \R$ is continuous, then\footnote{Note that this integral is well-defined since any continuous function is integrable, and a continuous function restricted to a subset of its domain, i.e. $[a, x] \subseteq [a, b]$, remains continuous.}
+  \[
+    F(x) = \int_a^x f(\xi) \, d\xi
+  \]
+  is an anti-derivative of $f$.
+\end{theorem}
+
+\begin{proof}
+  For any $x_0 \in (a, b)$, we check that
+  $F'(x_0) = f(x_0)$. We can compute using Lemma
+  \ref{lem:split-integral} that
+  \begin{align*}
+    \left| \frac{F(x_0 + h) - F(x_0)}{h} - f(x_0) \right|
+    &= \left| \frac{1}{h} \left( \int_a^{x_0 + h} f(x)\, dx - \int_a^{x_0} f(x)\, dx \right) - f(x_0) \right| \\
+    &= \left| \frac{1}{h} \int_{x_0}^{x_0 + h} f(x)\, dx - f(x_0) \right|
+    = \left| \frac{1}{h} \int_{x_0}^{x_0 + h} (f(x) - f(x_0))\, dx \right|.
+  \end{align*}
+  The last step is from observing
+  \[
+    f(x_0) = \frac{1}{h} \int_{x_0}^{x_0 + h} f(x_0)\, dx.
+  \]
+  Since $f$ is continuous, for any $\epsilon > 0$, there
+  exists $\delta$
+  such that if $|x_0 - x| < \delta$, then
+  $|f(x) - f(x_0)| < \epsilon$. This gives
+  \[
+    \left| \frac{1}{h} \int_{x_0}^{x_0 + h} (f(x) - f(x_0))\, dx \right|
+    \le \frac{1}{h} \int_{x_0}^{x_0 + h} |f(x) - f(x_0)|\, dx
+    \le \frac{\epsilon h}{h} = \epsilon
+  \]
+  if $|h| < \delta$. Thus,
+  \[
+    \lim_{h \to 0} \frac{F(x_0 + h) - F(x_0)}{h} - f(x_0) = f(x_0),
+  \]
+  so we indeed have $F'(x_0) = f(x_0)$.
+\end{proof}
+
+\section{More Conditions for Integrability}
+\begin{definition}
+  Let $f : [a, b] \to \R$ be bounded and
+  $x_0 < x_1 < \cdots < x_n$ be a partition of $[a, b]$.
+  Define
+  \[
+    \omega_i = \sup\{|f(x) - f(y)| : x, y \in [x_{i - 1}, x_i)\}
+  \]
+  for $i = 1, 2, \dots, n$.
+\end{definition}
+
+\begin{theorem}
+  A function $f : [a, b] \to \R$ is integrable if and only
+  if for any $\epsilon > 0$, there exists $\delta > 0$
+  such that for any partition with width $< \delta$,
+  we have
+  \[
+    \sum_{i = 1}^n \omega_i \Delta x_i < \epsilon,
+  \]
+  where $\Delta x_i = x_i - x_{i - 1}$.
+\end{theorem}
+
+\begin{proof}
+  $(\Leftarrow)$ For any $\epsilon > 0$, choose any
+  two Riemann sums $S_1, S_2$ over partitions with
+  width $< \delta$. Assume without loss of generality
+  that $S_1$ and $S_2$ are defined over the same
+  (maybe refined) partition. Let
+  \[
+    S_1 = \sum_{i = 1}^n f(x_i') (x_i - x_{i - 1}),
+    \quad
+    S_2 = \sum_{i = 1}^n f(x_i'') (x_i - x_{i - 1}).
+  \]
+  Then we have
+  \[
+    |S_1 - S_2| \le \sum_{i = 1}^n |f(x_i') - f(x_i'')| \Delta x_i
+    \le \sum_{i = 1}^n \omega_i \Delta x_i < \epsilon.
+  \]
+  Then by Lemma \ref{lem:first-integrable}, we conclude
+  that $f$ is integrable.
+
+  $(\Rightarrow)$ Since $f$ is integrable, by Lemma
+  \ref{lem:first-integrable} we have that for any
+  $\epsilon > 0$, there eixsts $\delta > 0$ such that
+  for any two Riemann sums $S_1, S_2$ over partitions
+  of with $< \delta$, we have $|S_1 - S_2| < \epsilon$.
+  In the interval $[x_{i - 1}, x_i]$, let
+  \[
+    M_i = \sup_{x \in [x_{i - 1}, x_i]} |f(x)|, \quad
+    m_i = \inf_{x \in [x_{i - 1}, x_i]} |f(x)|.
+  \]
+  In particular note that $\omega_i = M_i - m_i$.
+  Now for any $\eta > 0$, there exist
+  $x_i', x_i'' \in [x_{i - 1}, x_i]$ such that
+  \[
+    f(x_i') > M_i - \eta, \quad f(x_i'') < m_i + \eta.
+  \]
+  Let
+  \[
+    S_1 = \sum_{i = 1}^n f(x_i') \Delta x_i,
+    \quad
+    S_2 = \sum_{i = 1}^n f(x_i'') \Delta x_i.
+  \]
+  Then we have
+  \[
+    |S_1 - S_2| \le \left| \sum_{i = 1}^n (f(x_i') - f(x_i'')) \Delta x_i \right|
+  \]
+  Note that $f(x_i') - f(x_i'') \ge M_i - m_i - 2\eta$
+  for $\eta$ sufficiently small. Thus
+  \[
+    |S_1 - S_2| \ge \sum_{i = 1}^n \omega_i \Delta x_i
+    - 2\eta \sum_{i = 1}^n \Delta x_i,
+  \]
+  so that
+  \[
+    \sum_{i = 1}^n \omega_i \Delta x_i
+    \le |S_1 - S_2| + 2\eta (b - a)
+    < \epsilon + 2\eta (b - a).
+  \]
+  From here letting $\eta \to 0$ gives the desired result.
+\end{proof}
+
+\begin{theorem}
+  A function $f : [a, b] \to \R$ is integrable if and only
+  if for any $\epsilon > 0$, there exists a partition
+  such that
+  \[
+    \sum_{i = 1}^n \omega_i \Delta x_i < \epsilon.
+  \]
+\end{theorem}
+
+\begin{proof}
+  $(\Rightarrow)$ This is immediate from the
+  previous theorem.
+
+  $(\Leftarrow)$ Let $S_1$ be the given sum
+  and
+  \[
+    S_2 = \sum_{i = 1}^n \omega_i \Delta x_i
+  \]
+  be any other Riemann sum over a partition of
+  width $< \delta$. Then $S_2 \le 2S_1 < 2\epsilon$ at
+  least since we will have
+  $\omega_i' \le \omega_i + \omega_{i - 1}$ if $\omega_i'$
+  is the analogous value corresponding to $S_2$.
+\end{proof}

@@ -2,12 +2,12 @@
 
 \section{Conditions for Integrability}
 \begin{lemma}
+  \label{lem:first-integrable}
   A function $f : [a, b] \to \R$ is integrable if and only if
   for any $\epsilon > 0$, there exists $\delta > 0$
   such that $|S_1 - S_2| < \epsilon$ whenever $S_1$
   and $S_2$ are Riemann sums for partitions of
   width less than $\delta$.
-  \label{lem:first-integrable}
 \end{lemma}
 
 \begin{proof}
@@ -233,6 +233,15 @@ $(x_{i - 1}, x_i)$.
   gives the desired result.
 \end{proof}
 
+\begin{corollary}
+  If $f : [a, b] \to \R$ is integrable, then it is
+  bounded.
+\end{corollary}
+
+\begin{proof}
+  This was shown in the proof of the previous proposition.
+\end{proof}
+
 \begin{theorem}
   If $f : [a, b] \to \R$ is continuous, then $f$ is
   integrable.
@@ -269,7 +278,7 @@ $(x_{i - 1}, x_i)$.
 \section{The Fundamental Theorem of Calculus}
 \begin{theorem}[Fundamental theorem of calculus]
   If $f : [a, b] \to \R$ has anti-derivative
-  $F : [a, b] \to \R$ and $f \in \mathcal{R}(a, b)$,\footnote{Here $\mathcal{R}(a, b)$ is the class of Riemann integrable functions on $[a, b]$.}
+  $F : [a, b] \to \R$ and $f \in \mathcal{R}([a, b])$,\footnote{Here $\mathcal{R}([a, b])$ is the class of Riemann integrable functions on $[a, b]$.}
   then
   \[
     \int_a^b f(x)\, dx = F(b) - F(a).
