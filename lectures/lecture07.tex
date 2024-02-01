@@ -1,4 +1,4 @@
-\chapter{Jan.~30 --- More Integrability}
+\chapter{Jan.~30 --- Riemann Integrability, Part 2}
 
 \section{Conditions for an Anti-Derivative}
 \begin{lemma}
@@ -144,7 +144,8 @@
   \[
     \omega_i = \sup\{|f(x) - f(y)| : x, y \in [x_{i - 1}, x_i)\}
   \]
-  for $i = 1, 2, \dots, n$.
+  for $i = 1, 2, \dots, n$. We will call this
+  the \emph{oscillation amplitude} of $f$.
 \end{definition}
 
 \begin{theorem}
@@ -223,7 +224,7 @@
   if for any $\epsilon > 0$, there exists a partition
   such that
   \[
-    \sum_{i = 1}^n \omega_i \Delta x_i < \epsilon.
+    \sum_{i = 1}^n \omega_i(f) \Delta x_i < \epsilon.
   \]
 \end{theorem}
 
@@ -231,14 +232,57 @@
   $(\Rightarrow)$ This is immediate from the
   previous theorem.
 
-  $(\Leftarrow)$ Let $S_1$ be the given sum
-  and
+  $(\Leftarrow)$ We show that for any $\epsilon > 0$,
+  there exists $\delta > 0$ such that for any partition
+  with width $< \delta$, we have
   \[
-    S_2 = \sum_{i = 1}^n \omega_i \Delta x_i
+    \sum_{i = 1}^n \omega_i(f) \Delta x_i < \epsilon.
   \]
-  be any other Riemann sum over a partition of
-  width $< \delta$. Then $S_2 \le 2S_1 < 2\epsilon$ at
-  least since we will have
-  $\omega_i' \le \omega_i + \omega_{i - 1}$ if $\omega_i'$
-  is the analogous value corresponding to $S_2$.
+  This will imply that $f$ is integrable by the
+  previous theorem.
+  Let $y_0 < y_1 < \dots < y_m$ be the partition
+  satisfying
+  \[
+    \sum_{j = 1}^m \omega_j(f) \Delta y_j < \epsilon,
+  \]
+  and choose
+  \[
+    \delta < \frac{1}{4}\min_{j = 1, \dots, m} \Delta y_j.
+  \]
+  For any partition $x_0 < \dots < x_n$ with
+  width $< \delta$. We divide the intervals
+  $[x_{i - 1}, x_i]$ into two classes. The first case
+  (1) is where $[x_{i - 1}, x_i]$ is contained in one
+  of the $[y_{j - 1}, y_j]$, and the second case (2)
+  is where
+  $[x_{i - 1}, x_i]$ contains an interior point $y_j$.
+  In the first case, we have
+  \[
+    \sum_{(1)} \omega_i(f) \Delta x_i
+    \le \sum_{j = 1}^m \omega_j(f) \Delta y_j.
+  \]
+  For the second case, since $[x_{i - 1}, x_i]$
+  contains an interior point $y_j$
+  but $\delta < \Delta y_j, \Delta y_{j + 1}$, we must
+  have
+  \[
+    y_{j - 1} < x_{i - 1} < y_j < x_i < y_{j + 1},
+  \]
+  so that
+  \[
+    \omega_i(f) \Delta x_i \le \frac{1}{2} (\omega_j(f) \Delta y_j + \omega_{j + 1}(f) \Delta y_{j + 1}).
+  \]
+  This implies
+  \[
+    \sum_{(2)} \omega_i(f) \Delta x_i \le
+    \frac{1}{2} \sum_{j = 1}^m \omega_j(f) \Delta y_j.
+  \]
+  Thus
+  \[
+    \sum_{i = 1}^n \omega_i(f) \Delta x_i
+    = \sum_{(1)} \omega_i(f) \Delta x_i + \sum_{(2)} \omega_i(f) \Delta x_i
+    \le 2 \sum_{j = 1}^m \omega_j(f) \Delta y_j
+    < 2\epsilon,
+  \]
+  so that $f$ is integrable.
 \end{proof}

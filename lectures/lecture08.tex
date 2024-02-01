@@ -1,0 +1,280 @@
+\chapter{Feb.~1 --- Riemann Integrability, Part 3}
+
+\section{Even More Conditions for Integrability}
+\begin{example}
+  If $f(x)$ is monotone on $[a, b]$, then
+  $f \in \mathcal{R}([a, b])$.
+\end{example}
+
+\begin{proof}
+  Suppose $f(x)$ is monotone increasing on
+  $[a, b]$ and $f(x)$ is not constant (since the result
+  is trivial if $f$ is constant). Then
+  $f(a) \le f(x) \le f(b)$. For any $\epsilon > 0$,
+  for any partition $x_0 < \dots < x_n$ with width
+  \[
+    \delta < \frac{\epsilon}{f(b) - f(a)},
+  \]
+  we have on $[x_{i - 1}, x_i]$ that
+  $M_i = f(x_i)$ and $f(x_{i - 1}) = m_i$ since
+  $f$ is monotone. Then
+  \[
+    \omega_i(f) = f(x_i) - f(x_{i - 1}) = M_i - m_i.
+  \]
+  Thus
+  \[
+    \sum_{i = 1}^n \omega_i(f) \Delta x_i
+    = \sum_{i = 1}^n (f(x_i) - f(x_{i - 1})) \Delta x_i
+    < \frac{\epsilon}{f(b) - f(a)} \sum_{i = 1}^n (f(x_i) - f(x_{i - 1})) = \epsilon
+  \]
+  since the sum telescopes and comes out to
+  $f(b) - f(a)$. Thus $f$ is integrable.
+\end{proof}
+
+\begin{theorem}[Du Bois-Reymond]
+  Let $f$ be bounded on $[a, b]$. Then $f \in \mathcal{R}([a, b])$
+  if and only if for any $\epsilon, a > 0$,
+  there exists a partition such that
+  the total length of subintervals with
+  $\{\omega_i(f) \le \epsilon\}$ is $< a$.
+\end{theorem}
+
+\begin{proof}
+  For any partition $x_0 < \dots < x_n$, split
+  \[
+    \sum_{i = 1}^n \omega_i(f) \Delta x_i =
+    \sum_{(A)} \omega_i(f) \Delta x_i +
+    \sum_{(B)} \omega_i(f) \Delta x_i
+  \]
+  where $(A)$ is over subintervals with width
+  $\omega_i(f) < \epsilon$ and $(B)$ is over
+  subintervals with width $\omega_i(f) \ge \epsilon$.
+
+  $(\Rightarrow)$ Let
+  \[
+    \Omega = \sup_{x, y \in [a, b]} |f(x) - f(y)|.
+  \]
+  For any $\epsilon > 0$, for
+  \[
+    \epsilon_1 = \frac{\epsilon}{2(b - a)} \quad \text{and} \quad a = \frac{\epsilon}{2\Omega},
+  \]
+  by assumption there exists a partition
+  $x_0 < \dots < x_n$ such that
+  \begin{align*}
+    \sum_{i = 1}^n \omega_i(f) \Delta x_i
+    &= \sum_{(A)} \omega_i(f) \Delta x_i +
+    \sum_{(B)} \omega_i(f) \Delta x_i \\
+    &< \frac{\epsilon}{2(b - a)} \sum_{(a)} \Delta x_i
+    + \Omega \sum_{(B)} \Delta x_i
+    < \frac{\epsilon}{2(b - a)}(b - a) + \Omega \frac{\epsilon}{2\Omega} = \epsilon.
+  \end{align*}
+  So we see that $f \in \mathcal{R}([a, b])$ as desired.
+
+  $(\Rightarrow)$ If $f \in \mathcal{R}([a, b])$, then
+  for any $\epsilon , a > 0$, there exists a partition
+  $x_0 < \dots < x_n$ such that
+  \[
+    \sum_{i = 1}^n \omega_i(f) \Delta x_i < a\epsilon.
+  \]
+  Then we have
+  \[
+    \epsilon \sum_{(B)} \Delta x_i
+    \le \sum_{(B)} \omega_i(f) \Delta x_i
+    < a\epsilon
+    \implies \sum_{(B)} \Delta x_i < a,
+  \]
+  which shows the desired result.
+\end{proof}
+
+\begin{corollary}
+  If $f : [a, b] \to \R$ is bounded and has
+  only finitely many discontinuity points, then
+  $f \in \mathcal{R}([a, b])$.
+\end{corollary}
+
+\begin{proof}
+  Suppose $f(x)$ has $p$ discontinuity points on
+  $[a, b]$ and $m \le f(x) \le M$ for all $x \in [a, b]$.
+  Then for any $\epsilon > 0$, first (1) we construct $p$
+  small open intervals on $[a, b]$ containing the $p$
+  discontinuity points with
+  \[
+    \text{total length} < \frac{\epsilon}{2(M - m)}.
+  \]
+  Next (2) for any subintervals in $[a, b]$ excluding the above
+  $p$ subintervals, $f$ is continuous on them, so
+  there exists a partition such that
+  \[
+    \sum_{(2)} \omega_i(f) \Delta x_i < \frac{\epsilon}{2}.
+  \]
+  Now combine (1) and (2) to get
+  \[
+    \sum_{i = 1}^n \omega_i(f) \Delta
+    = \sum_{(1)} \omega_i(f) \Delta x_i
+    + \sum_{(2)} \omega_i(f) \Delta x_i
+    < (M - m) \frac{\epsilon}{2(M - m)} + \frac{\epsilon}{2} = \epsilon.
+  \]
+  Thus $f \in \mathcal{R}([a, b])$, as desired.
+\end{proof}
+
+\begin{example}
+  Consider
+  \[
+    f(x) =
+    \begin{cases}
+      \sin(1 / x) & \text{if } x \ne 0 \\
+      A & \text{if } x = 0
+    \end{cases}
+  \]
+  for any constant $A \in \R$. Then by the previous
+  corollary, $f \in \mathcal{R}([0, 1])$.
+\end{example}
+
+\begin{theorem}
+  If $f, g \in \mathcal{R}([a, b])$, then
+  $fg \in \mathcal{R}([a, b])$.
+\end{theorem}
+
+\begin{proof}
+  Since $f, g$ are integrable, they are bounded.
+  So assume $|f|, |g| \le M$. Then for any $\epsilon > 0$,
+  there exists $\delta > 0$ such that for any
+  partition of width $< \delta$, we have
+  \[
+    \sum_{i = 1}^n \omega_i(f) \Delta x_i <
+    \frac{\epsilon}{2M}, \quad
+    \sum_{i = 1}^n \omega_i(g) \Delta x_i <
+    \frac{\epsilon}{2M}.
+  \]
+  Notice
+  \[
+    \omega_i(fg) \le M(\omega_i(f) + \omega_i(g))
+  \]
+  because
+  \begin{align*}
+    |f(x) g(x) - f(y) g(y)
+    &\le |g(x)| |f(x) - f(y)| + |f(y)| |g(x) - g(y)| \\
+    &\le M(|f(x) - f(y)| + |g(x) - g(y)|).
+  \end{align*}
+  Taking suprememes over $x, y \in [x_{i - 1}, x_i]$ from
+  here
+  gives $\omega_i(fg) \le M(\omega_i(f) + \omega_i(g))$.
+  Then
+  \[
+    \sum_{i = 1}^n \omega_i(fg) \Delta x_i
+    \le M \left(\sum_{i = 1}^n \omega_i(f) \Delta x_i + \sum_{i = 1}^n \omega_i(g) \Delta x_i\right)
+    < M\left(\frac{\epsilon}{2M} + \frac{\epsilon}{2M}\right) = \epsilon.
+  \]
+  Thus $fg \in \mathcal{R}([a, b])$ as desired.
+\end{proof}
+
+\begin{theorem}
+  If $f \in \mathcal{R}([a, b])$, then
+  $|f| \in \mathcal{R}([a, b])$ and
+  \[
+    \left| \int_a^b f(x) \, dx \right| \le \int_a^b |f(x)| \, dx.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Since $f \in \mathcal{R}([a, b])$, for any
+  $\epsilon > 0$ there exists a partition
+  $x_0 < \dots < x_n$ such that
+  \[
+    \sum_{i = 1}^n \omega_i(f) \Delta x_i < \epsilon.
+  \]
+  Since
+  \[
+    \big||f(x)| - |f(y)|\big| \le |f(x) - f(y)|,
+  \]
+  taking supremums over $x, y \in [x_{i - 1}, x_i]$
+  gives $\omega_i(|f|) \le \omega_i(f)$. Then
+  \[
+    \sum_{i = 1}^n \omega_i(|f|) \Delta x_i
+    \le \sum_{i = 1}^n \omega_i(f) \Delta x_i < \epsilon.
+  \]
+  So we indeed have $|f| \in \mathcal{R}([a, b])$.
+  Now observe that $-|f| \le f \le |f|$. After
+  integrating, we get
+  \[
+    -\int_a^b |f(x)| \, dx \le \int_a^b f(x) \, dx \le \int_a^b |f(x)| \, dx.
+  \]
+  This immediately implies the desired result.
+\end{proof}
+
+\begin{example}[Cauchy-Schwarz]
+  If $f, g \in \mathcal{R}([a, b])$, then
+  \[
+    \left| \int_a^b f(x) g(x) \, dx \right|
+    \le \left( \int_a^b f(x)^2 \, dx \right)^{1/2}
+    \left( \int_a^b g(x)^2 \, dx \right)^{1/2}. \tag{*}
+  \]
+\end{example}
+
+\begin{proof}
+  Let
+  \[
+    A = \int_a^b f^2 \, dx, \quad
+    B = \int_a^b |fg| \, dx,\quad
+    C = \int_a^b g^2 \, dx.
+  \]
+  Note that it suffices to
+  show that $B^2 \le AC$, which will imply $(*)$
+  by the previous theorem. Then
+  \[
+    0 \le \int_a^b (t|f| - |g|)^2\, dx
+    = A t^2 - 2Bt + C
+  \]
+  for any $t \in \R$. So the discriminant must satisfy
+  $(2B)^2 - 4AC \le 0$, which gives $B^2 \le AC$
+  as desired.
+\end{proof}
+
+\begin{example}[Riemann-Lebesgue lemma]
+  If $f \in \mathcal{R}([a, b])$, then
+  \[
+    \lim_{\lambda \to \infty} \int_a^b f(x) \sin(\lambda x) \, dx = 0.
+  \]
+\end{example}
+
+\begin{proof}
+  Since $f \in \mathcal{R}([a, b])$, for any
+  $\epsilon > 0$ there exists a partition
+  $x_0 < \dots < x_n$ of $[a, b]$ such that
+  \[
+    \sum_{i = 1}^n \omega_i(f) \Delta x_i < \frac{\epsilon}{2}.
+  \]
+  Also assume $|f| \le M$ on $[a, b]$ since $f$ is
+  integrable. Then we choose
+  \[
+    \lambda > \frac{4nM}{\epsilon}.
+  \]
+  We can estimate
+  \begin{align*}
+    \left| \int_a^b f(x) \sin(\lambda x) \, dx \right|
+    &= \left|\sum_{i = 1}^n \int_{x_{i - 1}}^{x_i} (f(x) - f(x_{i}) + f(x_i)) \sin(\lambda x)\, dx\right| \\
+    &\le
+    \sum_{i = 1}^n |f(x_i)| \left|\int_{x_{i - 1}}^{x_i} \sin(\lambda x)\, dx\right|
+    + \sum_{i = 1}^n \int_{x_{i - 1}}^{x_i} \underbrace{|f(x) - f(x_i)|}_{\le \omega_i(f)} \underbrace{|\sin(\lambda x)|}_{\le 1}\, dx \\
+    &\le
+    M \sum_{i = 1}^n \frac{\overbrace{|\cos(\lambda x_{i}) - \cos(\lambda x_{i - 1})|}^{\le 2}}{\lambda}
+    + \sum_{i = 1}^n \int_{x_{i - 1}}^{x_i} \omega_i(f)\, dx \\
+    &\le M \frac{2n}{\lambda} + \sum_{i = 1}^n \omega_i(f) \Delta x_i < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+  \end{align*}
+  So as $\lambda \to \infty$, the integral goes to $0$.
+\end{proof}
+
+\begin{remark}
+  Recall that
+  \[
+    f(x) =
+    \begin{cases}
+      0 & \text{if } x \text{ is irrational} \\
+      1 & \text{if } x \text{ is rational}
+    \end{cases}
+  \]
+  is not Riemann integrable, but we might expect that
+  this
+  should integrate to $0$. The Lebesgue integral
+  will fix this, which was discovered much later.
+\end{remark}
