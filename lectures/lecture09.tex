@@ -1,0 +1,318 @@
+\chapter{Feb.~6 --- Exchange of Limit Operations}
+
+\section{Motivation}
+If we have a sequence of functions $\{f_n\}$ where
+$f_n \to f$ pointwise, then does
+\[
+  \int_a^b f_n\, dx \to \int_a^b f\, dx
+\]
+if each $f_n$ is integrable? Does
+$f_n' \to f'$ if $f_n$ is differentiable?
+
+\begin{example}
+  Define
+  \[
+    f_n(x) =
+    \begin{cases}
+      4n^2 x & \text{if } x \in [0, 1 / 2n] \\
+      4n - 4n^2 x & \text{if } x \in (1 / 2n, 1 / n) \\
+      0 & \text{if } x \in [1 / n, 1],
+    \end{cases}
+  \]
+  where the graph of $f_n$ looks like a triangle with
+  peak at $x = 1 / 2n$ and height $2n$.
+  When we let $n \to \infty$, we see that for any
+  $x \in [0, 1]$, we have $f_n(x) \to 0$. But
+  \[
+    \int_0^1 f_n(x)\, dx = \text{area of triangle}
+    = \frac{1}{2} (2n) \cdot \frac{1}{n} = 1.
+  \]
+  So we see that in this case,
+  \[
+    \lim_{n \to \infty} \int_0^1 f_n \, dx \ne \int_0^1 \lim_{n \to \infty} f_n \, dx.
+  \]
+\end{example}
+
+\section{Exchange of the Limit and Integral}
+
+\begin{theorem}
+  Let $f_1, \dots, f_n, \dots$ be a uniformly
+  convergent sequence of continuous functions
+  on $[a, b]$. Then
+  \[
+    \int_a^b \lim_{n \to \infty} f_n(x)\, dx
+    = \lim_{n \to \infty} \int_a^b f_n(x)\, dx.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Suppose that $f_n \to f$ uniformly.
+  By definition of uniform convergence, for any
+  $\epsilon > 0$ there exists $N$ such that if
+  $n \ge N$, then
+  \[
+    \max_{x \in [a, b]}|f_n(x) - f(x)| < \frac{\epsilon}{b - a}
+  \]
+  Each $f_n \to f$ uniformly and each $f_n$ is continuous,
+  $f$ is also continuous. In particular, $f$ is
+  integrable and
+  \[
+    -\frac{\epsilon}{b - a} < f_n(x) - f(x) < \frac{\epsilon}{b - a},
+  \]
+  so integrating on both sides gives
+  \[
+    -\epsilon < \int_a^b f_n(x)\, dx - \int_a^b f(x)\, dx < \epsilon \implies
+    \left| \int_a^b f_n(x)\, dx - \int_a^b f(x)\, dx \right| < \epsilon.
+  \]
+  Then this implies
+  \[
+    \lim_{n \to \infty} \int_a^b f_n(x)\, dx = \int_a^b f(x)\, dx,
+  \]
+  as desired.
+\end{proof}
+
+\begin{remark}
+  The previous theorem still holds even if each $f_n$
+  is only Riemann integrable. The only thing we need to
+  check is that the limit function $f$ is
+  also Riemann integrable. This is because for
+  any $\epsilon > 0$, if $n$ is large enough,
+  \[
+    -\frac{\epsilon}{3(b - a)} + f_n(x) \le f(n) \le f_n(x) + \frac{\epsilon}{3(b - a)}.
+  \]
+  Since $f_n \in \mathcal{R}([a, b])$, there exist
+  two step functions $g_1, g_2$ satisfying
+  $g_1 \le f_n \le g_2$, and
+  \[
+    \int_a^b (g_2 - g_1) < \frac{\epsilon}{3}.
+  \]
+  Now note that
+  \[
+    g_1(x) - \frac{\epsilon}{3(b - a)} \le f(x) \le g_2(x) + \frac{\epsilon}{3(b - a)},
+  \]
+  so we see
+  \[
+    \int_a^b \left[\left(g_2(x) + \frac{\epsilon}{3(b - a)}\right) - \left(g_1(x) - \frac{\epsilon}{3(b - a)}\right)\right] \, dx
+    = \frac{\epsilon}{3} + \frac{2\epsilon}{3} = \epsilon.
+  \]
+  This gives $f \in \mathcal{R}([a, b])$, so we
+  can carry through the rest of the previous proof.
+\end{remark}
+
+\section{Exchange of the Limit and Derivative}
+\begin{theorem}
+  Let $f_1, \dots, f_n, \dots$ be a sequence of functions
+  on an open interval $U$ in $\R$ and that each $f_n$ has
+  a continuous derivative. Suppose $\{f_n'\}$ converges
+  uniformly on $U$ and for some $a \in U$,
+  $\{f_n'(a)\}$ converges. Then
+  \[
+    \lim_{n \to \infty} f_n(x) = f(x)
+  \]
+  exists and $f(x)$ is differentiable. Furthermore,
+  we have
+  \[
+    f' = \lim_{n \to \infty} f_n'.
+  \]
+\end{theorem}
+
+\begin{proof}
+  By the fundamental theorem of calculus, we have
+  \[
+    \int_a^x f_n'(t)\, dt = f_n(x) - f_n(a). \tag{$*$}
+  \]
+  Let $\lim_{n \to \infty} f_n' = g$, where $g$ is
+  continuous since $f_n' \to g$ uniformly and
+  each $f_n'$ is continuous. Then take $n \to \infty$
+  in $(*)$, where
+  \[
+    \text{LHS} \to \int_a^x g(t)\, dt.
+  \]
+  Let $\lim_{n \to \infty} f_n(x) = f(x)$, which
+  exists by $(*)$. Then
+  $\text{RHS} \to f(x) - f(a)$,
+  so we see that
+  \[
+    f(x) - f(a) = \int_a^x g(t)\, dt.
+  \]
+  Then $f$ is an anti-derivative of $g$, or in other
+  words, $f' = g$ as desired.
+\end{proof}
+
+\section{Infinite Series}
+\begin{definition}
+Suppose we have a sequence of numbers
+$a_1, a_2, a_3, \dots, a_n, \dots$. Then
+\[
+  a_1 + a_2 + a_3 + \dots + a_n + \dots
+  = \sum_{n = 1}^\infty a_n
+\]
+is called an \emph{infinite series}. We say the
+infinite series \emph{converges} to $A$ if
+the \emph{partial sums}
+\[
+  S_m = \sum_{n = 1}^m a_m
+\]
+converge to $A$ as $m \to \infty$.
+\end{definition}
+
+\begin{example}[Geometric series]
+  For a fixed $a$, the series
+  \[
+    \sum_{n = 0}^\infty a^n = 1 + a + a^2 + \dots + a^n + \dots
+  \]
+  converges if and only
+  if $|a| < 1$, and the limit is $1 / (1 - a)$. This is
+  because
+  \[
+    S_m = 1 + a + \dots + a^m
+    = \frac{1 - a^{m + 1}}{1 - a}.
+  \]
+  If $|a| < 1$, then $a^{m + 1} \to 0$ as $m \to \infty$,
+  so $S_m \to 1 / (1 - a)$. On the other hand,
+  if $|a| > 1$, then $|a^{m + 1}| \to \infty$ as $m \to \infty$.
+  If $a = 1$, then
+  \[
+    S_m = 1 + 1 + \dots + 1 = m,
+  \]
+  so $S_m \to \infty$. If $a = -1$, then
+  \[
+    \sum_{n = 0}^\infty (-1)^n = 1 - 1 + 1 - 1 + \dots,
+  \]
+  which diverges since its partial sums
+  oscillate. So the condition
+  is indeed necessary and sufficient.
+\end{example}
+
+\begin{prop}
+  A series
+  $\sum_{n = 1}^\infty a_n$
+  converges if and only if for every $\epsilon > 0$,
+  there exists integer $N$ such that if $n > m \ge N$,
+  then
+  \[|a_{m + 1} + a_{m + 2} + \dots + a_n| < \epsilon.\]
+\end{prop}
+
+\begin{proof}
+  Let $S_m = \sum_{n = 1}^m a_n$ be the partial
+  sums. Then $\sum_{n = 1}^\infty a_n$ converges
+  if and only if $\{S_m\}$ is Cauchy. This is equivalent
+  to say that for
+  all $\epsilon > 0$, there exists $N$ such that if
+  $n > m \ge N$, then
+  \[
+    |a_{m + 1} + a_{m + 2} + \dots + a_n|
+    = |S_n - S_m| < \epsilon.
+  \]
+  This is precisely the desired result.
+\end{proof}
+
+\begin{corollary}
+  If $\sum_{n = 1}^\infty a_n$ converges, then
+  $a_n \to 0$ as $n \to \infty$.
+\end{corollary}
+
+\begin{proof}
+  Take $m = n - 1$ in the previous proposition, which
+  gives $|a_n| < \epsilon$ for $n \ge N + 1$.
+\end{proof}
+
+\begin{corollary}
+  If $\sum_{n = 1}^\infty a_n$ and $\sum_{n = 1}^\infty b_n$
+  differs in only finitely many terms, then the
+  two series have the same convergence properties.
+\end{corollary}
+
+\begin{proof}
+  Simply take $N$ larger than the last spot where
+  the two series differ. Then the difference of
+  partial sums in the previous proposition are the same
+  for both series.
+\end{proof}
+
+\begin{example}[Harmonic series]
+  The series
+  \[
+    \sum_{n = 1}^\infty \frac{1}{n} = 1 + \frac{1}{2} + \frac{1}{3} + \dots + \frac{1}{n} + \dots.
+  \]
+  diverges. Two see this, choose $n = 2m$ in the
+  previous proposition and
+  \[
+    a_{m + 1} + a_{m + 2} + \dots + a_{2m}
+    = \frac{1}{m + 1} + \frac{1}{m + 2} + \dots + \frac{1}{2m}
+    \ge \frac{1}{2m} m = \frac{1}{2}.
+  \]
+  So the series must diverge.
+\end{example}
+
+\begin{prop}
+  If $a_n \ge 0$, then
+  $\sum_{n = 1}^\infty a_n$ either converges or
+  has arbitrarily large partial sums, i.e. diverges to $\infty$.
+\end{prop}
+
+\begin{proof}
+  Let $S_m = \sum_{n = 1}^m a_n$. Since $a_n \ge 0$,
+  we see that $S_m$ is an increasing nonnegative sequence.
+  Then by the monotone convergence theorem,
+  $\{S_m\}$ converges if and only if it is bounded above.
+\end{proof}
+
+\begin{prop}[Comparison test]
+  If $\sum_{n = 1}^\infty a_n$ and $\sum_{n = 1}^\infty b_n$
+  are two infinite series such that
+  $|a_n| \le b_n$ and $\sum_{n = 1}^\infty b_n$ converges,
+  then $\sum_{n = 1}^\infty a_n$ converges and
+  \[
+    \left| \sum_{n = 1}^\infty a_n \right| \le \sum_{n = 1}^\infty b_n.
+  \]
+\end{prop}
+
+\begin{proof}
+  If $\sum_{n = 1}^\infty b_n$ converges, then
+  for any $\epsilon > 0$, there exists $N$ such that
+  if $n > m \ge N$, we have
+  \[
+    b_{m + 1} + b_{m + 2} + \dots + b_n < \epsilon.
+  \]
+  Then by the triangle inequality, we have
+  \[
+    |a_{m + 1} + a_{m + 2} + \dots + a_n|
+    \le |a_{m + 1}| + |a_{m + 2}| + \dots + |a_n|
+    \le b_{m + 1} + b_{m + 2} + \dots + b_n < \epsilon.
+  \]
+  Thus $\sum_{n = 1}^\infty a_n$ also converges.
+  The last part is left as an exercise.
+\end{proof}
+
+\begin{example}[$p$-series]
+  The series
+  \[
+    \sum_{n = 1}^\infty \frac{1}{n^p}
+  \]
+  converges if and only if $p > 1$.
+\end{example}
+
+\begin{prop}[Ratio test]
+  If $\sum_{n = 1}^\infty a_n$ is a nonzero infinite
+  series and
+  there exists $\rho < 1$ such that
+  \[
+    \left| \frac{a_{n + 1}}{a_n} \right| \le \rho
+  \]
+  for all $n$ sufficiently large, then
+  $\sum_{n = 1}^\infty a_n$ converges. If
+  \[
+    \left| \frac{a_{n + 1}}{a_n} \right| \ge 1
+  \]
+  for all $n$ large enough, then the series diverges.
+\end{prop}
+
+\begin{proof}
+  First we show the second part. If
+  $|a_{n + 1}| \ge |a_n|$ for $n \ge N$, then
+  \[|a_n| \ge |a_{n - 1}| \ge \dots \ge |a_N|.\]
+  Then $\{a_n\}$ does not converge to $0$, so
+  $\sum_{n = 1}^\infty a_n$ diverges.
+  First part left for next class.
+\end{proof}
