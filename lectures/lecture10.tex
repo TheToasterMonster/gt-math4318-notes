@@ -1,0 +1,238 @@
+\chapter{Feb.~8 --- Infinite Series}
+
+\section{Lots of Convergence Tests}
+\begin{theorem}[Comparison test, second version]
+  Let $\sum_{n = 1}^\infty a_n$ and $\sum_{n = 1}^\infty b_n$ be two infinite series satisfying
+  $0 \le a_n \le b_n$. Then
+  \begin{enumerate}
+    \item If $\sum_{n = 1}^\infty b_n$ converges, then $\sum_{n = 1}^\infty a_n$ converges.
+    \item If $\sum_{n = 1}^\infty a_n$ diverges,
+      then $\sum_{n = 1}^\infty b_n$ diverges.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  (1) Let $A_n$ and $B_n$ be the partial sums of
+  $\sum_{n = 1}^\infty a_n$ and $\sum_{n = 1}^\infty b_n$, respectively.
+  Then $B_n$ is bounded above since $\sum_{n = 1}^\infty b_n$ converges.
+  But $A_n \le B_n$ since $0 \le a_n \le b_n$,
+  so $A_n$ is also bounded above.
+  Now note that $A_n$ is increasing since $a_n \ge 0$,
+  so by the monotone convergence theorem,
+  $A_n$ must converge.
+
+  (2) Since $A_n$ is increasing,
+  $\sum_{n = 1}^\infty a_n$ must diverge to $\infty$,
+  i.e. $A_n$ is unbounded. But $A_n \le B_n$,
+  so $B_n$ is also unbounded and thus we see that
+  $\sum_{n = 1}^\infty b_n$ diverges.
+\end{proof}
+
+\begin{remark}
+  In the above theorem, (1) remains true if
+  \begin{itemize}
+    \item $0 \le a_n \le b_n$ when $n \ge n_0$
+    \item $0 \le a_n \le Mb_n$ for some $M > 0$,
+    \item or there exists $0 < d_n < M$ such that
+      $0 \le a_n \le d_n b_n$.
+  \end{itemize}
+\end{remark}
+
+\begin{corollary}
+  If $a_n, b_n > 0$ and
+  \[
+    \frac{a_{n + 1}}{a_n} \le \frac{b_{n + 1}}{b_n},
+  \]
+  then $\sum_{n = 1}^\infty b_n$ converges implies
+  that $\sum_{n = 1}^\infty a_n$ converges.
+\end{corollary}
+
+\begin{proof}
+  Let $d_n = a_n / b_n > 0$. Then
+  \[
+    d_{n + 1} = \frac{a_{n + 1}}{b_{n + 1}} \le \frac{a_n}{b_n} = d_n,
+  \]
+  which we can extended to $d_n \le \dots \le d_1$.
+  Then $\{d_n\}$ is a bounded sequence, so
+  $a_n = b_n d_n$, which implies the desired conclusion
+  by the above remark.
+\end{proof}
+
+\begin{remark}
+  If $n$ large, $e^{a n} \gg n^b \gg (\ln n)^c$
+  for any $a, b, c > 0$. In particular,
+  $e^{an} / n^b \to \infty$ when $n \to \infty$.
+\end{remark}
+
+\begin{example}
+  Determine the convergence of
+  \begin{enumerate}
+    \item $\displaystyle \sum_{n = 2}^\infty \frac{1}{(\ln n)^p}$
+      for $p > 0$,
+    \item $\displaystyle \sum_{n = 2}^\infty \frac{\ln(n!)}{n^p}$ for $p > 0$,
+    \item and $\displaystyle \sum_{n = 1}^\infty \frac{n^{n - 2}}{e^n n!}$.
+  \end{enumerate}
+\end{example}
+
+\begin{proof}
+  (1) We have
+  \[
+    \frac{1}{(\ln n)^p} > \frac{1}{n}
+  \]
+  for $n$ large, so the sum diverges by comparison to
+  the harmonic series.
+
+  (2) Note that
+  \[
+    \ln(n!) = \sum_{k = 1}^n \ln k > \frac{n \ln 2}{2},
+  \]
+  so we have
+  \[
+    \frac{\ln(n!)}{n^p} > \frac{\ln 2}{2} \frac{1}{n^{p - 1}}.
+  \]
+  By comparing to the $p$-series, we see that the
+  series diverges when $p \le 2$. Also we have
+  \[
+    \frac{\ln(n!)}{n^p} < \frac{n \ln n}{n^p}
+    = \frac{\ln n}{n^{p - 1}},
+  \]
+  so when $p > 2$, we get convergence.
+
+  (3) Let $a_n = n^{n - 2} / (e^n n!)$. Recall that
+  $(1 + 1 / n)^n \to e$ as $n \to \infty$ and also
+  $(1 + 1 / n)^n$ is increasing. Then
+  \[
+    \frac{a_{n + 1}}{a_n}
+    = \frac{(n + 1)^{n - 1} e^n n!}{e^{n + 1}(n + 1)! n^{n - 2}}
+    = \frac{\left(1 + \frac{1}{n}\right)^{n - 2}}{e}
+    = \underbrace{\frac{\left(1 + \frac{1}{n}\right)^n}{e}}_{< 1} \left(1 + \frac{1}{n}\right)^{-2}
+    < \left(\frac{n}{n + 1}\right)^2 = \frac{\frac{1}{(n + 1)^2}}{\frac{1}{n^2}}.
+  \]
+  Let $b_n = 1 / n^2$, then $a_{n + 1} / a_n \le b_{n + 1} / b_n$,
+  so by the previous corollary, we
+  see that $\sum_{n = 1}^\infty a_n$ converges.
+\end{proof}
+
+\begin{theorem}[Comparison test, third version]
+  Let $(A) \sim \sum_{n = 1}^\infty a_n$ and
+  $(B) \sim \sum_{n = 1}^\infty b_n$ be two positive
+  series and suppose that
+  \[
+    \lim_{n \to \infty} \frac{a_n}{b_n} = \ell > 0.
+  \]
+  Then $(A)$ converges if and only if $(B)$ converges.
+\end{theorem}
+
+\begin{proof}
+  Let $\epsilon = \ell / 2 > 0$. Then there exists $N$
+  such that when $n \ge N$, we have
+  \[
+    \frac{\ell}{2} < \frac{a_n}{b_n} < \frac{3\ell}{2}
+    \implies \frac{\ell}{2} b_n < a_n < \frac{3\ell}{2} b_n.
+  \]
+  Thus $(A)$ converges if and only if $(B)$ converges.
+\end{proof}
+
+\begin{example}
+  Determine the convergence of
+  \begin{enumerate}
+    \item $\displaystyle \sum_{n = 1}^\infty \frac{2n^2 + 5n + 1}{\sqrt{n^6 - 3n^2 + 1}}$,
+    \item $\displaystyle \sum_{n = 1}^\infty \frac{1}{n^{1 + \frac{1}{n}}}$,
+    \item and $\displaystyle \sum_{n = 1}^\infty \left[1 - \sqrt[3]{\frac{n - 1}{n + 1}}\right]^p$ for $p > 0$.
+  \end{enumerate}
+\end{example}
+
+\begin{proof}
+  (1) Let
+  \[
+    a_n = \frac{2n^2 + 5n + 1}{\sqrt{n^6 - 3n^2 + 1}}
+    \sim \frac{2n^2}{\sqrt{n^6}} = \frac{2}{n}.
+  \]
+  Then $a_n / (2 / n) \to 1$ as $n \to \infty$, so
+  $\sum a_n$ diverges since the harmonic series
+  diverges.
+
+  (2) Let
+  \[
+    a_n = \frac{1}{n^{1 + \frac{1}{n}}}
+    \quad \text{and} \quad
+    b_n = \frac{1}{n}.
+  \]
+  Then $a_n / b_n = 1 / (n^{1 / n}) \to 1$ as $n \to \infty$,
+  so $\sum a_n$ diverges since the harmonic series
+  diverges.
+
+  (3) Write
+  \begin{align*}
+    \sqrt[3]{\frac{n - 1}{n + 1}}
+    = \sqrt[3]{\frac{1 - \frac{1}{n}}{1 + \frac{1}{n}}}
+    &= \left(1 - \frac{1}{n}\right)^{1 / 3} \left(1 + \frac{1}{n}\right)^{-1 / 3} \\
+    &= \left(1 - \frac{1}{3n} + o(1 / n)\right) \left(1 - \frac{1}{3n} + o(1 / n)\right)
+    = 1 - \frac{2}{3n} + o(1 / n),
+  \end{align*}
+  Then we see that
+  \[
+    a_n \sim \left(\frac{2}{3n}\right)^p,
+  \]
+  so $\sum a_n$ converges if and only if $p > 1$.
+\end{proof}
+
+\begin{theorem}
+  Let $\sum_{n = 1}^\infty$ be a positive series and
+  suppose that
+  \[\limsup_{n \to \infty} \sqrt[n]{a_n} = \ell.\]
+  Then
+  \begin{enumerate}
+    \item if $\ell < 1$, then $\sum_{n = 1}^\infty a_n$ converges,
+    \item and if $\ell > 1$, then $\sum_{n = 1}^\infty a_n$ diverges.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  (1) When $\ell < 1$, then there exists $q$ with
+  $\ell < q < 1$ and $N$ such that when $n \ge N$,
+  $\sqrt[n]{a_n} < q$. Then $a_n < q^n$,
+  so $\sum a_n$ converges by comparing to the
+  geometric series.
+
+  (2) When $\ell > 1$, there exists $\ell > q > 1$ and
+  a subsequence $\{n_k\}$ such that
+  $(a_{n_k})^{1 / n_k} > q$. This implies that
+  $a_{n_k} > q^{n_k}$, so $a_{n_k} \to \infty$ as
+  $n_k \to \infty$. Thus $\sum a_n$ diverges since
+  we do not have $a_n \to 0$.
+\end{proof}
+
+\begin{example}
+  Determine the convergence of
+  \begin{enumerate}
+    \item $\displaystyle \sum_{n =1 }^\infty \left[1 + \frac{1}{\sqrt{n}}\right]^{-n^{3 / 2}}$,
+    \item and $\displaystyle \sum_{n = 1}^\infty \left(\frac{3n}{n + 5}\right)^n \left(\frac{n + 2}{n + 3}\right)^{n^2}$.
+  \end{enumerate}
+\end{example}
+
+\begin{proof}
+  (1) Let $a_n$ be the $n$th term in the sum and we
+  see that
+  \[
+    \sqrt[n]{a_n} =
+    \left[1 + \frac{1}{\sqrt{n}}\right]^{-\sqrt{n}}.
+  \]
+  Since $\sqrt{n} \to \infty$ as $n \to \infty$, we
+  may replace $\sqrt{n}$ with $n$ to see that
+  $\sqrt[n]{a_n} \to 1 / e < 1$, so
+  $\sum a_n$ converges.
+
+  (2) Let
+  \[
+    \sqrt[n]{a_n} = \frac{3n}{n + 5} \left(\frac{n + 2}{n + 3}\right)^n.
+  \]
+  For the second term, we see that
+  \[
+    \left(\frac{n + 2}{n + 3}\right)^n
+    = \left(\frac{1 + 2 / n}{1 + 3 / n}\right)^n
+    \longrightarrow \frac{e^2}{e^3} = \frac{1}{e}.
+  \]
+  Then $\sqrt[n]{a_n} \to 3 / e > 1$, so
+  $\sum a_n$ diverges.
+\end{proof}
