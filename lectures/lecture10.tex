@@ -1,6 +1,7 @@
 \chapter{Feb.~8 --- Infinite Series}
 
 \section{Lots of Convergence Tests}
+\subsection{The Comparison Test}
 \begin{theorem}[Comparison test, second version]
   Let $\sum_{n = 1}^\infty a_n$ and $\sum_{n = 1}^\infty b_n$ be two infinite series satisfying
   $0 \le a_n \le b_n$. Then
@@ -170,6 +171,7 @@
     &= \left(1 - \frac{1}{3n} + o(1 / n)\right) \left(1 - \frac{1}{3n} + o(1 / n)\right)
     = 1 - \frac{2}{3n} + o(1 / n),
   \end{align*}
+  where we made a Taylor expansion.
   Then we see that
   \[
     a_n \sim \left(\frac{2}{3n}\right)^p,
@@ -177,7 +179,8 @@
   so $\sum a_n$ converges if and only if $p > 1$.
 \end{proof}
 
-\begin{theorem}
+\subsection{The Root Test}
+\begin{theorem}[Root test]
   Let $\sum_{n = 1}^\infty$ be a positive series and
   suppose that
   \[\limsup_{n \to \infty} \sqrt[n]{a_n} = \ell.\]
