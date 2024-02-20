@@ -1,0 +1,350 @@
+\chapter{Feb.~20 --- Series of Functions}
+
+\section{Rearrangements of Series}
+
+\begin{definition}
+  Let $\sigma : \N \to \N$ be a bijection, i.e. it is
+  one-to-one and onto. Given an
+  infinite series $\sum_{n = 1}^\infty a_n$, we define
+  the \emph{rearranged series} to be $\sum_{n = 1}^\infty a_{\sigma(n)}$.
+\end{definition}
+
+\begin{theorem}[Dirichlet]
+  If $(A) = \sum_{n = 1}^\infty a_n$ converges absolutely
+  and $(B) = \sum_{n = 1}^\infty a_{\sigma(n)}$ is any
+  rearrangement of $(A)$, then $(B)$ also converges and
+  \[
+    \sum_{n = 1}^\infty a_{\sigma(n)} = \sum_{n = 1}^\infty a_n.
+  \]
+\end{theorem}
+
+\begin{proof}
+  First assume $a_n \ge 0$ and let $S = \sum_{n = 1}^\infty a_n$
+  with partial sums $S_n = \sum_{k = 1}^n a_k$. Let
+  $\sigma_n$ be the partial sums of $(B)$. Then
+  \[
+    \sigma_m \le \sum_{n = 1}^\infty a_n = S \tag{$*$}) \]
+  since $a_n \ge 0$. Then $\sigma_m$ is bounded,
+  so $(B)$ converges by the monotone convergence theorem.
+  Also by $(*)$, we can take $m \to \infty$ to get
+  \[
+    \lim_{m \to \infty} \sigma_m \le S
+    \implies \sum_{n = 1}^\infty a_{\sigma(n)} \le S.
+  \]
+  We also get the reverse inequality by thinking
+  of $(A)$ as a rearrangement of $(B)$, so the two
+  are equal.
+
+  Now for the general case, suppose that
+  $\sum_{n = 1}^\infty a_n$ is a series with differing
+  signs. Let $a_n^+, a_n^- \ge 0$ be the positive
+  and negative parts of $a_n$, respectively, so
+  that $|a_n| = a_n^+ + a_n^-$. Now $b_n = a_{\sigma(n)}^+$,
+  and $|b_n| = b_n^+ + b_n^-$, so
+  $b_n^{\pm} = a_{\sigma(n)}^{\pm}$. By the previous
+  part, $\sum_{n = 1}^\infty b_n^{\pm}$ converges and
+  \[
+    \sum_{n = 1}^\infty b_n^{\pm} = \sum_{n = 1}^\infty a_n^{\pm}.
+  \]
+  Then we have
+  \[
+    \sum_{n = 1}^\infty b_n
+    = \sum_{n = 1}^\infty (b_n^+ - b_n^-)
+    = \sum_{n = 1}^\infty (a_n^+ - a_n^-)
+    = \sum_{n = 1}^\infty a_n,
+  \]
+  which is the desired conclusion.
+\end{proof}
+
+\begin{theorem}[Riemann]
+  If $(A) = \sum_{n = 1}^\infty a_n$ converges
+  conditionally, then there exists a rearrangement
+  $(B) = \sum_{n = 1}^\infty a_{\sigma(n)}$ such that
+  any one of the following occurs:
+  \begin{enumerate}
+    \item $(B)$ converges to any number $\sigma$,
+    \item $(B)$ diverges to $\infty$,
+    \item $(B)$ diverges to $-\infty$,
+    \item $(B)$ oscillates in an unbounded manner,
+    \item or $(B)$ oscillates in a bounded manner.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Look this up.
+\end{proof}
+
+\begin{remark}
+  This shows that when a series only converges
+  conditionally, then pretty much anything can happen
+  when rearranging, which is not the case for
+  absolutely convergent series.
+\end{remark}
+
+\section{Series of Functions}
+\begin{definition}
+  A \emph{series of functions} is a series of the form
+  $\sum_{n = 1}^\infty f_n(x)$, where each $f_n(x)$
+  is defined on an interval $I$. Define its
+  \emph{partial sums} to be $S_n(x) = \sum_{k = 1}^n f_k(x)$.
+  We say that
+  \[
+    \sum_{n = 1}^\infty f_n(x) = S(x),
+  \]
+  i.e. the series \emph{converges} to $S(x)$, if
+  $\lim_{n \to \infty} S_n(x) = S(x)$, which can be
+  \emph{pointwise} or \emph{uniform}.
+\end{definition}
+
+\begin{theorem}[Cauchy criterion for uniform convergence]
+  A series $\sum_{n = 1}^\infty f_n(x)$ converges
+  uniformly on $I$ if and only if for every
+  $\epsilon > 0$, there exists $N$ such that whenever
+  $n \ge N$, for any $x \in I$ and integer $p$ we have
+  \[
+    \left| \sum_{k = n + 1}^{n + p} f_k(x) \right| < \epsilon.
+  \]
+\end{theorem}
+
+\begin{proof}
+  This is because $\{S_n(x)\}$ is a Cauchy sequence, so
+  for any $\epsilon > 0$, there exists $N$ such that
+  when $n \ge N$,
+  \[
+    \sup_{x \in I} |S_{n + p}(x) - S_{n}(x)| < \epsilon,
+  \]
+  which is precisely the given condition.
+\end{proof}
+
+\begin{corollary}
+  If $\sum_{n = 1}^\infty f_n(x)$ converges uniformly
+  on $I$, then $f_n(x)$ converges uniformly to $0$
+  on $I$.
+\end{corollary}
+
+\begin{corollary}
+  Let $f_n(x) \in C([a, b])$. If $\sum_{n = 1}^\infty f_n(x)$
+  converges uniformly on $(a, b)$, then
+  it converges uniformly on $[a, b]$.
+\end{corollary}
+
+\begin{proof}
+  Since $\sum_{n = 1}^\infty f_n(x)$ converges uniformly,
+  for any $\epsilon > 0$ there exists $N$ such that
+  when $n \ge N$, we have
+  \[
+    \left| \sum_{k = n + 1}^{n + p} f_k(x) \right| < \epsilon
+  \]
+  for all $x \in (a, b)$. Let $x \to a^+$ and
+  $x \to b^-$ to get
+  \[
+    \left| \sum_{k = n + 1}^{n + p} f_k(a) \right| \le \epsilon
+    \quad \text{and} \quad
+    \left| \sum_{k = n + 1}^{n + p} f_k(b) \right| \le \epsilon.
+  \]
+  So for all $x \in [a, b]$, we have
+  \[
+    \left| \sum_{k = n + 1}^{n + p} f_k(x) \right| \le \epsilon,
+  \]
+  which gives uniform convergence on $[a, b]$.
+\end{proof}
+
+\begin{example}
+  The series
+  \[
+    \sum_{n = 1}^\infty \frac{1}{n^x}
+  \]
+  does not converge uniformly on $(1, \infty)$.
+\end{example}
+
+\begin{proof}
+  Note that each $1 / n^x$ is continuous
+  but at $x = 1$, the series becomes the harmonic
+  series
+  $\sum_{n = 1}^\infty 1 / n$, which diverges.
+  So by the previous
+  corollary, this series cannot converge uniformly on
+  $(1, \infty)$.
+\end{proof}
+
+\begin{theorem}[Weierstrass $M$-test]
+  If there exists a nonnegative and convergent
+  series $\sum_{n = 1}^\infty M_n$ such that for all
+  $x \in I$, we have
+  \[
+    |f_n(x)| \le M_n,
+  \]
+  then $\sum_{n = 1}^\infty f_n(x)$ converges
+  uniformly on $I$.
+\end{theorem}
+
+\begin{proof}
+  Since $\sum_{n = 1}^\infty M_n$ converges uniformly,
+  for any $\epsilon > 0$ there exists $N$ such that
+  \[
+    \left| \sum_{k = n + 1}^{n + p} M_k \right| < \epsilon.
+  \]
+  This directly implies
+  \[
+    \left| \sum_{k = n + 1}^{n + p} f_k(x) \right|
+    \le \sum_{k = n + 1}^{n + p} |f_k(x)|
+    < \epsilon
+  \]
+  since each $M_k$ is nonnegative. Then
+  $\sum_{n = 1}^\infty f_n(x)$ converges uniformly on $I$
+  by the Cauchy criterion.
+\end{proof}
+
+\begin{example}
+  If $\sum_{n = 1}^\infty a_n$ converges absolutely,
+  then
+  \[
+    \sum_{n = 1}^\infty \frac{a_n x^n}{1 + x^{2n}}
+  \]
+  converges uniformly on $(-\infty, \infty)$.
+\end{example}
+
+\begin{proof}
+  This is because
+  \[
+    \left| \frac{a_n x^n}{1 + x^{2n}} \right|
+    \le |a_n| \underbrace{\frac{|x|^n}{1 + |x|^{2n}}}_{\le 1} \le |a_n|,
+  \]
+  so by the Weierstrass $M$-test, we get uniform
+  convergence on $(-\infty, \infty)$.
+\end{proof}
+
+\section{Exchange of the Limit and Infinite Series}
+
+\begin{theorem}
+  Let $f_n \in \mathcal{R}([a, b])$ for each $n = 1, 2, \dots$.
+  If $\sum_{n = 1}^\infty f_n(x)$ converges uniformly
+  to $S(x)$ on $[a, b]$, then $S(x) \in R([a, b])$ and
+  \[
+    \sum_{n = 1}^\infty \int_a^b f_n(x) \, dx
+    = \int_a^b S(x)\, dx
+    = \int_a^b \sum_{n = 1}^\infty f_n(x) \, dx.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let $S_n(x) = \sum_{k = 1}^n f_k(x)$. Then
+  $S_n \to S$ uniformly on $[a, b]$, so we can apply
+  Theorem \ref{thm:exchange-limit-integral} to get
+  $S(x) \in \mathcal{R}([a, b])$ and
+  \[
+    \sum_{n = 1}^\infty \int_a^b f_n(x) \, dx
+    = \lim_{n \to \infty} \int_a^b S_n(x) \, dx
+    = \int_a^b S(x) \, dx,
+  \]
+  which is the desired conclusion.\footnote{This is just applying the previous theorem on exchanging the limit and the integral.}
+\end{proof}
+
+\begin{theorem}
+  Let $f_n(x)$ be continuously differentiable on
+  $[a, b]$. Suppose that
+  \[
+    \sum_{n = 1}^\infty f_n(x) = S(x)
+  \]
+  pointwise on $[a, b]$, and $\sum_{n = 1}^\infty f_n'(x)$
+  converges uniformly to $G(x)$ on $[a, b]$. Then
+  $\sum_{n = 1}^\infty f_n(x)$ converges uniformly
+  to $S(x)$ and $S'(x) = G(x)$. In other words, in this
+  case we have
+  \[
+    \left(\sum_{n = 1}^\infty f_n(x)\right)'
+    = \sum_{n = 1}^\infty f_n'(x).
+  \]
+\end{theorem}
+
+\begin{proof}
+  Similarly apply Theorem \ref{thm:exchange-limit-derivative},
+  our previous theorem on
+  exchanging the limit and the derivative.
+\end{proof}
+
+\begin{example}
+  Show that
+  \[
+    S(x) = \sum_{n = 1}^\infty \frac{\sin nx}{n^3}
+  \]
+  is continuously differentiable on $(-\infty, \infty)$.
+\end{example}
+
+\begin{proof}
+  For each fixed $n$, we see that
+  $(\sin nx) / n^3$ is continuously
+  differentiable, and we at least have pointwise
+  convergence since
+  \[
+    \left| \frac{\sin nx}{n^3} \right| \le \frac{1}{n^3}.
+  \]
+  Now the series of derivatives
+  \[
+    \sum_{n = 1}^\infty \frac{n\cos nx}{n^3}
+    = \sum_{n = 1}^\infty \frac{\cos nx}{n^2}
+  \]
+  converges uniformly on $(-\infty, \infty)$ by the
+  Weierstrass $M$-test since
+  \[
+    \left| \frac{\cos nx}{n^2} \right| \le \frac{1}{n^2}.
+  \]
+  So we can apply the previous theorem to see that
+  $S$ is continuously differentiable on
+  $(-\infty, \infty)$.
+\end{proof}
+
+\begin{remark}
+  Changing the $n^3$ to $n^2$ in the previous example
+  will cause this argument to fail, since we get
+  \[
+    \left| \frac{\cos nx}{n} \right| \le \frac{1}{n},
+  \]
+  which does not converge. So we cannot use the
+  Weierstrass $M$-test.
+\end{remark}
+
+\begin{example}
+  Let
+  \[
+    S(x) = \sum_{n = 1}^\infty \frac{|x|}{n^2 + x^2}.
+  \]
+  Study its differentiability on $(-\infty, \infty)$.
+\end{example}
+
+\begin{proof}
+  Observe that
+  \[
+    \frac{|x|}{n^2 + x^2} \le \frac{|x|}{n^2},
+  \]
+  so the series converges pointwise on
+  $(-\infty, \infty)$. Now let $f_n(x) = |x| / (n^2 + x^2)$,
+  and we see that
+  \[
+    \sum_{n = 1}^\infty f_n'(x)
+    = \sum_{n = 1}^\infty \frac{\frac{(n^2 + x^2)|x|}{x} - 2x |x|}{(n^2 + x^2)^2}
+    = \sum_{n = 1}^\infty \frac{\frac{n^2|x|}{x} - x |x|}{(n^2 + x^2)^2}
+  \]
+  for any $0 < |x| < A$.
+  Now
+  \[
+    \left| \frac{n^2 |x|}{x} - x |x| \right|
+    \le n^2 + A^2,
+  \]
+  so $\sum_{n = 1}^\infty f_n'(x)$ converges uniformly
+  for any $x$ away from $0$. So $S(x)$ is differentiable
+  when $x \ne 0$.
+  At $x = 0$, we use the definition of the derivative
+  to see that
+  \[
+    \lim_{\Delta x \to 0} \frac{S(\Delta x) - S(0)}{\Delta x}
+    = \lim_{\Delta x \to 0} \frac{|\Delta x|}{\Delta x} \sum_{n = 1}^\infty \frac{1}{n^2 + (\Delta x)^2}.
+  \]
+  From this we get
+  \[
+    S'_-(0) = -\sum_{n = 1}^\infty \frac{1}{n^2}
+    \ne \sum_{n = 1}^\infty \frac{1}{n^2}
+    = S'_+(0),
+  \]
+  so $S(x)$ is not differentiable at $x = 0$.
+\end{proof}
