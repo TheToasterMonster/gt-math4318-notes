@@ -126,15 +126,15 @@
 
 \begin{example}
   Suppose $a_n > 0$ and let $S_n = \sum_{k = 1}^n a_k$.
-  If $\sum_{n = 1}^\infty a_n$ converges, then
+  Then
   \begin{enumerate}
-    \item $\displaystyle \sum_{n = 1}^\infty \frac{a_{n + 1}}{S_n \ln S_n}$ diverges,
-    \item and $\displaystyle \sum_{n = 1}^\infty \frac{a_{n + 1}}{S_n (\ln S_n)^2}$ converges.
+    \item $\displaystyle \sum_{n = 1}^\infty \frac{a_{n + 1}}{S_n \ln S_n}$ diverges if $\displaystyle \sum_{n = 1}^\infty a_n$ diverges,
+    \item and $\displaystyle \sum_{n = 1}^\infty \frac{a_{n + 1}}{S_n (\ln S_n)^2}$ converges if $\displaystyle \sum_{n = 1}^\infty a_n$ converges.
   \end{enumerate}
 \end{example}
 
 \begin{proof}
-  (1) Notice $a_n = S_n - S_{n - 1}$ > 0, so
+  (1) Notice $a_n = S_n - S_{n - 1} > 0$, so
   \[
     \frac{a_{n + 1}}{S_n \ln S_n}
     = \frac{S_{n + 1} - S_n}{S_n \ln S_n}
