@@ -1,0 +1,343 @@
+\chapter{Feb.~22 --- Power Series}
+
+\section{Power Series}
+
+\begin{definition}
+  Given a point $x_0$, a \emph{power series} around
+  $x_0$ is a series of the form
+  \[
+    \sum_{n=0}^\infty a_n (x - x_0)^n
+    = a_0 + a_1(x - x_0) + a_2(x - x_0)^2 + \dots.
+  \]
+\end{definition}
+
+\begin{remark}
+  The question is: For what $x$ does the series converge?
+\end{remark}
+
+\begin{example}
+  Consider the series\footnote{Later we will see that this is the Taylor series for the exponential function $e^x$.}
+  \[
+    \sum_{n = 0}^\infty \frac{x^n}{n!}.
+  \]
+  In fact this series converges for all $x \in \R$. Let
+  $a_n = x^n / n!$. By
+  the ratio test, for $x \ne 0$, we have
+  \[
+    \lim_{n \to \infty} \left|\frac{a_{n + 1}}{a_n}\right|
+    = \lim_{n \to \infty} \frac{|x|}{n + 1} = 0,
+  \]
+  so the series converges at $x \ne 0$. Of course, if
+  $x = 0$, then every term past $n = 0$ is zero, so the
+  series also converges there. Thus the series
+  converges everywhere on $\R$.
+\end{example}
+
+\begin{example}
+  The series
+  \[
+    \sum_{n = 0}^\infty n! x^n
+  \]
+  converges only at $x = 0$. For $x \ne 0$, we
+  can similarly apply the ratio test to find that
+  \[
+    \lim_{n \to \infty} \left|\frac{a_{n + 1}}{a_n}\right|
+    = \lim_{n \to \infty} |n + 1| |x| = \infty,
+  \]
+  so the series diverges for $x \ne 0$.
+\end{example}
+
+\begin{example}
+  Recall that the geometric series
+  \[
+    \sum_{n = 0}^\infty x^n
+  \]
+  converges if and only if $|x| < 1$.
+\end{example}
+
+\section{Radius of Convergence}
+\begin{lemma}
+  \label{lem:converge-at}
+  We have the following:
+  \begin{enumerate}
+    \item If $(A) = \sum_{n = 0}^\infty a_n x^n$ converges
+      at $x = x_1 \ne 0$, then it converges absolutely
+      for all $x$ with $|x| < |x_1|$.
+    \item If $(A)$ diverges at $x = x_2 \ne 0$, then it
+      diverges for all $x$ with $|x| > |x_2|$.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  (1) If $\sum_{n = 0}^\infty a_n x_1^n$ converges, then
+  $a_n x_1^n \to 0$ as $n \to \infty$. In particular,
+  the terms are bounded, so there exists $M > 0$
+  such that $|a_n x_1^n| \le M$ for every $n \in \N$.
+  For any $|x| < |x_1|$, let
+  \[
+    q = \left|\frac{x}{x_1}\right| < 1.
+  \]
+  Then we have
+  \[
+    |a_n x^n| = \left|a_n x_1^n \left(\frac{x}{x_1}\right)^n\right|
+    \le Mq^n.
+  \]
+  Comparing with the geometric series, we get that
+  $\sum_{n = 0}^\infty a_n x^n$ converges absolutely
+  when $|x| < |x_1|$.
+
+  (2) Suppose otherwise that there exists $x_3$ such that
+  $|x_3| > |x_2|$ and $\sum_{n = 0}^\infty a_n x_3^n$
+  converges. Then by (1), we see that the power series
+  converges at $x = x_2$. Contradiction.
+\end{proof}
+
+\begin{corollary}
+  \label{cor:radius-of-convergence}
+  If $(A) = \sum_{n = 0}^\infty a_n x^n$ converges at
+  some $x_1 \ne 0$ and diverges at $x_2 \ne 0$, then
+  there exists $R > 0$ such that $(A)$ converges
+  for $|x| < R$ and diverges for $|x| > R$.
+\end{corollary}
+
+\begin{proof}
+  Let $E$ be the set of all convergence points of $(A)$.
+  By Lemma \ref{lem:converge-at}, we have
+  $E \subseteq \{|x| \le x_2\}$ since $(A)$ diverges
+  for all $|x| > |x_2|$. Let
+  \[R = \sup \{|x| : x \in E\},\]
+  which exists since
+  $E$ is nonempty and bounded above by $|x_2|$.
+  Also $R > 0$ since $x_1 \in E$ and $x_1 \ne 0$. Now if
+  $|x| < R$, then
+  there exists $x_1 \in E$ such that
+  $|x| < |x_1| < R$ and $x = x_1$ is a convergence point.\footnote{This is by definition of the supremum.}
+  By Lemma \ref{lem:converge-at}, we get that
+  $(A)$ converges at $x$. If $|x| > R$, then there
+  exists $x_2$ such that $|x| > |x_2| > R$ and
+  $(A)$ diverges at $x = x_2$. Then by Lemma
+  \ref{lem:converge-at}, $(A)$ diverges at $x$.
+\end{proof}
+
+\begin{remark}
+  The $R$ in Corollary \ref{cor:radius-of-convergence}
+  is called the \emph{radius of convergence} of the
+  power series. If $(A) = \sum_{n = 0}^\infty a_n x^n$
+  converges for all $x \in \R$, then by convention
+  we use $R = \infty$. If $(A)$ converges only
+  at $x = 0$, we use $R = 0$. At $x = \pm R$, the
+  convergence or divergence of $(A)$ needs to be checked
+  separately.
+\end{remark}
+
+\begin{theorem}
+  For a power series $\sum_{n = 0}^\infty a_n x^n$, let
+  \[
+    \limsup_{n \to \infty} \sqrt[n]{|a_n|} = \rho.
+  \]
+  Then
+  \begin{enumerate}
+    \item if $\rho = 0$, then $R = \infty$,
+    \item if $\rho = \infty$, then $R = 0$,
+    \item and if $\rho \in (0, \infty)$, then $R = 1 / \rho$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  We use the root test for
+  $\sum_{n = 0}^\infty |a_n x^n|$. Let $A_n = |a_n x^n|$.
+  Then
+  \[
+    \limsup_{n \to \infty} \sqrt[n]{A_n}
+    = \limsup_{n \to \infty} \sqrt[n]{|a_n|} \cdot |x|
+    = \rho |x|.
+  \]
+  First suppose $0 < \rho < \infty$. Then $\sum_{n = 0}^\infty |a_n x^n|$
+  converges if $|x| \rho < 1$ and diverges if
+  $|x| \rho > 1$. This gives $R = 1 / \rho$. Now
+  if $\rho = 0$, then
+  \[
+    \limsup_{n \to \infty} \sqrt[n]{A_n} = 0 < 1,
+  \]
+  so $\sum_{n = 0}^\infty |a_n x^n|$ regardless of the
+  choice of $x$, i.e. $R = \infty$. Finally if $\rho = \infty$, then
+  for $x_0 \ne 0$,
+  \[
+    \limsup_{n \to \infty} \sqrt[n]{A_n} = \infty > 1.
+  \]
+  By the root test, this implies that $\sum_{n = 0}^\infty |a_n x^n|$
+  diverges for all $x \ne 0$, i.e. $R = 0$.
+\end{proof}
+
+\begin{corollary}
+  For $\sum_{n = 0}^\infty a_n x^n$ with $a_n \ne 0$,
+  if
+  \[
+    \lim_{n \to \infty} \left|\frac{a_{n + 1}}{a_n}\right|
+    = \rho,
+  \]
+  then the radius of convergence is $R = 1 / \rho$.
+\end{corollary}
+
+\begin{proof}
+  Left as an exercise.
+\end{proof}
+
+\begin{example}
+  Find the convergence intervals for
+  \begin{enumerate}
+    \item $\displaystyle \sum_{n = 1}^\infty \frac{2^n(x + 1)^n}{n \ln^2(n + 1)}$,
+    \item and $\displaystyle \sum_{n = 1}^\infty n^n x^{n^2}$.
+  \end{enumerate}
+\end{example}
+
+\begin{proof}
+  (1) Let $a_n$ be the summand. Then
+  \[
+    \lim_{n \to \infty} \left|\frac{a_{n + 1}}{a_n}\right|
+    = \lim_{n \to \infty} \frac{2n \ln^2(n + 1)}{(n + 1)\ln^2(n + 2)}
+    = 2,
+  \]
+  so $R = 1 / 2$. So we get convergence for
+  $|x + 1| < 1 / 2$, i.e. $x \in (-3 / 2, -1 / 2)$.
+  At $x = -3 / 2, -1 / 2$, we get
+  \[
+    \sum_{n = 1}^\infty \frac{1}{n \ln^2(n + 1)}
+  \]
+  after taking absolute values, which converges by
+  the integral test. So the interval
+  is $[-3 / 2, -1 / 2]$.
+
+  (2) Let the general term be
+  \[
+    a_k =
+    \begin{cases}
+      n^n & \text{if $k = n^2$ for some $n \in \N$},\\
+      0 & \text{otherwise}.
+    \end{cases}
+  \]
+  Then we see that
+  \[
+    \limsup_{k \to \infty} \sqrt[k]{|a_k|}
+    = \lim_{n \to \infty} \sqrt[n^2]{n^n}
+    = \lim_{n \to \infty} \sqrt[n]{n} = 1,
+  \]
+  so $R = 1$. At $x = \pm 1$, the series diverges since
+  the general term
+  $n^n x^{n^2}$ does not go to $0$ when $|x| = 1$. So
+  we conclude that the interval of convergence is
+  $(-1, 1)$.
+\end{proof}
+
+\begin{theorem}
+  If $(A) = \sum_{n = 0}^\infty a_n x^n$ has radius of
+  convergence $R > 0$ (including $R = \infty$), then
+  for any $0 < r < R$, the power series $(A)$ converges
+  uniformly on $[-r, r]$. Moreover, if $(A)$ converges
+  at $x = R < \infty$ (or $x = -R$), then $(A)$
+  converges uniformly on $[0, R]$ (or $[-R, 0]$).
+\end{theorem}
+
+\begin{proof}
+  For $x \in [-r, r]$, we have $|a_n x^n| \le |a_n| r^n$,
+  and $\sum_{n = 0}^\infty |a_n| r^n$ converges since
+  $r < R$. So by the Weierstrass $M$-test, we get
+  uniform convergence on $[-r, r]$. Second part left
+  as an exercise.
+\end{proof}
+
+\begin{corollary}
+  For a power series $(A) = \sum_{n = 0}^\infty a_n x^n$,
+  we have the following:
+  \begin{enumerate}
+    \item if $(A)$ has
+      radius of convergence $R > 0$, then
+      $f(x) = \sum_{n = 0}^\infty a_n x^n$ is continuous
+      on $(-R, R)$,
+    \item $f(x)$ is differentiable on $(-R, R)$,
+    \item and $f(x) \in C^\infty(-R, R)$, i.e. it is
+      infinitely differentiable.
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+  (1) We get
+  \[
+    \lim_{x \to x_0} f(x)
+    = \lim_{x \to x_0} \sum_{n = 0}^\infty a_n x^n
+    = \sum_{n = 0}^\infty \lim_{x \to x_0} a_n x^n
+    = f(x_0)
+  \]
+  since we have uniform convergence.
+
+  (2) One can verify that $\sum_{n = 0}^\infty a_n n x^{n - 1}$
+  also has radius of convergence $R$. In particular, the
+  derivative series also converges uniformly, so
+  by Theorem \ref{thm:exchange-limit-derivative}, we can
+  differentiate term by term.
+
+  (3) We can repeat (2) as many times as we want.
+\end{proof}
+
+\begin{theorem}
+  Suppose $f(x) = \sum_{n = 0}^\infty a_n x^n$ has radius
+  of convergence $R > 0$. Then for any $x \in (-R, R)$,
+  we have $f \in \mathcal{R}([0, x])$ and
+  \[
+    \int_0^x f(t)\, dt = \int_0^x \sum_{n = 0}^\infty a_n t^n\, dt
+    = \sum_{n = 0}^\infty a_n \int_0^x t^n\, dt
+    = \sum_{n = 0}^\infty \frac{a_n}{n + 1} x^{n + 1}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  As $\sum_{n = 0}^\infty a_n x^n$ converges
+  uniformly in $[-r, r]$, by Theorem \ref{thm:exchange-limit-integral}
+  we can integrate term by term.
+\end{proof}
+
+\begin{example}
+  Show that
+  \[
+    \sum_{n = 1}^\infty \frac{x^n}{n} = -\ln(1 - x)
+  \]
+  for $-1 < x < 1$.
+\end{example}
+
+\begin{proof}
+  By the previous theorem, we can write
+  \[
+    \sum_{n = 1}^\infty \frac{x^n}{n}
+    = \int_0^x \sum_{n = 1}^\infty t^{n - 1}\, dt
+    = \int_0^x \frac{1}{1 - t} \, dt
+    = -\ln(1 - x),
+  \]
+  as desired. Note that we used the geometric
+  series in the second step.
+\end{proof}
+
+\begin{example}
+  Find the sum
+  \[
+    \sum_{n = 0}^\infty \frac{(-1)^n}{3n + 1}.
+  \]
+\end{example}
+
+\begin{proof}
+  Let
+  \[
+    S(x) = \sum_{n = 0}^\infty \frac{(-1)^n}{3n + 1} x^{3n + 1}.
+  \]
+  In particular, $S(1)$ is the desired sum, so $S$
+  converges at $x = 1$
+  by the alternating series test. Then
+  \begin{align*}
+    S(1)
+    &= \sum_{n = 0}^\infty (-1)^n \int_0^1 x^{3n}\, dx
+    = \int_0^1 \sum_{n = 0}^\infty (-x^3)^n \, dt
+    = \int_0^1 \frac{1}{1 + x^3}\, dx \\
+    &= \frac{1}{3} \left[\ln \frac{1 + x}{\sqrt{1 - x + x^2}} + \sqrt{3} \arctan \frac{2x - 1}{\sqrt{3}}\right]_{x = 0}^{x = 1}
+    = \frac{1}{3} \left(\ln 2 + \frac{\pi}{\sqrt{3}}\right)
+  \end{align*}
+  since we have uniform convergence on $[0, 1]$.
+\end{proof}
