@@ -1,0 +1,329 @@
+\chapter{Feb.~27 --- Taylor Series}
+
+\section{Taylor Series}
+
+Recall from Theorem \ref{thm:power-series-analytic} that $f(x) = \sum_{n = 0}^\infty a_n x^n$
+is $C^\infty$ on $(-R, R)$, where $R$ is its radius
+of convergence. Here we can differentiate term by term,
+i.e. we have
+\begin{align*}
+  f(x) &= a_0 + a_1 x + a_2 x^2 + a_3 x^3 \cdots, \\
+  f'(x) &= a_1 + 2a_2 x + 3a_3 x^2 + \cdots, \\
+  f''(x) &= 2a_2 + 6a_3 x + \cdots.
+\end{align*}
+In particular, if we let $x = 0$, then
+\[a_0 = f(0), \quad a_1 = f'(0), \quad a_2 = \frac{f''(0)}{2!}, \quad \dots, \quad a_n = \frac{f^{(n)}(0)}{n!}.\]
+Here we call
+\[
+  f(x) = \sum_{n = 0}^\infty \frac{f^{(n)}(0)}{n!} x^n
+\]
+the \emph{Taylor series} of $f$ at $0$.
+
+\begin{corollary}
+  If $f(x)$ has the power series expansion
+  $\sum_{n = 0}^\infty c_n (x - a)^n$ on an open interval
+  $I$ containing $a$, then $f \in C^\infty(I)$ and
+  and
+  \[
+    c_n = \frac{f^{(n)}(a)}{n!}.
+  \]
+  for all $n \ge 0$. In particular, if $f$ has a power
+  series expansion
+  \[
+    f = \sum_{n = 0}^\infty c_n (x - a)^n,
+  \]
+  then $c_n$ is unique.
+\end{corollary}
+
+\begin{remark}
+  Since Taylor series are unique, we may use any
+  way we want to find its coefficients.
+\end{remark}
+
+\begin{example}
+  Suppose we would like to find the Taylor series of
+  $\ln(1 - x)$. It is easier to observe
+  \[
+    (\ln(1 - x))' = \frac{1}{1 - x}
+  \]
+  and find the Taylor series of its derivative to be
+  \[
+    \frac{1}{1 - x} = 1 + x + x^2 + \dots + x^n + \dots.
+  \]
+  Then we can integrate term by term to find
+  the Taylor series of $\ln(1 - x)$.
+\end{example}
+
+\section{Convergence of Taylor Series}
+Given a function $f \in C^\infty(I)$, do we always have
+\[
+  f(x) = \sum_{n = 0}^\infty \frac{f^{(n)}(0)}{n!} x^n
+\]
+in the interval $I$?
+
+\begin{example}
+  Consider
+  \[
+    f(x) =
+    \begin{cases}
+      e^{-1/x^2} & \text{if } x \ne 0, \\
+      0 & \text{if } x = 0.
+    \end{cases}
+  \]
+  Away from $x = 0$, we have
+  \[
+    f' = \frac{2}{x^3} e^{-1/x^2}, \quad
+    f'' = e^{-1 / x^2} \left[-\frac{6}{x^4} + \frac{4}{x^6}\right], \quad
+    f''' = e^{-1 / x^2} P_7(1 / x), \quad \dots.
+  \]
+  So $f$ is $C^\infty$ away from $x = 0$.
+  In particular, $f^{(n)}(x) \to 0$ as $x \to 0$
+  for all $n \ge 0$ since
+  \[
+    \lim_{x \to 0} \frac{1}{x^m} e^{-1 / x^2} = 0
+  \]
+  for all $m \ge 0$. Now also
+  \[
+    f'(0) = \lim_{x \to 0} \frac{e^{-1/x^2}}{x} = 0,
+  \]
+  so $f'$ is continuous on $\R$. We can continue
+  this to see that each $f^{(n)}$ is continuous on $\R$.
+  So $f \in C^\infty(\R)$ and
+  $f^{(n)}(0) = 0$ for all $n \ge 0$. Thus its Taylor
+  series is identically zero, but $f(x)$ is not the
+  zero function.
+\end{example}
+
+\begin{remark}
+Recall Lagrange's remainder term for the Taylor
+polynomial, which says
+\[
+  f(x) - \sum_{k = 0}^n \frac{f^{(k)}(x_0)}{k!} (x - x_0)^k
+  = R_n(x),
+\]
+where
+\[
+  R_n(x) = \frac{1}{(n + 1)!} f^{(n + 1)}(\xi) (x - x_0)^{n + 1}
+\]
+and $\xi$ is between $x$ and $x_0$. We can use this
+to justify the convergence of Taylor series.
+\end{remark}
+
+\begin{theorem}
+  Let $R \in (0, \infty)$ and $f \in C^\infty(x_0 - R, x_0 + R)$.
+  If there exists $M > 0$ such that for all
+  $x \in (x_0 - R, x_0 + R)$, we have
+  \[
+    |f^{(n)}(x)| \le M^n
+  \]
+  for each $n = 1, 2, \dots$, then
+  \[
+    f(x) = \sum_{n = 0}^\infty \frac{f^{(n)}(x_0)}{n!} (x - x_0)^n
+  \]
+  for all $x \in (x_0 - R, x_0 + R)$.
+\end{theorem}
+
+\begin{proof}
+  By Lagrange's remainder term formula, we have
+  \[
+    |R_n(x)|
+    = \frac{1}{(n + 1)!} |f^{(n + 1)}(\xi)| |x - x_0|^{n + 1}
+    \le \frac{1}{(n + 1)} M^{n + 1} R^{n + 1}
+    = \frac{(MR)^{n + 1}}{(n + 1)!} \to 0
+  \]
+  as $n \to \infty$ since $M, R$ are fixed. Thus we
+  get the desired equality, since the error term goes
+  to zero.
+\end{proof}
+
+\begin{example}
+  For $f(x) = e^x$, we have $f^{(n)}(x) = e^x$. Then
+  for $x \in (-R, R)$, we have $|f^{(n)}(x)| \le e^R$.
+  So by the previous theorem, we get
+  \[
+    e^x = \sum_{n = 0}^\infty \frac{1}{n!} x^n
+  \]
+  for all $x \in \R$, since we can take $R$ as large as
+  we would like.
+\end{example}
+
+\section{Metric Spaces}
+
+\begin{definition}
+  We call a pair $(X, \rho)$ a \emph{metric space} if
+  $X$ is nonempty and
+  $\rho : X \times X \to \R^+$
+  satisfies:
+  \begin{enumerate}
+    \item positive-definiteness: $\rho(x, y) \ge 0$ and $\rho(x, y) = 0$
+      if and only if $x = y$,
+    \item symmetry: $\rho(x, y) = \rho(y, x)$,
+    \item and the triangle inequality: $\rho(x, y) \le \rho(x, z) + \rho(z, y)$ for
+      all $x, y, z \in X$.
+  \end{enumerate}
+  We say $\rho$ is a \emph{distance function} if it
+  satisfies the above properties.
+\end{definition}
+
+\begin{example}
+  For $X = \R^3$, we may take
+  $\rho(\vec{x}, \vec{y}) = \|\vec{x} - \vec{y}\|$.
+\end{example}
+
+\begin{example}
+  For $X = C([a, b])$, the set of all
+  continuous functions on $[a, b]$, we can define
+  \[
+    \rho(x, y) = \max_{t \in [a, b]} |x(t) - y(t)|
+  \]
+  for any two $x(t), y(t) \in C([a, b])$.
+  This is called the \emph{maximum norm} or
+  the $\ell^\infty$ \emph{norm}.
+\end{example}
+
+\begin{definition}[Convergence]
+  We say that $x_n \to x_0$ in $(X, \rho)$ if
+  $\rho(x_n, x_0) \to 0$ as $n \to \infty$. We write
+  \[
+    \lim_{n \to \infty} x_n = x_0.
+  \]
+\end{definition}
+
+\begin{example}
+  If $x_n(t) \in C([a, b])$, then $x_n \to x_0$
+  means $x_n(t) \to x_0(t)$ uniformly in $[a, b]$.\footnote{This is if we use the maximum norm from earlier.}
+\end{example}
+
+\begin{definition}
+  We say that $\{x_n\}$ is a \emph{Cauchy sequence} in
+  $(X, \rho)$ if $\varphi(x_n, x_m) \to 0$
+  when $n, m \to \infty$, i.e. for any $\epsilon > 0$,
+  there exists $N$ such that if $n, m \ge N$, then
+  $\rho(x_n, x_m) < \epsilon$.
+\end{definition}
+
+\begin{definition}
+  If every Cauchy sequence in $(X, \rho)$
+  has a limit $x_n \to x^*$, then we say that
+  $(X, \rho)$ is a \emph{complete} metric space.
+\end{definition}
+
+\begin{example}
+  The continuous functions $C([a, b])$ with the maximum
+  norm is complete.
+\end{example}
+
+\begin{definition}
+  Let $(X, \rho), (Y, r)$ be
+  two metric spaces. Then we say $T : X \to Y$ is
+  \emph{continuous} if for any $\{x_n\}$ and $x_0 \in X$,
+  we have
+  $\rho(x_0, x_n) \to 0$ implies
+  $r(T(x_0), T(x_n)) \to 0$.
+\end{definition}
+
+\begin{theorem}
+  A function $T : (X, \rho) \to (Y, r)$ is continuous
+  if and only if for all $\epsilon > 0$ and $x_0 \in X$,
+  there exists $\delta = \delta(x_0, \epsilon) > 0$
+  such that $\rho(x, x_0) < \delta$ implies
+  $r(T(x), T(x_0)) < \epsilon$.
+\end{theorem}
+
+\begin{proof}
+  Check this as an exercise
+\end{proof}
+
+\section{Existence and Uniqueness Problem for ODEs}
+
+Consider the ordinary differential equation (ODE) problem
+\[
+  \begin{cases}
+    \frac{dx}{dt} = F(t, x), \\
+    x(0) = \xi.
+  \end{cases} \tag{1}
+\]
+We would like to show that this ODE has a local solution.\footnote{The solution may not exist for longer time periods, e.g. it might blow up at some point.}
+To do this, we can transform the ODE into\footnote{This process is called \emph{Picard iteration}.}
+\[
+  x(t) = \xi + \int_0^t f(\tau, x(\tau))\, d\tau.
+\]
+Now we would like to find a fixed point of this map.
+Let $h > 0$ and consider $X = C([-h, h])$ with the
+maximum norm. Define the mapping $T : X \to X$ by
+\[
+  (Tx)(t) = \xi + \int_0^t f(\tau, x(\tau))\, d\tau
+\]
+for any $x \in X$. Then solving $(1)$ is equivalent
+to finding a point $x \in X$ such that $x = Tx$, i.e.
+$x$ is a fixed point of $T$. We can do this via
+contraction mapping.
+
+\section{The Contraction Mapping Principle}
+\begin{definition}
+  We say $T : (X, \rho) \to (X, \rho)$ is a
+  \emph{contraction mapping} if there exists
+  $a \in (0, 1)$ such that
+  \[
+    \rho(Tx, Ty) \le a \rho(x, y)
+  \]
+  for any $x, y \in X$.
+\end{definition}
+
+\begin{example}
+  Let $X = [0, 1]$ and $T(x)$ be differentiable on
+  $[0, 1]$ with $T(x) \in [0, 1]$ and $|T'(x)| \le a < 1$.
+  Then $T : X \to X$ is a contraction mapping since
+  \[
+    \rho(Tx, Ty) = |T(x) - T(y)|
+    = |T'(\xi)(x - y)| \le a|x - y|
+  \]
+  by the mean value theorem.
+\end{example}
+
+\begin{theorem}[Contraction mapping principle\footnote{This is also known as the \emph{Banach fixed-point theorem}.}]
+  Let $(X, \rho)$ be a complete metric space
+  and $T : X \to X$ be a contraction mapping. Then
+  $T$ has a unique fixed point on $X$.
+\end{theorem}
+
+\begin{proof}
+  For any $x_0 \in X$, define a sequence recursively
+  by $x_{n + 1} = Tx_n$, i.e. $x_n = T^n x_0$. Now we
+  show that $\{x_n\}$ is a Cauchy sequence. To do this,
+  observe that
+  \[
+    \rho(x_{n + 1}, x_n)
+    = \rho(Tx_n, Tx_{n - 1})
+    \le a \rho(x_n, x_{n - 1})
+    \le a^2 \rho(x_{n - 1}, x_{n - 2})
+    \le \dots
+    \le a^n \rho(x_1, x_0)
+  \]
+  for some $0 < a < 1$ since $\rho$ is a contraction
+  mapping.
+  So for any integer $p > 0$, by the triangle
+  inequality we have
+  \[
+    \rho(x_{n + p}, x_n) \le
+    \sum_{i = 1}^p \rho(x_{n + i}, x_{n + i - 1})
+    \le \sum_{i = 0}^{p - 1} a^{n + i} \rho(x_0, x_1)
+    \le \sum_{i = 0}^\infty a^{n + i} \rho(x_0, x_1)
+    = \frac{a^n}{1 - a} \rho(x_0, x_1).
+  \]
+  Since $\rho(x_0, x_1)$ is fixed and $0 < a < 1$, we
+  see that $\{x_n\}$ is a Cauchy sequence. Since
+  $X$ is complete, we have $x_n \to x^* \in X$. Now
+  we show that $x^*$ is a fixed point of $T$. This is
+  because $x_{n + 1} = Tx_n$, and letting $n \to \infty$
+  gives $x^* = Tx^*$, since $T$ is continuous.\footnote{One can show that any contraction mapping is continuous.}
+  Next, we show that $x^*$ is the only fixed point.
+  To do this, suppose otherwise that
+  $x^{**}$ is also a fixed point. Then
+  \[
+    \rho(x^*, x^{**}) = \rho(Tx^*, Tx^{**})
+    \le a \rho(x^*, x^{**}).
+  \]
+  Since $0 < a < 1$, we must have $\rho(x^*, x^{**}) = 0$,
+  i.e. $x^* = x^{**}$.
+\end{proof}
