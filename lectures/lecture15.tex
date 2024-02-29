@@ -1,0 +1,229 @@
+\chapter{Feb.~29 --- hi}
+
+\section{Newton's Method}
+Suppose we want to find a solution of $f(x) = 0$, for
+some differentiable function $f$. We can use
+\emph{Newton's method}, which starts with some initial
+guess $x_0$, and iteratively computes
+better guesses. More precisely, we look at $x_i$,
+find the tangent line to $f$ at $x_i$, and then
+take $x_{i + 1}$ to be the $x$-intercept of this
+line. The tangent line is given by
+\[
+  y = f(x_n) + f'(x_n)(x - x_n).
+\]
+Setting $y = 0$ gives the recurrence
+\[
+  x_{n + 1} = x_n - \frac{f(x_n)}{f'(x_n)}.
+\]
+There are some nuances as to when Newton's method
+converges, since the $x_i$ may end up oscillating or
+have some other problem if $x_0$ is badly chosen (e.g.
+if it is far away from the actual zero $\hat{x}$).
+
+\begin{example}
+  Let $f \in C^2([a, b])$ and $\hat{x} \in (a, b)$ such
+  that $f(\hat{x}) = 0$ and $f'(\hat{x}) \ne 0$. Then
+  there exists a neighborhood of $\hat{x}$, denoted
+  by $U(\hat{x})$, such that for all $x_0 \in U(\hat{x})$,
+  the sequence
+  \[
+    x_{n + 1} = x_n - \frac{f(x_n)}{f'(x_n)}
+  \]
+  converges to $\hat{x}$ as $n \to \infty$.
+\end{example}
+
+\begin{proof}
+  Define the mapping
+  \[
+    Tx = x - \frac{f(x)}{f'(x)}
+  \]
+  in an interval containing $\hat{x}$, e.g.
+  $I_{\delta} = [\hat{x} - \delta, \hat{x} + \delta]$.
+  First we check that if $\delta$ is small, then
+  $f : I_\delta \to I_\delta$. For this, let
+  $x_1 = Tx$. If $|x - \hat{x}| < \delta$, then we have
+  \[
+    |x_1 - \hat{x}| = |Tx - T\hat{x}|
+    \le a|x - \hat{x}| < \delta,
+  \]
+  for some $0 < a < 1$. This is because for all
+  $x_1, x_2 \in I_\delta$, letting $g(x) = Tx$, we have
+  \[
+    |Tx_1 - Tx_2| =
+    |g(x_1) - g(x_2)|
+    = |g'(\xi)| |x_1 - x_2|
+  \]
+  for some $\xi \in I_\delta$ by the mean value
+  theorem. Now notice that
+  \[
+    |g'(\xi)| = \left| 1 - \frac{f'(x)}{f'(x)}
+    + \frac{f(x)f''(x)}{f'(x)^2} \right|
+    = \left| \frac{f(x)f''(x)}{f'(x)^2} \right|
+    < a < 1
+  \]
+  if $\delta$ is small enough, since $f(x)$ is small
+  in $I_\delta$, and $f''(x)$ is bounded
+  and $f'(x)$ is bounded away from zero. Then by the
+  contraction mapping principle, we get the unique
+  fixed point $\hat{x}$.
+\end{proof}
+
+\begin{remark}
+  The rough idea is that $f'(x)$ is bounded away from
+  zero in some open neighborhood $U$ of $\hat{x}$ since
+  $f'(\hat{x}) \ne 0$, and $f'$ is continuous since
+  $f \in C^2$. Now pick some compact interval
+  $I \subseteq U$, and we get that $f'$ must
+  be bounded on $I$. This gives that $f$ is
+  Lipschitz, i.e. $|f(x) - f(y)| \le L|x - y|$ for
+  all $x, y \in I$ and some constant $L \in \R$. Then
+  we just need to show that $0 < L < 1$.
+\end{remark}
+
+\section{Existence and Uniqueness for ODEs}
+Recall the ODE
+\[
+  \begin{cases}
+    \frac{dx}{dt} = F(t, x). \\
+    x(0) = \xi.
+  \end{cases}
+\]
+We rewrite this into the integral form
+\[
+  x(t) = \xi + \int_0^t F(\tau, x(\tau)) \, d\tau. \tag{$*$}
+\]
+Now let $h > 0$ be some fixed constant that we
+choose later. Define $X = C([-h, h])$ and $T : X \to X$ by
+\[
+  (Tx)(t) = \xi + \int_0^t F(\tau, x(\tau)) \, d\tau.
+\]
+Then $(*)$ is equivalent to finding a fixed point of $T$.
+Assume $F(t, x)$ satisfies a \emph{local Lipschitz condition}, i.e.
+there exist $\delta > 0$ and $L > 0$ such that when
+$|t| \le h$, $|x_1 - \xi| \le \delta$, and
+$|x_2 - \xi| \le \delta$, we have
+\[
+  |F(t, x_1) - F(t, x_2)| \le L|x_1 - x_2|.
+\]
+Define
+\[
+  B(\xi, \delta) := \{
+    x(t) \in C([-h, h]) \mid \max_{|t| \le h} |x(t) - \xi| \le \delta
+  \}.
+\]
+Think of this as the ball of radius $\delta$ around the
+constant function $\xi$ in $C([-h, h])$. We want to check
+\begin{enumerate}[(i)]
+  \item if $h, \delta$ are small enough, then
+    $T : B(\xi, \delta) \to B(\xi, \delta)$,
+  \item and $T$ is a contraction.
+\end{enumerate}
+Once we do, then $T$ has a unique fixed point
+$\hat{x}(t)$ by the contraction mapping principle,
+which is the solution of the ODE for $t \in [-h, h]$.
+For the first property, let
+\[
+  M = \max\{|F(t, x)| \mid t \in [-h, h] \times [\xi - \delta, \xi + \delta]\},
+\]
+which exists since $F$ is continuous and $[-h, h] \times [\xi - \delta, \xi + \delta]$ is compact.
+If $h$ is small, then
+\[
+  \max_{t \in [-h, h]} |(Tx)(t) - \xi|
+  = \max_{t \in [-h, h]} \left| \int_0^t F(\tau, x(\tau)) \, d\tau \right|
+  \le Mh \le \delta
+\]
+since $t \le h$. So
+$T : B(\xi, \delta) \to B(\xi, \delta)$. Now we show that
+$T$ is a contraction. For any
+$x(t), y(t) \in B(\xi, \delta)$,
+\begin{align*}
+  \rho(Tx, Ty)
+  = \max_{t \in [-h, h]} \left| \int_0^t F(\tau, x(\tau)) - F(\tau, y(\tau)) \, d\tau \right|
+  &\le h \max_{|t| \le h} |F(t, x(t)) - F(t, y(t))| \\
+  &= L h \max_{|t| \le h} |x(t) - y(t)|
+  = Lh \rho(x, y)
+\end{align*}
+by the Lipschitz condition. Now we can choose $h$ such
+that
+$Lh < 1$, which ensures that $T$ is a contraction.
+
+\begin{remark}
+  This is called the \emph{Picard-Lindel\"of theorem},
+  or the \emph{existence and uniqueness theorem for ODEs}.
+\end{remark}
+
+\section{Implicit Function Theorem}
+\begin{example}[Implicit function theorem]
+  Let $f : \R \times \R \to \R$ and $U \times V \subseteq \R \times \R$ a
+  neighborhood of $(x_0, y_0)$. Assume $f$ and
+  $\partial f / \partial y$ are continuous on
+  $U \times V$, and $f(x_0, y_0) = 0$ and
+  \[
+    \frac{\partial f}{\partial y}(x_0, y_0) \ne 0.
+  \]
+  Then there exists a neighborhood
+  $U_0 \times V_0 \subseteq U \times V$ and a unique
+  continuous function
+  $\varphi : U_0 \to V_0$ satisfying
+  \[
+    f(x, \varphi(x)) = 0, \quad \varphi(x_0) = y_0.
+  \]
+\end{example}
+
+\begin{proof}
+  We want to solve $f(x, y) = 0$ in a neighborhood
+  of $(x_0, y_0)$. Define the mapping $\varphi \mapsto T\varphi$,
+  where $\varphi \in C([x_0 - r, x_0 + r])$ for
+  some $r > 0$. We take the definition
+  \[
+    (T\varphi)(x) = \varphi(x) - \left(\frac{\partial f}{\partial y}(x_0, y_0)\right)^{-1} f(x, \varphi(x)).
+  \]
+  Observe that if $\varphi$ is a fixed point of $T$,
+  then $f(x, \varphi(x)) = 0$. Let
+  $X = C([x_0 - r, x_0 + r])$, and we will choose $r$
+  later. For any $\varphi, \psi \in X$, define the
+  distance
+  \[
+    \rho(\varphi, \psi) = \max_{x \in [x_0 - r, x_0 + r]} |\varphi(x) - \psi(x)|.
+  \]
+  Now we see that
+  \begin{align*}
+    \rho(T\varphi, T\psi)
+    &= \max_{x \in [x_0 - r, x_0 + r]} \left| \varphi(x) - \psi(x) - \left(\frac{\partial f}{\partial y}(x_0, y_0)\right)^{-1} \left(f(x, \varphi(x)) - f(x, \psi(x))\right) \right| \\
+    &= \max_{x \in [x_0 - r, x_0 + r]} \left| \left(1 - \frac{\partial f}{\partial y}(x_0, y_0)^{-1} \frac{\partial f}{\partial y}(x, \hat{y})\right) (\varphi(x) - \psi(x)) \right|
+  \end{align*}
+  for some $\hat{y}$ between $\varphi(x)$ and $\psi(x)$
+  by the mean value theorem. Now define the ball
+  \[
+    B(y_0, \delta) = \{\varphi \in C(x_0 - r, x_0 + r) \mid \rho(\varphi, y_0) \le \delta\}.
+  \]
+  If $\varphi, \psi \in B(y_0, \delta)$ and
+  $r, \delta$ are small enough, then
+  \[
+    \left|1 - \frac{\partial f}{\partial y}(x_0, y_0)^{-1} \frac{\partial f}{\partial y}(x, \hat{y})\right| < \frac{1}{2},
+  \]
+  which ensures a contraction.
+  So it only remains to check that
+  $T : B(y_0, \delta) \to B(y_0, \delta)$. For
+  $\varphi \in B(y_0, \delta)$,
+  \begin{align*}
+    \rho(T\varphi, y_0)
+    &\le \rho(T\varphi, Ty_0) + \varphi(Ty_0, y_0) \\
+    &\le \frac{1}{2} \rho(\varphi, y_0) + \max_{x \in [x_0 - r, x_0 + r]} \left| \frac{\partial f}{\partial y}(x_0, y_0)^{-1} f(x, y_0) \right|
+    \le \frac{1}{2} \delta + \frac{1}{2} \delta
+    = \delta
+  \end{align*}
+  if $r$ is small enough since $f(x_0, y_0) = 0$.
+  So $T\varphi \in B(y_0, \delta)$.
+  Thus $T$ is a contraction mapping on $B(y_0, \delta)$,
+  so it has a unique fixed point by the
+  contraction mapping principle.
+\end{proof}
+
+\begin{remark}
+  The idea is that if $(\partial f / \partial y)(x_0, y_0) \ne 0$, then the solution set to
+  $f(x, y) = 0$
+  in a neighborhood of $(x_0, y_0)$ is given by the
+  curve $\varphi$.
+\end{remark}
