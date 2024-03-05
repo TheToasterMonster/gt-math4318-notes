@@ -1,0 +1,316 @@
+\chapter{Mar.~5 --- The Derivative in \texorpdfstring{$\R^n$}{Rn}}
+
+\section{Partial Derivatives}
+\begin{definition}
+  Let $f$ be a real-valued function defined on an
+  open set $U \subseteq \R^n$. For a fixed point
+  $a = (a_1, \dots, a_n) \in U$, the
+  \emph{partial derivative} of $f$ at $a$ with
+  respect to $x_i$ is
+  \begin{align*}
+    \frac{\partial f}{\partial x_i}(a)
+    = \lim_{x_i \to a_i} \frac{f(a_1, \dots, a_{i-1}, x_i, a_{i+1}, \dots, a_n) - f(a_1, \dots, a_n)}{x_i - a_i}
+    = \lim_{h \to 0} \frac{f(a + h \vec{e}_i) - f(a)}{h},
+  \end{align*}
+  when this limit exists. Here $\vec{e}_i$ is the
+  $i$th standard basis vector in $\R^n$.
+\end{definition}
+
+\begin{remark}
+  The following are equivalent notations for partial
+  derivatives:
+  \[
+    \frac{\partial f}{\partial x_i}(a), \quad f_i'(a),
+    \quad f_{x_i}, \quad D_i f
+  .\]
+\end{remark}
+
+\begin{definition}
+  The
+  \emph{gradient} of $f$ at $a$ is a vector of the
+  partial derivatives, i.e.
+  \[
+    \nabla f(a) = \left( \frac{\partial f}{\partial x_1}(a), \dots, \frac{\partial f}{\partial x_n}(a) \right).
+  \]
+\end{definition}
+
+\begin{remark}
+  In one dimension, if $f(x)$ is differentiable at $x_0$,
+  then $f(x)$ is continuous at $x_0$, because
+  \[
+    \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} = f'(x_0),
+  \]
+  which implies
+  \[
+    f(x) - f(x_0) = f'(x_0)(x - x_0) + o(x - x_0).
+  \]
+  As $x \to x_0$, the RHS goes to zero, so
+  $f(x) \to f(x_0)$. However, this need not hold
+  in higher dimensions. For $n \ge 2$, even if
+  $\partial f / \partial x_i (a)$ exists for all
+  $i = 1, 2, \dots, n$, $f(x_0)$ might not be continuous
+  at $x = a$.
+\end{remark}
+
+\begin{example}
+  Consider the function
+  \[
+    f(x, y) =
+    \begin{cases}
+      xy / (x^2 + y^2) & \text{if } (x, y) \neq (0, 0), \\
+      0 & \text{if } (x, y) = (0, 0).
+    \end{cases}
+  \]
+  At $(0, 0)$, we have
+  \[
+    \frac{\partial f}{\partial x}(0, 0)
+    = \lim_{x \to 0} \frac{f(x, 0) - 0}{x} = \lim_{x \to 0} \frac{0 - 0}{x} = 0.
+  \]
+  Similarly, $\partial f / \partial y (0, 0) = 0$.
+  But $f(x, y)$ is not continuous at $(0, 0)$. For
+  continuity, we need
+  \[
+    \lim_{(x, y) \to (0, 0)} f(x, y) = 0
+  \]
+  when $(x, y) \to (0, 0)$ along any path $\Gamma$
+  from $(x, y)$ to $(0, 0)$. So it suffices to find two
+  paths $\Gamma_1$ and $\Gamma_2$ with different limits
+  to show that the limit does not exist. So choose
+  $\Gamma : y = mx$. Then
+  \[
+    \lim_{\substack{(x, y) \to (0, 0) \\ \text{along } \Gamma}} \frac{x(mx)}{x^2 + m^2 x^2} = \frac{m}{1 + m^2}.
+  \]
+  This limit clearly depends on $m$, so we can
+  simply choose
+  two different values of $m$ to get differing limits.
+  Hence we see that $f(x, y)$ is not continuous at
+  $(0, 0)$.
+\end{example}
+
+\section{Differentiability}
+\begin{definition}
+  Let $f : U \to \R$ where $U \subseteq \R^n$ and
+  $a = (a_1, \dots, a_n) \in U$. Then $f$ is
+  \emph{differentiable} at $a$ if there exist
+  constants $c_1, \dots, c_n \in \R$ such that
+  \[
+    \lim_{h \to 0} \frac{f(x) - (f(a) + c_1(x_1 - a_1) + \dots + c_n(x_n - a_n))}{d(x, a)} = 0.
+  \]
+  Here the distance is
+  \[
+    d(x, a) = \sqrt{(x_1 - a_1)^2 + \dots + (x_n - a_n)^2}.
+  \]
+\end{definition}
+
+\begin{remark}
+  If we let $\vec{c} = (c_1, \dots, c_n)$, then the
+  definition of differentiability becomes
+  \[
+    f(x) = f(a) + \vec{c} \cdot (x - a) + o(d(x, a)).
+  \]
+  We will soon show that in fact $\vec{c} = \nabla f(a)$.
+\end{remark}
+
+\begin{remark}
+  In the one-dimensional case, for $f(x)$ where
+  $x \in I \subseteq \R$, we defined the derivative
+  as
+  \[
+    \lim_{x \to a} \frac{f(x) - f(a)}{x - a} = f'(a).
+  \]
+  This is equivalent to
+  \[
+    \lim_{x \to a} \frac{f(x) - f(a) - f'(a)(x - a)}{|x - a|} = 0,
+  \]
+  which is the same as
+  our new definition for differentiability.
+\end{remark}
+
+\begin{prop}
+  If $f(x)$ is differentiable at $a$, then
+  $\partial f / \partial x_i (a)$ exists and
+  $c_i = \partial f / \partial x_i (a)$.
+\end{prop}
+
+\begin{proof}
+  We can compute that
+  \[
+    \frac{\partial f}{\partial x_i}(a)
+    = \lim_{h \to 0} \frac{f(a + h \vec{e}_i) - f(a)}{h}
+    = \lim_{h \to 0} \frac{f(a) + \vec{c} \cdot h \vec{e}_i + o(|h|) - f(a)}{h}
+    = \lim_{h \to 0} \frac{\vec{c} \cdot h \vec{e}_i + o(|h|)}{h}
+    = c_i,
+  \]
+  which is the desired result.
+\end{proof}
+
+\begin{prop}
+  If $f(x)$ is differentiable at $a$, then $f(x)$ is
+  continuous at $a$.
+\end{prop}
+
+\begin{proof}
+  From the definition, we have
+  \[
+    f(x) = f(a) + \vec{c} \cdot (x - a) + o(d(x, a)).
+  \]
+  As we take $x \to a$, we get $f(x) \to f(a)$ just
+  as before.
+\end{proof}
+
+\begin{remark}
+  If $f(x)$ is differentiable, then
+  $f(x)$ has all partial derivatives $\partial f / \partial x_i$ at $x = a$.
+  But the converse is not true in general. So
+  differentiability is a strictly stronger condition
+  in $\R^n$.
+\end{remark}
+
+\begin{lemma}
+  Let $f : U \subseteq \R^n \to \R$, where $U$ is an open
+  set. Then $f$ is differentiable at $x = a$ if and only
+  if there exist functions $A_1, \dots, A_n$ on $U$,
+  continuous at $x = a$, such that
+  \[
+    f(x) - f(a) = A_1(x)(x_1 - a_1) + A_2(x)(x_2 - a_2) + \dots + A_n(x)(x_n - a_n)
+  \]
+  for all $x \in U$. In this case,
+  $\partial f / \partial x_i (a) = A_i(a)$.
+\end{lemma}
+
+\begin{proof}
+  $(\Rightarrow)$ Assume $f(x)$ is differentiable
+  at $x = a$. Then
+  \[
+    \lim_{x \to a} \frac{f(x) - (f(a) + f_1'(a)(x_1 - a_1) + \dots + f_n'(a)(x_n - a_n))}{d(x, a)} = 0.
+  \]
+  Define the function $e : U \to \R$ via
+  \[
+    e(x) = \frac{f(x) - (f(a) + f_1'(a)(x_1 - a_1) + \dots + f_n'(a)(x_n - a_n))}{|x_1 - a_1| + \dots + |x_n - a_n|}.
+  \]
+  Observe that the denominator is a distance
+  equivalent to $d(x, a)$.\footnote{Two metrics (distances) $d_1, d_2 : X \times X \to \R$ on a set $X$ are \emph{equivalent} if there exist constants $c, C \in \R$ such that $cd_1(x, y) \le d_2(x, y) \le Cd_1(x, y)$ for all $x, y \in X$.} Then $\lim_{x \to a} e(x) = 0$, since
+  the distances are equivalent. Then we get
+  \begin{align*}
+    f(x)
+    &= f(a) + f_1'(a)(x_1 - a_1) + \dots + f_n'(a)(x_n - a_n) + e(x)(|x_1 - a_1| + \dots + |x_n - a_n|) \\
+    &= f(a) + A_1(x)(x_1 - a_1) + \dots + A_n(x)(x_n - a_n),
+  \end{align*}
+  where we define
+  \[
+    A_i(x) =
+    \begin{cases}
+      f_i'(a) + e(x) & \text{if } x_i - a_i \ge 0 \\
+      f_i'(a) - e(x) & \text{if } x_i - a_i < 0.
+    \end{cases}
+  \]
+  Each $A_i$ is continuous and satisfies
+  $A_i(a) = f_i'(a)$, as desired.
+
+  $(\Leftarrow)$ Suppose $A_1, \dots, A_n$ exist
+  such that
+  \[
+    f(x) - f(a) = A_1(x)(x_1 - a_1) + \dots + A_n(x)(x_n - a_n).
+  \]
+  We check that $f$ is differentiable at $x = a$.
+  Choose $c_i = A_i(a)$. Then
+  \[
+    \left|\frac{f(x) - (f(a) - \sum_{i = 1}^n c_i (x_i - a_i))}{d(x, a)}\right|
+    = \left|\frac{\sum_{i = 1}^n (A_i(x) - A_i(a))(x_i - a_i)}{d(x, a)}\right|
+    \le \sum_{i = 1}^n |A_i(x) - A_i(a)| \to 0
+  \]
+  as $x \to a$, since each $A_i$ is continuous at $a$.
+  Thus $f$ is differentiable at $x = a$.
+\end{proof}
+
+\begin{theorem}
+  Let $U$ be an open set in $\R^n$ and suppose
+  that $f : U \to \R$ has partial derivatives
+  $f_1', \dots, f_n'$ on $U$ which are continuous
+  at $x = a$. Then $f$ is differentiable at $x = a$.
+\end{theorem}
+
+\begin{proof}
+  We change $x_i$ to $a_i$ one by one to get
+  \begin{align*}
+    f(x) - f(a)
+    &= (f(x_1, \dots, x_n) - f(a_1, x_2, \dots, x_n)) \\
+    &\quad + (f(a_1, x_2, \dots, x_n) - f(a_1, a_2, x_3, \dots, x_n)) \\
+    & \quad + (f(a_1, a_2, x_3, \dots, x_n) - f(a_1, a_2, a_3, x_4, \dots, x_n)) \\
+    & \quad \quad \quad \vdots \\
+    &\quad + (f(a_1, \dots, a_{n-1}, x_n) - f(a_1, \dots, a_n)).
+  \end{align*}
+  Each of these terms differ in only one variable, so
+  we can apply the mean value theorem to get
+  \begin{align*}
+    f(x) - f(a)
+    &= f_1'(\xi_1, a_2, \dots, a_n)(x_1 - a_1) \\
+    &\quad + f_2'(a_1, \xi_2, a_3, \dots, a_n)(x_2 - a_2) \\
+    & \quad \quad \quad \vdots \\
+    &\quad + f_n'(a_1, \dots, a_{n-1}, \xi_n)(x_n - a_n).
+  \end{align*}
+  So we can set
+  \begin{align*}
+    A_1(x) &= f_1'(\xi_1, a_2, \dots, a_n) (x_n - a_n) \\
+    A_2(x) &= f_2'(a_1, \xi_2, a_3, \dots, a_n) (x_n - a_n) \\
+    \vdots \\
+    A_n(x) &= f_n'(a_1, \dots, a_{n-1}, \xi_n) (x_n - a_n).
+  \end{align*}
+  where $\xi_i$ is between $a_i$ and $x_i$ for each
+  $1 \le i \le n$. Each $A_i$ is continuous since
+  each $f_i'$ is continuous, so we get $A_i(x) \to A_i(a)$
+  when $x \to a$. So $f(x)$ is differentiable at $x = a$.
+\end{proof}
+
+\begin{remark}
+  In functional analysis, there is an analogous theorem
+  that relates the G\^ateaux derivative (similar to
+  a partial derivative) and the Fr\'echet derivative
+  (similar to differentiability).
+\end{remark}
+
+\begin{remark}
+  The existence of continuous partial derivatives at
+  $x = a$ is
+  a sufficient condition for differentiability at
+  $x = a$, but it is not necessary.
+\end{remark}
+
+\begin{example}
+  Consider the function
+  \[
+    f(x, y) =
+    \begin{cases}
+      (x^2 + y^2) \sin(1 / (x^2 + y^2)) & \text{if } x^2 + y^2 \ne 0, \\
+      0 & \text{if } x^2 + y^2 = 0.
+    \end{cases}
+  \]
+  First we verify that $f$ is differentiable at
+  $(x, y) = (0, 0)$. We can compute
+  \[
+    |f(x, y) - f(0, 0)| = (x^2 + y^2) \left|\sin \frac{1}{x^2 + y^2}\right|
+    = O((\sqrt{x^2 + y^2})^2),
+  \]
+  so $f$ is differentiable at $(0, 0)$, with the
+  zero linear approximation $f(x, y) \approx 0x + 0y$.
+  This also gives $f_1'(0, 0) = f_2'(0, 0) = 0$. However,
+  if $(x, y) \ne (0, 0)$, then
+  \[
+    f_x(x, y) =
+    2x \sin \frac{1}{x^2 + y^2} - \frac{2x}{x^2 + y^2} \cos \frac{1}{x^2 + y^2}
+  \]
+  by the product rule. Letting $(x, y) \to 0$, we see that
+  the second term on the RHS has no limit. For
+  example, along $y = 0$, we get
+  \[
+    \left.\frac{2x}{x^2 + y^2} \cos \frac{1}{x^2 + y^2} \right|_{y = 0}
+      = \frac{2}{x} \cos \frac{1}{x^2},
+  \]
+  which has no limit as $x \to 0$. So $f_x(x, y)$ is
+  not continuous at $(0, 0)$. By symmetry,
+  $f_y(x, y)$ is also
+  not continuous at $(0, 0)$. So a function $f$ can
+  be differentiable at $x = a$ while its partial
+  derivatives $f_i'(x)$ are
+  not continuous at $x = a$.
+\end{example}
