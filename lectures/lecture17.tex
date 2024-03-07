@@ -1,0 +1,214 @@
+\chapter{Mar.~7 --- Vector-Valued Functions}
+
+\section{The Derivative for Vector-Valued Functions}
+
+\begin{definition}
+  Let $f : U \subseteq \R^n \to \R^m$, where $U$ is an
+  open set. We say $f = (f_1, \dots, f_m)$ is
+  \emph{differentiable} if each $f_i$ is differentiable.
+  In other words, for $x, a \in U$,
+  \[
+    f(x) - f(a)
+    =
+    \begin{pmatrix}
+      \partial f_1 / \partial x_1 (a) & \dots & \partial f_1 / \partial x_n (a) \\
+      \vdots & \ddots & \vdots \\
+      \partial f_m / \partial x_1 (a) & \dots & \partial f_m / \partial x_n (a)
+    \end{pmatrix}
+    (x - a)
+    + o(|x - a|).
+  \]
+  We may call the matrix of partial derivatives
+  $f'(a)$ or $\partial f / \partial x$.
+\end{definition}
+
+\begin{theorem}[Chain rule]
+  Let $U, V$ be open sets in $\R^n$ and $\R^m$,
+  respectively, and $f : U \to V$, $g : V \to \R$ be
+  functions. Let $a \in U$ such that $f$ is
+  differentiable at $a$ and $g$ is differentiable at
+  $f(a)$. Then $g \circ f(x) = g(f(x))$ is
+  differentiable at $a$, and
+  \[
+    (g \circ f)_j' (a) = \sum_{i=1}^m g_i'(f(a)) (f_i)_j'(a),
+  \]
+  where $(f_i)_j'$ denotes $\partial f_i / \partial x_j$.
+\end{theorem}
+
+\begin{proof}
+  See textbook (Rosenlicht).
+\end{proof}
+
+\begin{remark}
+  In matrix notation, we can write this via
+  \[
+    \nabla (g \circ f) = \nabla g \frac{\partial f}{\partial x},
+  \]
+  where $\nabla g$ is a vector in $\R^m$ and
+  $\partial f / \partial x$ is an $m \times n$ matrix.
+\end{remark}
+
+\begin{remark}
+  When $f : U \subseteq \R^n \to \R^n$, we get
+  \[
+    \frac{\partial f}{\partial x}(a)
+    =
+    \begin{pmatrix}
+      \partial f_1 / \partial x_1 (a) & \dots & \partial f_1 / \partial x_n (a) \\
+      \vdots & \ddots & \vdots \\
+      \partial f_n / \partial x_1 (a) & \dots & \partial f_n / \partial x_n (a)
+    \end{pmatrix},
+  \]
+  an $n \times n$ matrix. So we can take its
+  determinant, and we call $\det(\partial f / \partial x)$
+  the \emph{Jacobian} of $f$.
+\end{remark}
+
+\section{Implicit Function Theorem in \texorpdfstring{$\R^n$}{Rn}}
+
+\begin{remark}
+  Recall \ref{thm:implicit}, the implicit function
+  theorem on $\R$. Note that all solutions to $f(x, y) = 0$
+  are in fact given by the continuous curve $y = \varphi(x)$
+  in a neighborhood of $(x_0, y_0)$. To see this,
+  suppose $f(x, y) - f(x, \varphi(x)) = 0$ for some $y$.
+  Fixing $x$, by the mean value theorem we get
+  \[
+    \frac{\partial f}{\partial y}(x, \xi) (y - \varphi(x))
+    = 0.
+  \]
+  Since $\partial f / \partial y(x, \xi) \ne 0$, this implies $y = \varphi(x)$.
+  So there are no solutions off of the curve.
+\end{remark}
+
+\begin{theorem}
+  Let $f : \R^n \times \R^m \to \R^m$ and
+  $U \times V \subseteq \R^n \times \R^m$ be a neighborhood
+  of $(x_0, y_0)$. Suppose $f$ and $\partial f / \partial y$
+  are continuous on $U \times V$, and $f(x_0, y_0) = 0$ and
+  \[
+    \det \left( \frac{\partial f}{\partial y}(x_0, y_0) \right) \ne 0.
+  \]
+  Then there exists a neighborhood $U_0 \times V_0 \subseteq U \times V$
+  of $(x_0, y_0)$ and a unique continuous function
+  $\varphi : U_0 \to V_0$ satisfying
+  \[
+  \begin{cases}
+    f(x, \varphi(x)) = 0, \\
+    \varphi(x_0) = y_0.
+  \end{cases}
+  \]
+\end{theorem}
+
+\begin{proof}
+  Take $T : \varphi \mapsto T\varphi$, where
+  $\varphi \in C(\overline{B(x_0, r)}, \R^m)$ and\footnote{Recall that $\overline{A}$ is the \emph{closure} of a set $A$, i.e. the smallest closed set containing $A$.}
+  \[
+    \rho(\varphi, \psi) = \max_{\substack{x \in \overline{B(x_0, r)} \\ 1 \le i \le m}} |\varphi_i(x) - \psi_i(x)|
+  \]
+  is the metric.
+  Define
+  \[
+    (T\varphi)(x) = \varphi(x) = \left( \frac{\partial f}{\partial y}(x_0, y_0) \right)^{-1} f(x, \varphi(x)).
+  \]
+  Note that this is a matrix inverse.
+  Define
+  \[
+    X = \{
+      \varphi \in C(\overline{B(x_0, r)}, \R^m)
+      : \rho(\varphi, y_0) \le \delta
+    \}
+  \]
+  Now it suffices to show that
+  \begin{enumerate}
+    \item $\rho(T\varphi, T\psi) \le \frac{1}{2} \rho(\varphi, \psi)$ for $r, \delta$ small enough,
+    \item and $T : X \to X$
+  \end{enumerate}
+  in order to apply the contraction mapping theorem and
+  finish. Check these two details as an exercise.
+\end{proof}
+
+\begin{corollary}[Inverse function theorem]
+  If $f : U \subseteq \R^n \to \R^n$ such that
+  $f, \partial f / \partial y$ are continuous in a
+  neighborhood of $y_0 \in U$ and $\det(\partial f / \partial y(y_0)) \ne 0$,
+  then there exists $g : V \to \R^n$, where $V$ is a
+  neighborhood of $f(y_0)$, such that $g \circ f = \mathrm{id}$,
+  i.e. $g(f(x)) = x$.
+\end{corollary}
+
+\begin{proof}
+  Let $F(x, y) = x - f(y)$, and we want to solve
+  $F(x, y) = 0$ near the point $(f(y_0), y_0)$. Apply the
+  implicit function theorem to $F$ to finish. See
+  textbook (Rosenlicht) for details.
+\end{proof}
+
+\section{Higher Order Derivatives}
+
+\begin{definition}
+  If $f : U \subseteq \R^n \to \R$ and $\partial f / \partial x_i$
+  is differentiable with respect to $x_j$, then we can
+  define\footnote{Note the indices, we have $f_{x_j x_i} = (f_i')_j'$.}
+  \[
+    \frac{\partial}{\partial x_j} \left(\frac{\partial f}{\partial x_i}\right)
+    = \frac{\partial^2 f}{\partial x_j \partial x_i}
+    = f_{x_j x_i}.
+  \]
+  These are the \emph{second order partial derivatives}.
+  Similarly, we can define higher order partial
+  derivatives.
+\end{definition}
+
+\begin{remark}
+  We want to know: When is $f_{x_j x_i} = f_{x_i x_j}$
+  (i.e. $(f_i')_j' = (f_j')_i'$)?
+\end{remark}
+
+\begin{theorem}
+  Let $f : U \subseteq \R^n \to \R$ and $a \in U$.
+  If $(f_i')_j'$ and $(f_j')_i'$ exist and are
+  continuous in a neighborhood of $a$, then
+  \[
+    (f_i')_j'(a) = (f_j')_i'(a).
+  \]
+\end{theorem}
+
+\begin{proof}
+  Take a point $x = (x_1, x_2) \ne a$ in a small neighborhood
+  of $a = (a_1, a_2)$. Define
+  \[
+    \Delta(x) = \frac{f(x_1, x_2) - f(x_1, a_2) - f(a_1, x_2) + f(a_1, a_2)}{(x_1 - a_1)(x_2 - a_2)}.
+  \]
+  Let $\varphi(x_1, x_2) = f(x_1, x_2) - f(x_1, a_2)$, so
+  that
+  \[
+    \Delta x = \frac{\varphi(x_1, x_2) - \varphi(a_1, x_2)}{(x_1 - a_1)(x_2 - a_2)}
+  .\]
+  by the mean value theorem,
+  \[
+    \varphi(x_1, x_2) - \varphi(a_1, x_2)
+    = (x - a_1) \varphi_1'(\xi_1, x_2)
+  \]
+  for some $\xi_1$ between $x_1$ and $a_1$. Then
+  \[
+  \Delta x
+  = \frac{\varphi_1'(\xi_1, x_2)}{x_2 - a_2}
+  = \frac{f_1'(\xi_1, x_2) - f_1'(\xi_1, a_2)}{x_2 - a_2}
+  = (f_1')_2'(\xi_1, \xi_2)
+  \]
+  by the mean value theorem again, for some
+  $\xi_2$ between $a_2$ and $x_2$. In the same manner, we
+  get \[\Delta x = (f_2')_1'(\xi_1', \xi_2'),\]
+  where
+  $(\xi_1', \xi_2')$ is in a neighborhood of $a$.
+  Now let $(x_1, x_2) \to (a_1, a_2)$, then
+  $(\xi_1, \xi_1), (\xi_1', \xi_2') \to (a_1, a_2)$.
+  By assumption, $(f_2')_1'(\xi_1', \xi_2') \to (f_2')_1'(a)$ and
+  $(f_1')_2'(\xi_1, \xi_2) \to (f_1')_2'(a)$ since
+  $(f_2')_1'$ and $(f_1')_2'$ are continuous, so
+  \[
+    (f_1')_2'(a) = (f_2')_1'(a)
+  \]
+  since $(f_2')_1'(\xi_1', \xi_2') = (f_1')_2'(\xi_1, \xi_2) = \Delta x$.
+\end{proof}
