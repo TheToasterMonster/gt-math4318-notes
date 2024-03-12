@@ -1,0 +1,291 @@
+\chapter{Mar.~12 --- More on the Implicit Function Theorem}
+
+\section{Example of Unequal Mixed Partial Derivatives}
+
+\begin{example}
+  Consider the function.
+  \[
+    f(x, y) =
+    \begin{cases}
+      xy(x^2 - y^2) / (x^2 + y^2) & \text{if } x^2 + y^2 \ne 0 \\
+      0 & \text{if } x^2 + y^2 = 0.
+    \end{cases}
+  \]
+  We find
+  \[
+    f_x'(x, y) = \begin{cases}
+      y((x^2 - y^2)(x^2 + y^2) + 4x^2 y^2 / (x^2 + y^2)^2) & \text{if } x^2 + y^2 \ne 0 \\
+      0 & \text{if } x^2 + y^2 = 0.
+    \end{cases}
+  \]
+  and
+  \[
+  f_y'(x, y) =
+  \begin{cases}
+    x((x^2 - y^2)(x^2 + y^2) + 4x^2 y^2 / (x^2 + y^2)^2) & \text{if } x^2 + y^2 \ne 0 \\
+    0 & \text{if } x^2 + y^2 = 0.
+  \end{cases}
+  .\]
+  Now $f_x'(0, y) = -y$ and so
+  $f_{xy}''(0, 0) = -1$, but $f_y'(x, 0) = x$ and so
+  $f_{yx}''(0, 0) = 1$.  Thus 
+  $f_{xy}''(0, 0) \ne f_{yx}''(0, 0)$.
+\end{example}
+
+\section{Revisiting the Implicit Function Theorem}
+
+\begin{theorem}[Mean value theorem in $\R^n$]
+  Suppose $f : U \subseteq \R^n \to \R$ where $U$ is open,
+  and that $f$ is differentiable. THen for any
+  $a, b \in U$, there exists $\xi$ on the line segment
+  connecting $a, b$ such that
+  \[
+    f(a) - f(b) = \nabla f(\xi) \cdot (a - b).
+  \]
+\end{theorem}
+
+\begin{proof}
+  Define $h(t) = f(ta + (1 - t)b)$ for $t \in [0, 1]$.
+  Then
+  \[
+  f(a) - f(b) = h(1) - h(0) = h'(c)
+  = \nabla f(ca + (1 - c)b) \cdot (a - b)
+  \]
+  for some $c \in (0, 1)$ by the usual mean value theorem.
+  So we can pick $\xi = ca + (1 - c)b$.
+\end{proof}
+
+The following is a corollary of Theorem \ref{thm:implicit-higher-dim}:
+\begin{corollary}
+  If $f_1, \dots, f_n$ are continuously differentiable
+  in a neighborhood of $(a, b)$, then $U, V$ can be
+  chosen such that $\varphi : U \to V$ is continuously
+  differentiable, i.e. $\varphi \in C^1(U, V)$.\footnote{In the notation of Theorem \ref{thm:implicit-higher-dim}, we had $f = (f_1, \dots, f_n)$, $(x_0, y_0)$ instead of $(a, b)$, and $U_0, V_0$ instead of $U, V$.}
+\end{corollary}
+
+\begin{proof}
+  Recall that
+  \[
+    \begin{cases}
+      f_i(x, \varphi(x)) = 0 \\
+      \varphi(a) = b
+    \end{cases}
+  \]
+  for all $1 \le i \le n$. Then we have
+  \begin{align*}
+    0 = f_i(x, \varphi(x)) - f_i(a, \varphi(a))
+    &= \frac{\partial f_i}{\partial x_1} (z^i)(x_1 - a_1)
+    + \dots + \frac{\partial f_i}{\partial x_m} (z^i)(x_m - a_m) \\
+    & \quad + \frac{\partial f_i}{\partial y_1} (z^i)(\varphi_1(x) - b_1)
+    + \dots + \frac{\partial f_i}{\partial y_n} (z^i)(\varphi_n(x) - b_n)
+  \end{align*}
+  where $z_i$ is between $(x, \varphi(x))$ and $(a, b)$.
+  Now since
+  $\det(\partial f / \partial y_j (z^i)) \ne 0$, we
+  can solve this linear system to get
+  \[
+    \varphi_i(x) - b_i =
+    A_{i 1}(x)(x_1 - a_1) + A_{i 2}(x)(x_2 - a_2) + \dots + A_{i m}(x)(x_m - a_m),
+  \]
+  where the coefficient functions $A_{i 1}, \dots, A_{i m}$
+  are continuous in a neighborhood of $a$ by assumption.
+  So
+  $\varphi(x) = (\varphi_1(x), \dots, \varphi_n(x))$
+  is continuously differentiable in a neighborhood of
+  $a$, as desired.
+\end{proof}
+
+\begin{remark}
+  We can improve this if we know $f$ is more smooth.
+  In general, if $f \in C^k$, then $\varphi \in C^k$ also.
+\end{remark}
+
+\begin{example}[Implicit differentiation]
+  Suppose $F(x, y) = 0$ and $y = \varphi(x)$. If
+  $F \in C^1$ and $F_y' \ne 0$,
+  \[
+    \frac{d}{dx} F(x, \varphi(x)) = 0
+    \implies F_x' + F_y' \varphi_x = 0
+    \implies \varphi_x = -\frac{F_x'}{F_y'}.
+  \]
+  We can justify this rigorously via the implicit
+  function theorem.
+\end{example}
+
+\section{Lagrange Multipliers}
+Recall from multivariable calculus that we can use
+the method of Lagrange multipliers to solve
+the minimum (or maximum) of a function $f(x, y)$ subject
+to a constraint $g(x, y) = 0$. The
+\emph{Lagrange multiplier equation} is
+\[
+  \begin{cases}
+    \nabla f = \lambda \nabla g \\
+    g = 0,
+  \end{cases}
+\]
+which is a system of three equations in $(x, y, \lambda)$.
+Here $\lambda$ is called the \emph{Lagrange multiplier}.
+
+\begin{prop}
+Assume that at a local minimum (or maximum) point $(x_0, y_0)$ of $f$, we have
+\[
+  \nabla g(x_0, y_0) \ne \vec{0},
+\]
+i.e. $g_x^2(x_0, y_0) + g_y^2(x_0, y_0) \ne 0$. Then there
+exists $\lambda$ such that $\nabla f = \lambda \nabla g$
+at $(x_0, y_0)$.
+\end{prop}
+
+\begin{proof}
+  Assume $g_y'(x_0, y_0) \ne 0$. Then by the implicit
+  function theorem, there exists some $y = \varphi(x)$
+  in a neighborhood of $y_0$ such that
+  $g(x, \varphi(x)) = 0$. Then $h(x) = f(x, \varphi(x))$
+  obtains a minimum (or maximum) at $x_0$. Then
+  $h'(x_0) = 0$, so
+  \[
+    f_x'(x_0, y_0) + f_y'(x_0, y_0) \varphi_x'(x_0) = 0.
+  \]
+  Also, by implicit differentiation,
+  \[
+    \varphi_x'(x_0) = -\frac{g_x'(x_0, y_0)}{g_y'(x_0, y_0)}.
+  \]
+  So we can set
+  \[
+    \lambda = -\frac{f_y'(x_0, y_0)}{g_y'(x_0, y_0)}
+    \implies
+    \begin{cases}
+      f_x'(x_0, y_0) + \lambda g_x'(x_0, y_0) = 0 \\
+      f_y'(x_0, y_0) + \lambda g_y'(x_0, y_0) = 0.
+    \end{cases}
+  \]
+  Thus we have
+  $(\nabla f + \lambda \nabla g)(x_0, y_0) = 0$,
+  as desired.
+\end{proof}
+
+\begin{remark}
+  The condition $\nabla g(x_0, y_0) \ne \vec{0}$ is
+  necessary to derive the Lagrange multiplier equation.
+\end{remark}
+
+\begin{example}
+  Minimize $f(x, y) = x^2 + y^2$ subject to
+  $g = (x - 1)^3 - y^2 = 0$. The distance of $g$ to
+  the origin is clearly minimized at $(1, 0)$, but we have
+  \[
+    \nabla g(1, 0)
+      = \left.(3(x - 1)^2, -2y)\right|_{(1, 0)}
+      = (0, 0)
+  \]
+  and $\nabla f(1, 0) = (2, 0)$. So
+  $\nabla f \ne \lambda \nabla g$ in this case since
+  $\nabla g(1, 0) = \vec{0}$.
+\end{example}
+
+\begin{remark}
+  So in general, we should also check the
+  points where $\nabla g = \vec{0}$ separately.
+\end{remark}
+
+\begin{theorem}
+  Suppose $f(x_1, \dots, x_n)$ obtains a local
+  minimum (or maximum) at $p^0 = (x_1^{(0)}, \dots, x_n^{(0)})$
+  subject to
+  \[
+  \begin{cases}
+    g_1(x_1, \dots, x_n) = 0 \\
+    \quad \vdots \\
+    g_m(x_1, \dots, x_n) = 0,
+  \end{cases}
+  \]
+  where $m < n$. Assume that $f, g_i \in C^1$ in a
+  neighborhood of $p^0$ and the matrix
+  \[
+    \frac{\partial g}{\partial x}(p^0)
+    = \begin{pmatrix}
+      \partial g_1 / \partial x_1 & \dots & \partial g_1 / \partial x_n \\
+      \vdots & \ddots & \vdots \\
+      \partial g_m / \partial x_1 & \dots & \partial g_m / \partial x_n
+    \end{pmatrix}(p^0)
+  \]
+  has rank $m$. Then there exist
+  $\lambda_1, \dots, \lambda_m$ such that
+  \[
+    \begin{cases}
+      (\nabla f + \lambda_1 \nabla g_1 + \dots + \lambda_m \nabla g_m)(p^0) = 0 \\
+      g_i(p^0) = 0. \\
+    \end{cases}
+  \]
+\end{theorem}
+
+\begin{proof}
+  We prove this in the case of four unknowns and
+  two constraints (the proof can be generalized). Consider
+  \[
+    \text{minimize (or maximize) $f(x, y, z, t)$}
+    \quad \text{subject to}
+    \quad
+    \begin{cases}
+      \varphi(x, y, z, t) = 0 \\
+      \psi(x, y, z, t) = 0.
+    \end{cases}
+  \]
+  Suppose the minimum (or maximum) of $f$ is obtained
+  at $p^0 = (x_0, y_0, z_0, t_0)$. Then by assumption,
+  there are two variables (say $z, t$) such that
+  \[
+    \left.\det \frac{\partial (\varphi, \psi)}{\partial (z, t)}\right|_{p^0} \ne 0.
+  \]
+  Then by the implicit function theorem, we can find
+  $z = g(x, y)$ and $t = h(x, y)$ such that the constraint
+  equations are satisfied. Then
+  $u(x, y) = f(x, y, z(x, y), t(x, y))$ obtains a minimum
+  (or maximum) at $(x_0, y_0)$, so
+  \[
+    \nabla u(x_0, y_0) = 0
+    \implies
+    \begin{cases}
+      f_x' + f_z' (\partial z / \partial x) + f_t' (\partial t / \partial x) = 0 \\
+      f_y' + f_z' (\partial z / \partial y) + f_t' (\partial t / \partial y) = 0.
+    \end{cases} \tag{1, 2}
+  \]
+  Then
+  \[
+    \begin{cases}
+      \varphi_x' + \varphi_z' (\partial z / \partial x) + \varphi_t' (\partial t / \partial x) = 0 \\
+      \psi_x' + \psi_z' (\partial z / \partial x) + \psi_t' (\partial t / \partial x) = 0.
+    \end{cases}
+    \text{and} \quad
+    \begin{cases}
+      \varphi_y' + \varphi_z' (\partial z / \partial y) + \varphi_t' (\partial t / \partial y) = 0 \\
+      \psi_y' + \psi_z' (\partial z / \partial y) + \psi_t' (\partial t / \partial y) = 0.
+    \end{cases} \tag{$\star$}
+  \]
+  Since $\det (\partial (\varphi, \psi) / \partial (z, t)) \ne 0$
+  at $p^0$, we can find $\lambda, \mu$ such that
+  \[
+    \begin{cases}
+      f_z' + \lambda \varphi_z' + \mu \psi_z' = 0 \\
+      f_t' + \lambda \varphi_t' + \mu \psi_t' = 0,
+    \end{cases}
+  \]
+  which is always possible since the coefficient
+  matrix is nonsingular.
+  Let (A) and (B) be the two systems in $(\star)$ and
+  $A_1, A_2$ and $B_1, B_2$ be their first
+  and second equations, respectively. Then look at
+  the equation $\lambda(A_1) + \mu(A_2) + (1)$, and we get
+  \[
+  f_x' + \lambda \varphi_x' + \mu \psi_x' +
+  (f_z' + \lambda \varphi_z' + \mu \psi_z') \frac{\partial z}{\partial x}
+  + (f_t' + \lambda \varphi_t' + \mu \psi_t') \frac{\partial t}{\partial x} = 0.
+  .\]
+  This implies that $f_x' + \lambda \varphi_x' + \mu \psi_x' = 0$, and
+  we can similarly get that
+  $f_y' + \lambda \varphi_y' + \mu \psi_y' = 0$. Thus
+  we end up with
+  $\nabla f + \lambda \nabla \varphi + \mu \nabla \psi = 0$
+  at $p^0$, as desired.
+\end{proof}

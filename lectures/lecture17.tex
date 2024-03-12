@@ -67,7 +67,7 @@
 \section{Implicit Function Theorem in \texorpdfstring{$\R^n$}{Rn}}
 
 \begin{remark}
-  Recall \ref{thm:implicit}, the implicit function
+  Recall Theorem \ref{thm:implicit}, the implicit function
   theorem on $\R$. Note that all solutions to $f(x, y) = 0$
   are in fact given by the continuous curve $y = \varphi(x)$
   in a neighborhood of $(x_0, y_0)$. To see this,
@@ -82,6 +82,7 @@
 \end{remark}
 
 \begin{theorem}
+  \label{thm:implicit-higher-dim}
   Let $f : \R^n \times \R^m \to \R^m$ and
   $U \times V \subseteq \R^n \times \R^m$ be a neighborhood
   of $(x_0, y_0)$. Suppose $f$ and $\partial f / \partial y$
@@ -125,7 +126,7 @@
     \item and $T : X \to X$
   \end{enumerate}
   in order to apply the contraction mapping theorem and
-  finish. Check these two details as an exercise.
+  finish.\footnote{The continuity of $\varphi$ is implied since it is a fixed point in a function space of continuous functions.} Check these two details as an exercise.
 \end{proof}
 
 \begin{corollary}[Inverse function theorem]
