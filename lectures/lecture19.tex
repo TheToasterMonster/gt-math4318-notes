@@ -1,0 +1,292 @@
+\chapter{Mar.~14 --- The Riemann Integral in \texorpdfstring{$\R^n$}{Rn}}
+
+\section{Defining the Riemann Integral in \texorpdfstring{$\R^n$}{Rn}}
+
+\begin{definition}
+  A \emph{closed interval}, or a \emph{rectangular domain},
+  in $\R^n$ is a set of the form
+  \[
+    \{
+      (x_1, \dots, x_n) : a_1 \le x_i \le b_i \text{ for } i = 1, 2, \dots, n
+    \}.
+  \]
+  A \emph{partition} of $I$ is a partition of each
+  $[a_i, b_i]$ for $i = 1, 2, \dots, n$, i.e.
+  \[
+    (x_1^0, x_1^1, \dots, x_1^{N_1}, \quad (x_2^0, x_2^1, \dots, x_2^{N_2}), \quad \dots, \quad (x_n^0, x_n^1, \dots, x_n^{N_n}).
+  \]
+  The \emph{width} of a partition $I$ is
+  $\max\{x_i^{j} - x_{i}^{j - 1} : i = 1, \dots, n,\, j = 1, \dots, n\}$. A \emph{Riemann sum} is then
+  \[
+    S = \sum_{\substack{j_1 = 1, \dots, N_1 \\ j_2 = 1, \dots, N_2 \\ \dots \\ j_n = 1, \dots , N_n}} f(y_1^{j_1, \dots, j_n}, y_2^{j_1, \dots, j_n}, \dots, y_n^{j_1, \dots, j_n}) (x_1^{j_1} - x_1^{j_1 - 1}) \dots (x_n^{j_n} - x_n^{j_n - 1}).
+  .\]
+\end{definition}
+
+\begin{definition}
+  We say $f : I \subseteq \R^n \to \R$ is \emph{Riemann integrable}, where $I$ is a rectangular domain,
+  if there exists $A \in \R$ such that for any
+  $\epsilon > 0$, there exists $\delta > 0$ such that
+  $|S - A|$ for any Riemann sum $S$ with partition
+  width $< \delta$. In this case, we write
+  \[
+    A = \int_{I} f(x)\, dx_{1} \dots dx_{n}
+    = \int_{I} f\, dx.
+  \]
+\end{definition}
+
+\begin{remark}
+  The Riemann integral in $\R^n$ is still uniquely defined,
+  when it exists. If $A, A'$ both satisfy the definition,
+  then for every $\epsilon > 0$, there exists a Riemann
+  sum $S$ such that $|S - A| < \epsilon$ and $|S - A'| < \epsilon$.
+  Then
+  $|A - A'| < 2 \epsilon$ by the triangle inequality,
+  which implies that
+  $A = A'$ since $\epsilon$ was arbitrary.
+\end{remark}
+
+\begin{example}
+  If $f(x) \equiv c$, then we have
+  \[
+    \int_I f\, dx = c (b_1 - a_1) \dots (b_n - a_n).
+  \]
+\end{example}
+
+\begin{example}
+  Consider $f(x) = 0$ if $x_1 \ne \xi_1$ for some $\xi_1 \in \R$, i.e. zero except on a single hyperplane.
+  Then we have
+  \[
+    \int_I f\, dx = 0.
+  \]
+  This remains true if $x_i \ne \xi_i$ for any single
+  fixed $1 \le i \le n$.
+\end{example}
+
+\begin{example}[Simple step functions]
+  Let $\alpha_1, \dots, \alpha_n, \beta_1, \dots, \beta_n \in \R$
+  such that $a_i \le \alpha_i \le \beta_i \le b_i$
+  for each $i = 1, 2, \dots, n$. Then we can define
+  $f : I \to \R$ by
+  \[
+  f(x_1, \dots, x_n) =
+  \begin{cases}
+    1 & \text{if } x_i \in (\alpha_i, \beta_i) \text{ for } i = 1, 2, \dots, n, \\
+    0 & \text{otherwise}.
+  \end{cases}
+  .\]
+  We call such a function a \emph{simple step function}.
+  In this case, we have
+  \[
+    \int_I f\, dx = (\beta_1 - \alpha_1) \dots (\beta_n - \alpha_n).
+  \]
+\end{example}
+
+\begin{example}
+  Of course not all functions are Riemann integrable
+  in $\R^n$ either. Let $I$ be a closed interval in
+  $\R^n$ and define $f : I \to \R$ by
+  \[
+    f(x) =
+    \begin{cases}
+      1 & \text{if } x = (x_1, \dots, x_n) \in I \text{ and } x_1, \dots, x_n \text{ are rational}, \\
+      0 & \text{otherwise}.
+    \end{cases}
+  \]
+  This function $f$ is not Riemann integrable.
+\end{example}
+
+\section{Properties of the Riemann Integral in \texorpdfstring{$\R^n$}{Rn}}
+
+\begin{prop}
+  We have the following:
+  \begin{enumerate}
+    \item If $f, g \in \mathcal{R}(I)$, $I \subseteq \R^n$,
+    then $f + g \in \mathcal{R}(I)$ and
+    \[
+      \int_{I} (f + g)\, dx = \int_{I} f\, dx + \int_{I} g\, dx.
+    \]
+  \item If $f \in \mathcal{R}(I)$ and $c \in \R$,
+    then $cf \in \mathcal{R}(I)$ and
+    \[
+      \int_{I} cf\, dx = c \int_{I} f\, dx.
+    \]
+  \item If $f \ge 0$ on $I$ and $f \in \mathcal{R}(I)$,
+    then
+    \[
+      \int_{I} f\, dx \ge 0.
+    \]
+  \item If $f \le g$ on $I$ and $f, g \in \mathcal{R}(I)$,
+    then
+    \[
+      \int_{I} f\, dx \le \int_{I} g\, dx.
+    \]
+  \item If $m \le f \le M$ and $f \in \mathcal{R}(I)$, then
+    \[
+      m \Vol(I) \le \int_{I} f\, dx \le M \Vol(I),
+    \]
+    where $\Vol(I) = (b_1 - a_1) \dots (b_n - a_n)$.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  Check these properties as an exercise.
+\end{proof}
+
+\section{Conditions for Riemann Integrability in \texorpdfstring{$\R^n$}{Rn}}
+
+\begin{lemma}
+  Let $I$ be a closed interval in $\R^n$. Then
+  $f \in \mathcal{R}(I)$ if and only if for all
+  $\epsilon > 0$, there exists $\delta > 0$ such that
+  $|S_1 - S_2| < \epsilon$ whenever $S_1, S_2$ are
+  two Riemann sums with partitions
+  of width $< \delta$.
+\end{lemma}
+
+\begin{proof}
+  Roughly the same idea as in $\R$, see Rosenlicht for
+  details.
+\end{proof}
+
+\begin{example}[General step functions]
+  Let $(x_1^0, x_1^1, \dots, x_1^{N_1}), \dots, (x_n^0, x_n^1, \dots, x_n^{N_n})$
+  be a partition of $I$. A \emph{step function}
+  $f : I \to \R$ is defined by
+  \[
+    f(x) =
+    \begin{cases}
+      c_{j_1, \dots, j_n} & \text{if } x_i^{j_1 - 1} < x_i < x_i^{j_i} \text{ for all } i = 1, 2, \dots, n \\
+      0 & \text{otherwise}
+    \end{cases}
+  \]
+  for some constants $c_{j_1, \dots, j_n} \in \R$.
+  Observe that $f$ is a linear combination of simple step functions,
+  so it is integrable. To be more precise, notice that
+  we can write
+  \[
+    f = \sum c_{j_1, \dots, j_n} f_{j_1, \dots, j_n},
+    \quad \text{where} \quad
+    f_{j_1, \dots, j_n}(x) =
+    \begin{cases}
+      1 & \text{if } x_i^{j_i - 1} < x_i < x_i^{j_i} \text{ for all } i = 1, 2, \dots, n, \\
+      0 & \text{otherwise}.
+    \end{cases}
+  \]
+  Then we get
+  \[
+    \int_{I} f\, dx
+    = \sum_{\substack{1 \le j_i \le N_i \\ 1 \le i \le n}} c_{j_1, \dots, j_n} (x_1^{j_1} - x_1^{j_1 - 1}) \dots (x_n^{j_n} - x_n^{j_n - 1}).
+  \]
+\end{example}
+
+\begin{prop}
+  \label{thm:step-integrable}
+  Let $I \subseteq \R^n$ be a closed interval and
+  $f : I \to \R$. Then
+  $f \in \mathcal{R}(I)$ if and only if for any
+  $\epsilon > 0$, there exist step functions
+  $f_1, f_2$ on $I$ such that
+  $f_1(x) \le f(x) \le f_2(x)$ for all $x \in I$
+  and
+  \[
+    \int_{I} (f_2 - f_1)\, dx < \epsilon.
+  \]
+\end{prop}
+
+\begin{proof}
+  Similar to the proof in $\R$, see Rosenlicht for details.
+\end{proof}
+
+\begin{corollary}
+  If $I$ is a closed interval $f \in \mathcal{R}(I)$,
+  then $f$ is bounded on $I$.
+\end{corollary}
+
+\begin{proof}
+  This follows from the proof of Proposition
+  \ref{thm:step-integrable}, like in the case of $\R$.
+\end{proof}
+
+\begin{corollary}
+  Let $I \subseteq J$ are closed intervals in $\R^n$ and
+  $f : J \to \R$ such that $f(x) = 0$ if
+  $x \in J \setminus I$. Then $f \in \mathcal{R}(J)$
+  if and only if $f \in \mathcal{R}(I)$. Moreover,
+  in this case we have
+  \[
+    \int_{I} f\, dx = \int_{J} f\, dx.
+  \]
+\end{corollary}
+
+\begin{proof}
+  $(\Leftarrow)$ Suppose $f \in \mathcal{R}(I)$. Then for
+  any $\epsilon > 0$,
+  there exist two step functions $f_1, f_2$ on $I$ such
+  that $f_1(x) \le f(x) \le f_2(x)$ for all $x \in I$ and
+  \[
+    \int_{I} (f_2 - f_1)\, dx < \epsilon.
+  \]
+  Extend the step functions $f_1, f_2$ to $J$ by setting
+  $f_1(x) = f_2(x) = 0$ if $x \in J \setminus I$. Note
+  that $f_1, f_2$ become step functions on $J$ if we
+  extend them in this manner. Since $f \equiv 0$ on
+  $J \setminus I$, we have
+  $f_1(x) \le f(x) \le f_2(x)$ for all $x \in J$, and
+  \[
+    \int_J (f_2 - f_1)\, dx = \int_I (f_2 - f_1)\, dx < \epsilon.
+  \]
+  So $f \in \mathcal{R}(J)$. To see that the two integrals
+  are the same, observe that
+  \[
+    \int_{I} f_1 \le \int_{I} f \le \int_{I} f_2
+    \quad \text{and} \quad
+    \int_I f_1 = \int_{J} f_1 \le \int_{J} f \le \int_{J} f_2 = \int_I f_2,
+  \]
+  so we get
+  \[
+  \left|\int_I f - \int_j f\right|
+  \le \int_I (f_2 - f_1) < \epsilon \implies
+    \int_I f = \int_J f
+  \]
+  since $\epsilon$ was arbitrary.
+
+  $(\Rightarrow)$ Suppose $f \in \mathcal{R}(J)$. Then
+  for any $\epsilon > 0$, there exist step functions
+  $f_1, f_2$ on $J$ such that
+  \[
+    f_1(x) \le f(x) \le f_2(x) \text{ for all } x \in J \quad \text{and} \quad
+    \int_{J} (f_2 - f_1) < \epsilon.
+  \]
+  Define $g_1, g_2$ on $I$ by restricting $f_1, f_2$ to $I$.
+  Then $g_1, g_2$ are step functions on $I$ and
+  $g_1 \le f \le g_2$ on $I$. Now we also have
+  \[
+    \int_I (g_2 - g_1) = \int_I (f_2 - f_1)
+    \le \int_J (f_2 - f_1) < \epsilon
+  \]
+  since $f_1 \le f_2$, so $f_2 - f_1 \ge 0$ on $J$.
+  This gives $f \in \mathcal{R}(I)$.
+\end{proof}
+
+\section{Extending the Integral}
+
+\begin{definition}
+If $f : \R^n \to \R$ and $f \equiv 0$ outside
+a bounded set (bounded support),\footnote{The \emph{support} of $f$ is the set on which its zero.} then there exists a closed
+interval $I \subseteq \R^n$ such that
+$f(x) = 0$ outside $I$. Then we say $f$ is
+\emph{integrable on $\R^n$} if $f \in \mathcal{R}(I)$.
+\end{definition}
+
+\begin{remark}
+  The above definition is independent of the choice $I$.
+  This is because if $I, I'$ both contain the support
+  of $f$, then there exists $J \supset I \cup I'$, so that
+  \[
+    \int_I f \text{ exist} \iff
+    \int_J f \text{ exist} \iff
+    \int_{I'} f \text{ exist}
+    \quad \text{and} \quad
+    \int_I f\, dx = \int_{I'} f\, dx = \int_J f\, dx.
+  \]
+\end{remark}
