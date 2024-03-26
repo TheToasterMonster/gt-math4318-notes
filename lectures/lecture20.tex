@@ -1,0 +1,224 @@
+\chapter{Mar.~26 --- Extending the Integral in \texorpdfstring{$\R^n$}{Rn}}
+
+\section{Extending the Riemann Integral in \texorpdfstring{$\R^n$}{Rn}}
+\begin{definition}
+  If $f$ is defined on an arbitrary set
+  $A \subseteq \R^n$, define $\overline{f} : \R^n \to \R$
+  by zero extension, i.e.
+  \[
+    \overline{f}(x) = \begin{cases}
+      f(x) & \text{if } x \in A, \\
+      0 & \text{if } x \notin A.
+    \end{cases}
+  \]
+  If the support of $f$ is a bounded subset of $\R^n$,
+  then we define the \emph{integral of $f$ over $A$} as
+  \[
+    \int_A f = \int_{\R^n} \overline{f}.
+  \]
+\end{definition}
+
+\begin{remark}
+  We note once again that there exist functions which
+  are not Riemann integrable on $\R^n$.
+  Let $A$ be the points in a closed interval of
+  $\R^n$ with all rational coordinates.
+  Then $f = 1$ is not integrable on $A$.
+\end{remark}
+
+\begin{remark}
+  If $A$ is bounded and $f = 1$, then
+  \[
+    \int_A f = \int_A 1 = \Vol(A)
+  \]
+  if $1$ is integrable on $A$. This volume is also called
+  the \emph{Jordan measure} of $A$. The previous remark
+  shows that not every set is Jordan measurable.
+\end{remark}
+
+\begin{prop}
+  We have the following:
+  \begin{enumerate}
+    \item Let $A \subseteq \R^n$ and $f, g$ be two
+      integrable functions on $A$. Then $f + g$ is
+      also integrable and
+      \[
+        \int_A (f + g) = \int_A f + \int_A g.
+      \]
+    \item If $f$ is integrable on $A$ and $c \in \R$,
+      then $cf$ is integrable on $A$ and
+      \[
+        \int_A cf = c \int_A f.
+      \]
+    \item If $f(x) \ge 0$ on $A$ and $f$ is integrable,
+      then
+      \[
+        \int_A f \ge 0.
+      \]
+    \item If $f(x) \le g(x)$ on $A$ and $f, g$ are
+      integrable, then
+      \[
+        \int_A f \le \int_A g.
+      \]
+    \item If $m \le f(x) \le M$ on $A$ and $A$ has a
+      volume, and $f$ is integrable on $A$, then
+      \[
+      m \Vol(A) \le \int_A f \le M \Vol(A)
+      .\]
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  Left as an exercise. Note that the proof in the case
+  where $A$ is a box is already done.
+\end{proof}
+
+\section{Sets of Measure Zero}
+
+\begin{prop}
+  We have the following:
+  \begin{enumerate}
+    \item A set $A \subseteq \R^n$ has zero volume if and
+      only if
+      for any $\epsilon > 0$, there exist a finite number
+      of closed intervals in $\R^n$ containing $A$ with
+      the sum of their volumes less than $\epsilon$.
+    \item Any subset of a subset of $\R^n$ of zero volume
+      is of zero volume.
+    \item If $A \subseteq \R^n$ has zero volume and
+      $B \subseteq \R^n$ has volume, then
+      \[
+        \Vol(A \cup B) = \Vol(B)
+        \quad \text{and} \quad
+        \Vol(B \setminus A) = \Vol(B).
+      \]
+    \item The union of a finite number of zero volume
+      sets is of zero volume.
+    \item If $A$ has zero volume and $f : A \to \R$ is
+      bounded, then $f$ is integrable on $A$ and
+      \[
+        \int_A f = 0
+      .\]
+    \item If $S \subseteq \R^{n - 1}$ is compact and
+      $f : S \to \R$, then the graph of $f$ in
+      $\R^n$, i.e. the set
+      \[
+        \{(x_1, \dots, x_n) \in \R^n : (x_1, \dots, x_{n - 1}) \in S,\, x_n = f(x_1, \dots, x_{n - 1})\},
+      \]
+      is of zero volume.
+  \end{enumerate}
+\end{prop}
+
+\begin{proof}
+  See the textbook (Rosenlicht).
+\end{proof}
+
+\begin{prop}
+  Let $A, B$ be two subsets of $\R^n$ such that
+  $\Vol(A \cap B) = 0$ and $f : A \cup B \to \R$ is
+  integrable on both $A$ and $B$. Then
+  \[
+    \int_{A \cup B} f = \int_A f + \int_B f.
+  \]
+\end{prop}
+
+\begin{proof}
+  Define $f_1, f_2, f_3 : \R^n \to \R$ by
+  \[
+    f_1(x) = \begin{cases}
+      f(x) & \text{if } x \in A, \\
+      0 & \text{if } x \notin A,
+    \end{cases}
+    \quad
+    f_2(x) = \begin{cases}
+      f(x) & \text{if } x \in B, \\
+      0 & \text{if } x \notin B,
+    \end{cases}
+    \quad \text{and} \quad
+    f_3(x) = \begin{cases}
+      f(x) & \text{if } x \in A \cap B, \\
+      0 & \text{if } x \notin A \cap B.
+    \end{cases}
+  \]
+  Then
+  \[
+    \int_{\R^n} f_1 = \int_A f
+    \quad \text{and} \quad
+    \int_{\R^n} f_2 = \int_B f. \tag{1}
+  \]
+  Since $f$ is integrable on $A$ and $B$, it must be
+  bounded on $A$ and $B$. Then
+  \[
+    \int_{\R^n} f_3 = \int_{A \cap B} f = 0 \tag{2}
+  \]
+  since $\Vol(A \cap B) = 0$ and $f$ is bounded on
+  $A \cap B$. Now if $x \in A \cup B$, then
+  $f(x) = f_1 + f_2 - f_3$, and if
+  $x \notin A \cup B$, then $f_1 + f_2 - f_3 = 0$.
+  Then we get that
+   \[
+     \int_{A \cup B} f = \int_{\R^n} (f_1 + f_2 - f_3)
+     = \int_{\R^n} f_1 + \int_{\R^n} f_2 - \int_{\R^n} f_3
+     = \int_A f + \int_B f
+  \]
+  from $(1)$ and $(2)$, as required.
+\end{proof}
+
+\begin{corollary}
+  If $A$ and $B$ have volume and $A \cap B$ has
+  zero volume, then
+  \[\Vol(A \cup B) = \Vol(A) + \Vol(B).\]
+\end{corollary}
+
+\begin{proof}
+  Choose $f = 1$ in the previous proposition.
+\end{proof}
+
+\begin{theorem}[Lebesgue's criterion for Riemann integrability]
+  Let $A \subseteq \R^n$ be a set with volume and
+  let $f : A \to \R$ be a bounded function that is
+  continuous except on a subset of $A$ with zero volume.
+  Then $f$ is integrable on $A$.
+\end{theorem}
+
+\begin{proof}
+  First we consider the case where $A$ is a closed
+  interval in $\R^n$ and $f$ is continuous on $A$.
+  Now $f$ is continuous on a compact set, so it is
+  bounded, i.e. there exists $M \in \R$ such that
+  $|f(x)| \le M$ on $A$. Also since $A$ is compact,
+  in fact $f$ is uniformly continuous on $A$, so
+  for any $\epsilon > 0$, there exists $\delta > 0$
+  such that $|f(x) - f(y)| < \epsilon$ if
+  $d(x, y) < \delta$. Choose a partition of $A = I$
+  into closed subintervals $I_1, \dots, I_N$ such that
+  $I = I_1 \cup I_2 \cup \dots \cup I_N$ and
+  $\Vol(I_i \cap I_j) = 0$,\footnote{Cutting the box into little rectangles is sufficient to do this, for example.} and $d(x, y) < \delta$
+  if $x, y \in I_j$. Define
+  \[
+    f_1(x) =
+    \begin{cases}
+      \min\{f(y) : y \in I_j\} & \text{if } x \in I_j \text{ and } x \notin I_k \text{ for } k \ne j \\
+      -M & \text{otherwise}.
+    \end{cases}
+  \]
+  Similarly define
+  \[
+    f_2(x) =
+    \begin{cases}
+      \max\{f(y) : y \in I_j\} & \text{if } x \in I_j \text{ and } x \notin I_k \text{ for } k \ne j \\
+      M & \text{otherwise}.
+    \end{cases}
+  \]
+  By construction we have $f_1 \le f \le f_2$, and\footnote{Here $\Int I_j$ denotes the \emph{interior} of $I_j$.}
+  \[
+    \int_I (f_2 - f_1)
+    = \sum_{j = 1}^N \int_{\Int I_j} (f_2 - f_1)
+    \le \sum_{j = 1}^N \epsilon \Vol(I_j)
+    = \epsilon \Vol(I)
+  \]
+  by uniform continuity.
+  So $f$ is integrable on $A$ in
+  this case.
+  Rest of the proof for next class.
+\end{proof}

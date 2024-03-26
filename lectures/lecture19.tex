@@ -208,7 +208,7 @@
 \end{proof}
 
 \begin{corollary}
-  Let $I \subseteq J$ are closed intervals in $\R^n$ and
+  Let $I \subseteq J$ be closed intervals in $\R^n$ and
   $f : J \to \R$ such that $f(x) = 0$ if
   $x \in J \setminus I$. Then $f \in \mathcal{R}(J)$
   if and only if $f \in \mathcal{R}(I)$. Moreover,
@@ -244,7 +244,7 @@
   \]
   so we get
   \[
-  \left|\int_I f - \int_j f\right|
+  \left|\int_I f - \int_J f\right|
   \le \int_I (f_2 - f_1) < \epsilon \implies
     \int_I f = \int_J f
   \]
@@ -275,17 +275,22 @@ If $f : \R^n \to \R$ and $f \equiv 0$ outside
 a bounded set (bounded support),\footnote{The \emph{support} of $f$ is the set on which its zero.} then there exists a closed
 interval $I \subseteq \R^n$ such that
 $f(x) = 0$ outside $I$. Then we say $f$ is
-\emph{integrable on $\R^n$} if $f \in \mathcal{R}(I)$.
+\emph{integrable on $\R^n$} if $f \in \mathcal{R}(I)$, and
+we define
+\[
+  \int_{\R^n} f\, dx = \int_{I} f\, dx.
+\]
 \end{definition}
 
 \begin{remark}
-  The above definition is independent of the choice $I$.
+  The above definition is independent of the choice of
+  $I$.
   This is because if $I, I'$ both contain the support
   of $f$, then there exists $J \supset I \cup I'$, so that
   \[
-    \int_I f \text{ exist} \iff
-    \int_J f \text{ exist} \iff
-    \int_{I'} f \text{ exist}
+    \int_I f \text{ exists} \iff
+    \int_J f \text{ exists} \iff
+    \int_{I'} f \text{ exists}
     \quad \text{and} \quad
     \int_I f\, dx = \int_{I'} f\, dx = \int_J f\, dx.
   \]
