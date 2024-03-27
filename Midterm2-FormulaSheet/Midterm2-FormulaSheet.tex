@@ -1,0 +1,372 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% writeLaTeX Example: A quick guide to LaTeX
+%
+% Source: Dave Richeson (divisbyzero.com), Dickinson College
+% 
+% A one-size-fits-all LaTeX cheat sheet. Kept to two pages, so it 
+% can be printed (double-sided) on one piece of paper
+% 
+% Feel free to distribute this example, but please keep the referral
+% to divisbyzero.com
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% How to use writeLaTeX: 
+%
+% You edit the source code here on the left, and the preview on the
+% right shows you the result within a few seconds.
+%
+% Bookmark this page and share the URL with your co-authors. They can
+% edit at the same time!
+%
+% You can upload figures, bibliographies, custom classes and
+% styles using the files menu.
+%
+% If you're new to LaTeX, the wikibook is a great place to start:
+% http://en.wikibooks.org/wiki/LaTeX
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt,landscape]{article}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathbb{F}}
+
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\Int}{int}
+
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+% -----------------------------------------------------------------------
+
+\title{MATH 4318 Exam 2 Formula Sheet}
+
+\begin{document}
+
+\raggedright
+\footnotesize
+
+\begin{center}
+     \Large{\textbf{MATH 4318 Exam 2 Formula Sheet}} \\
+\end{center}
+\begin{multicols}{3}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\section{Exchange of Limit Operations}
+\begin{theorem}
+  Let $\{f_n\}$ be a uniformly convergent sequence
+  of Riemann integrable functions on $[a, b]$. Then
+  \[
+    \int_a^b \lim_{n \to \infty} f_n(x)\, dx
+    = \lim_{n \to \infty} \int_a^b f_n(x)\, dx.
+  \]
+\end{theorem}
+
+\begin{theorem}
+  Let $\{f_n\}$ be a sequence of functions on an
+  open interval $U \subseteq \R$ such that
+  each $f_n$ has a continuous derivative. Suppose
+  $\{f_n'\}$ converges uniformly on $U$ and for some
+  $a \in U$, $\{f_n'(a)\}$ converges. Then
+  $\lim_{n \to \infty} f_n = f$ exists and
+  $f$ is differentiable. Furthermore, we have
+  $f' = \lim_{n \to \infty} f_n'$.
+\end{theorem}
+
+\begin{theorem}
+  Let $f_n \in \mathcal{R}([a, b])$ for
+  $n \in \N$. If $\sum_{n = 1}^\infty f_n(x)$
+  converges uniformly on $[a, b]$, then
+  $\sum_{n = 1}^\infty f_n(x) \in \mathcal{R}([a, b])$ and
+  \[
+    \sum_{n = 1}^\infty \int_a^b f_n(x)\, dx
+    = \int_a^b \sum_{n = 1}^\infty f_n(x)\, dx.
+  \]
+\end{theorem}
+
+\begin{theorem}
+  Let $f_n : [a, b] \to \R$ be continuously differentiable.
+  Suppose that $\sum_{n = 1}^\infty f_n(x)$ converges
+  pointwise on $[a, b]$ and $\sum_{n = 1}^\infty f_n'(x)$ converges
+  uniformly on $[a, b]$. Then
+  $\sum_{n = 1}^\infty f_n(x)$ converges uniformly on $[a, b]$
+  and
+  \[
+    \frac{d}{dx} \sum_{n = 1}^\infty f_n(x)
+    = \sum_{n = 1}^\infty f_n'(x).
+  \]
+\end{theorem}
+
+\section{Infinite Series Basics}
+\begin{theorem}
+  A series $\sum_{n = 1}^\infty a_n$ converges if and
+  only if for every $\epsilon > 0$, there exists
+  $N \in \N$ such that if $n > m \ge N$, then
+  $|a_{m + 1} + \cdots + a_n| < \epsilon$.
+\end{theorem}
+
+\begin{theorem}
+  If $\sum_{n = 1}^\infty a_n$ converges, then
+  $a_n \to 0$ as $n \to \infty$.
+\end{theorem}
+
+\begin{theorem}
+  If $a_n \ge 0$, then $\sum_{n = 1}^\infty a_n$
+  either converges or diverges to $\infty$.
+\end{theorem}
+
+\begin{theorem}
+  If $\sum_{n = 1}^\infty a_n$ converges absolutely,
+  then $\sum_{n = 1}^\infty a_n$ converges and
+  $\left|\sum_{n = 1}^\infty a_n\right| \le \sum_{n = 1}^\infty |a_n|$.
+\end{theorem}
+
+\section{Convergence Tests}
+\begin{theorem}[Comparison test]
+  If $\sum_{n = 1}^\infty a_n$ and $\sum_{n = 1}^\infty b_n$
+  are two series such that $|a_n| \le b_n$ and
+  $\sum_{n = 1}^\infty b_n$ converges, then
+  $\sum_{n = 1}^\infty a_n$ converges and
+  $\left|\sum_{n = 1}^\infty a_n\right| \le \sum_{n = 1}^\infty b_n$.
+\end{theorem}
+
+\begin{theorem}[Limit comparison]
+  Let $\sum_{n = 1}^\infty a_n$ and $\sum_{n = 1}^\infty b_n$
+  be two positive series and suppose that
+  $\lim_{n \to \infty} a_n / b_n = \ell > 0$.
+  Then $\sum_{n = 1}^\infty a_n$ converges if and only if
+  $\sum_{n = 1}^\infty b_n$ converges.
+\end{theorem}
+
+\begin{theorem}[Root test]
+  Let $\sum_{n = 1}^\infty a_n$ be a positive
+  series and suppose that
+  $\limsup_{n \to \infty} \sqrt[n]{a_n} = \ell$.
+  Then
+  \begin{enumerate}
+    \item if $\ell < 1$, then $\sum_{n = 1}^\infty a_n$ converges;
+    \item if $\ell > 1$, then $\sum_{n = 1}^\infty a_n$ diverges.
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Integral test]
+  Let $\{a_n\}$ be a positive decreasing sequence.
+  If there exists a continuous decreasing $f$ on
+  $[1, \infty)$ such that $a_n = f(n)$, then
+  $\sum_{n = 1}^\infty a_n$ converges if and only if
+  $\int_1^\infty f(x)\, dx$ converges.
+\end{theorem}
+
+\begin{theorem}
+  Let $\{a_n\}$ be a decreasing sequence with
+  $a_n \to 0$ as $n \to \infty$. Then the series
+  $\sum_{n = 1}^\infty (-1)^{n + 1} a_n$ converges (to $S$, say), and
+  the partial sums $S_n$ have error
+  $|S_n - S| \le a_{n + 1}$.
+\end{theorem}
+
+\section{Series of Functions}
+
+\begin{theorem}[Cauchy criterion]
+  A series $\sum_{n = 1}^\infty f_n(x)$ converges uniformly
+  on $I \subseteq \R$ if and only if for every $\epsilon > 0$,
+  there exists $N$ such that whenever $n \ge N$,
+  for any $x \in I$ and $p \in \N$ we have
+  $|f_{n + 1}(x) + \dots + f_{n + p}(x)| < \epsilon$.
+\end{theorem}
+
+\begin{theorem}
+  If $\sum_{n = 1}^\infty f_n(x)$ converges uniformly
+  on $I$, then $f_n \to 0$ uniformly on $I$.
+\end{theorem}
+
+\begin{theorem}
+  Let $f_n \in C([a, b])$. If $\sum_{n = 1}^\infty f_n(x)$
+  converges uniformly on $(a, b)$, then it converges
+  uniformly on $[a, b]$.
+\end{theorem}
+
+\begin{theorem}[Weierstrass $M$-test]
+  If there exists a nonnegative and convergent
+  series such that
+  $|f_n(x)| \le M_n$ for all $x \in I$, then
+  $\sum_{n = 1}^\infty f_n(x)$ converges uniformly
+  on $I$.
+\end{theorem}
+
+\section{Power Series}
+\begin{theorem}
+  We have the following:
+  \begin{enumerate}
+    \item If $\sum_{n = 0}^\infty a_n x^n$ converges
+      at $x = x_1 \ne 0$, then it converges absolutely
+      for all $x$ with $|x| < |x_1|$.
+    \item If $\sum_{n = 0}^\infty a_n x^n$ diverges
+      at $x = x_2 \ne 0$, then it diverges for all
+      $x$ with $|x| > |x_2|$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Hadamard's formula]
+  For a power series $\sum_{n = 0}^\infty a_n x^n$,
+  let $L = \limsup_{n \to \infty} |a_n|^{1 / n}$.
+  Then its radius of convergence is $R = 1 / L$.
+\end{theorem}
+
+\begin{theorem}
+  For a series $\sum_{n = 0}^\infty a_n x^n$ with $a_n \ne 0$,
+  if $\lim_{n \to \infty} |a_{n + 1} / a_n| = L$,
+  then its radius of convergence is $R = 1 / L$.
+\end{theorem}
+
+\begin{theorem}
+  If $\sum_{n = 0}^\infty a_n x^n$ has radius of convergence
+  $R > 0$, then for any $0 < r < R$, the power
+  series $\sum_{n = 0}^\infty a_n r^n$ converges
+  uniformly on $[-r, r]$. Moreover, if
+  $\sum_{n = 0}^\infty a_n x^n$ converges at
+  $x = R < \infty$ (or $x = -R$), then $\sum_{n = 0}^\infty a_n x^n$
+  converges uniformly on $[0, R]$ (or $[-R, 0]$).
+\end{theorem}
+
+\begin{theorem}
+  If $\sum_{n = 0}^\infty a_n x^n$ has radius of
+  convergence $R > 0$, then
+  $f(x) = \sum_{n = 0}^\infty a_n x^n \in C^\infty(-R, R)$.
+\end{theorem}
+
+\begin{theorem}
+  Suppose $f(x) = \sum_{n = 0}^\infty a_n x^n$ has
+  radius of convergence $R > 0$. Then for any
+  $x \in (-R, R)$, $f \in \mathcal{R}([0, x])$
+  and
+  \[
+    \int_0^x f(t)\, dt = \sum_{n = 0}^\infty \frac{a_n}{n + 1} x^{n + 1}.
+  \]
+\end{theorem}
+
+\section{Taylor Series}
+\begin{theorem}
+   Let $R \in (0, \infty)$ and
+   $f \in C^\infty(x_0 - R, x_0 + R)$. If there
+   exists $M > 0$ such that for all $x \in (x_0 - R, x_0 + R)$,
+   $|f^{(n)}(x)| \le M$ for all $n \in \N$, then
+   \[
+     f(x) = \sum_{n = 0}^\infty \frac{f^{(n)}(x_0)}{n!} (x - x_0)^n
+   \]
+   for all $x \in (x_0 - R, x_0 + R)$.
+\end{theorem}
+
+\begin{theorem}[Lagrange remainder]
+  Let $f \in C^n([a, b])$ and assume that
+  $f$ is $(n + 1)$-times differentiable in $(a, b)$. Then
+  \[
+    f(x) - \sum_{k = 0}^n \frac{f^{(k)}(a)}{k!} (x - a)^k
+    = \frac{f^{(n + 1)}(\xi)}{(n + 1)!} (x - a)^{n + 1}
+  \]
+  for some $\xi \in [a, x]$.
+\end{theorem}
+
+\section{Contraction Mapping}
+\begin{theorem}[Contraction mapping]
+  Let $(X, d)$ be a complete metric space and
+  $T : X \to X$ a contraction mapping, i.e.
+  there exists $0 < k < 1$ such that
+  $d(Tx, Ty) \le k d(x, y)$ for all $x, y \in X$.
+  Then $T$ admits a unique fixed point in $X$.
+\end{theorem}
+
+\begin{theorem}[Newton's method]
+  Let $f \in C^2([a, b])$ and $\hat{x} \in (a, b)$
+  such that $f(\hat{x}) = 0$ and $f'(\hat{x}) \ne 0$.
+  Then there exists a neighborhood $U(\hat{x})$ of
+  $\hat{x}$ such that for all $x_0 \in U(\hat{x})$,
+  the sequence
+  \[
+    x_{n + 1} = x_n - \frac{f(x_n)}{f'(x_n)}
+  \]
+  converges to $\hat{x}$ as $n \to \infty$.
+\end{theorem}
+
+\begin{theorem}[Picard-Lindel\"of]
+  Let $f(t, x) : [a, b] \times [c, d] \to \R$ be continous
+  in $t$ and locally Lipschitz in $x$, i.e. it is
+  Lipschitz in $x$ for $|t| \le h$ with $h$ small enough,
+  then the initial value problem
+  \[
+    \begin{cases}
+      x'(t) = f(t, x) \\
+      x(0) = \xi,
+    \end{cases}
+  \]
+  has a unique local solution. (Note: Consider
+  \[
+    x(t) = \xi + \int_0^t f(\tau, x(\tau))\, d\tau
+  \]
+  by integrating. This is called a \emph{Picard iteration}.)
+\end{theorem}
+
+\begin{theorem}[Implicit function theorem]
+  Let $f : \R^n \times \R^m \to \R^m$ and
+  $U \times V \subseteq \R^n \times \R^m$ be a neighorhood
+  of $(x_0, y_0)$. Suppose $f$ and $\partial f / \partial y$
+  are continuous on $U \times V$, and $f(x_0, y_0) = 0$,
+  \[
+    \det\left(\frac{\partial f}{\partial y}(x_0, y_0)\right)
+    \ne 0.
+  \]
+  Then there exists a neighborhood $U_0 \times V_0 \subseteq U \times V$ of
+  $(x_0, y_0)$ and a unique continuous function
+  $\varphi : U_0 \to V_0$ satisfying
+  \[
+  \begin{cases}
+    f(x, \varphi(x)) = 0,
+    \varphi(x_0) = y_0.
+  \end{cases}
+  \]
+\end{theorem}
+
+\vfill
+\hrule
+~\\
+Frank Qiang, Georgia Institute of Technology, Spring 2024
+\end{multicols}
+
+\end{document}
+
