@@ -1,0 +1,270 @@
+\chapter{Apr.~2 --- Iterated Integrals}
+
+\section{Double Integrals and Iterated Integrals}
+\begin{theorem}
+  Suppose $f(x, y)$ is integrable on
+  $D = [a, b] \times [c, d]$ and for each $x \in [a, b]$,
+  $f(x, y)$ is integrable on $[c, d]$.  Then
+  \[
+    \int_a^b  dx \left[\int_c^d f(x, y)\, dy\right]
+    \text{ exists} \quad \text{and} \quad
+    \int_a^b  dx \left[\int_c^d f(x, y)\, dy\right]
+    = \iint_D f(x, y)\, dx dy
+  \]
+\end{theorem}
+
+\begin{proof}
+  Divide $[a, b]$ and $[c, d]$ by
+  $a = x_0 < x_1 < \cdots < x_n = b$ and
+  $c = y_0 < y_1 < \cdots < y_m = d$.
+  Take $\xi_i \in [x_{i-1}, x_i]$ and
+  $\eta_j \in [y_{j-1}, y_j]$ for each $1 \le i \le n$
+  and $1 \le j \le m$. Denote
+  \[
+    \Delta = \max\{\Delta x_i, \Delta y_j\}, \quad
+    \Delta x_i = x_i - x_{i-1},\, \Delta y_j = y_j - y_{j-1}.
+  \]
+  Then
+  \[
+    S = \sum_{i = 1}^n \sum_{j = 1}^m f(\xi_i, \eta_j) \Delta x_i \Delta y_j \to \iint_D f(x, y)\, dx dy
+  \]
+  as $\Delta \to 0$ since $f$ is integrable on $D$.
+  Let $\lambda_1 = \max\{\Delta x_i\}$ and
+  $\lambda_2 = \max\{\Delta y_j\}$. Note that
+  $\Delta \to 0$ if and only if $\lambda_1, \lambda_2 \to 0$.
+  Then we can write
+  \[
+    S = \sum_{i = 1}^n \left[\sum_{j = 1}^m f(\xi_i, \eta_j) \Delta y_j\right] \Delta x_i
+    \to \sum_{i = 1}^n \left[\int_c^d f(\xi_i, y)\, dy\right] \Delta x_i
+  \]
+  as $\lambda_2 \to 0$ since $f(x, y)$ is integrable in
+  $y$ for any fixed $x$. Now taking $\lambda_1 \to 0$,
+  \[
+    \int_a^b  dx \left[\int_c^d f(x, y)\, dy\right]
+    = \lim_{\lambda_1 \to 0} \sum_{i = 1}^n \left[\int_c^d f(\xi_i, y)\, dy\right] \Delta x_i
+    = \lim_{\Delta \to 0} S = \iint_D f(x, y)\, dx dy
+  \]
+  from before. So the left-hand side integral exists and
+  equals the double integral.
+\end{proof}
+
+\begin{remark}
+  Knowing that $f(x, y)$ is integrable on
+  $D = [a, b] \times [c, d]$ does \emph{not} in
+  general imply that
+  $f(x, y)$ is integrable on $[c, d]$ for any fixed
+  $x \in [a, b]$.
+\end{remark}
+
+\begin{example}
+  Let $D = [0, 1] \times [0, 1]$ and
+  \[
+    f(x, y) =
+    \begin{cases}
+      1 / p & \text{if $x = r / p$ for $r, p$ coprime, $y$ is irrational} \\
+      1 / q & \text{if $y = s / q$ for $s, q$ coprime, $x$ is irrational} \\
+      0 & \text{if $x, y$ are both rational or irrational}.
+    \end{cases}
+  \]
+  Observe that $f$ is integrable on $D$ since for any
+  $\epsilon > 0$, $f(x, y) \ge \epsilon$ only on a finite
+  number of straight lines. So there exists a partition
+  such that the finite number of lines are contained in a
+  union of small rectangular domains with area
+  $< \epsilon$. Then the total oscillation amplitude
+  of this partition for $f(x, y)$ is
+  \[
+    \sum_{i = 1}^n \omega_i(f) \Delta \sigma_i
+    = \sum_{\text{oscillation $\le \epsilon$}} \omega_i(f) \Delta \sigma_i
+    + \sum_{\text{contains lines}} \omega_i(f) \Delta \sigma_i
+    \le \epsilon + \epsilon = 2\epsilon
+  \]
+  where $\Delta \sigma_i = \Delta x_i \Delta y_i$. So
+  $f(x, y)$ is integrable on $D$. Now for a fixed
+  $x = r / p$, we have
+  \[
+    f(r / p, y) =
+    \begin{cases}
+      0 & \text{if $y$ is rational} \\
+      1 / p & \text{if $y$ is irrational}.
+    \end{cases}
+  \]
+  This function is not integrable for $y \in [0, 1]$.
+\end{example}
+
+\begin{corollary}
+  If $f$ is integrable on $D = [a, b] \times [c, d]$ 
+  and for fixed $y \in [c, d]$, $f(x, y)$ is
+  integrable on $[a, b]$. Then
+  \[
+    \iint_D f(x, y)\, dx dy = \int_c^d \left[\int_a^b f(x, y)\, dx\right] dy.
+  \]
+\end{corollary}
+
+\begin{proof}
+  Repeat the same proof but start by integrating in $x$.
+\end{proof}
+
+\begin{theorem}
+  Let $\varphi_1, \varphi_2 : [a, b] \to \R$ be
+  continuous and define the Type I region
+  \[
+    D = \{(x, y) \in \R^2 : a \le x \le b,\, \varphi_1(x) \le y \le \varphi_2(x)\}.
+  \]
+  Assume $f(x, y)$ is integrable on $D$ and for each
+  $x \in [a, b]$,
+  \[
+    I(x) = \int_{\varphi_1(x)}^{\varphi_2(x)} f(x, y)\, dy
+  \]
+  exists. Then
+  \[
+    \iint_D f(x, y)\, dx dy = \int_a^b \left[\int_{\varphi_1(x)}^{\varphi_2(x)} f(x, y)\, dy\right] dx.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Let $c = \inf_{a \le x \le b} \varphi_1(x)$ and
+  $d = \sup_{a \le x \le b} \varphi_2(x)$, so that
+  $D \subseteq R = [a, b] \times [c, d]$. Define
+  \[
+    f^*(x, y) =
+    \begin{cases}
+      f(x, y) & \text{if $(x, y) \in D$} \\
+      0 & \text{if $(x, y) \in R \setminus D$}.
+    \end{cases}
+  \]
+  Then $f^*$ is integrable on $R$ and
+  \[
+    \iint_R f^*(x, y)\, dx dy = \iint_D f(x, y)\, dx dy
+  \]
+  since
+  \[
+    \iint_R f^*(x, y)\, dx dy = \iint_D f^*(x, y)\, dx dy + \iint_{R \setminus D} f^*(x, y)\, dx dy = \iint_D f(x, y)\, dx dy.
+  \]
+  since $D$ is a measurable set. Now apply the
+  previous theorem to $f^*$ on $R$ to get
+  \[
+    \iint_D f(x, y)\, dx dy
+    \iint_R f^*(x, y)\, dx dy
+    = \int_a^b \left[\int_c^d f^*(x, y)\, dy\right] dx
+    = \int_a^b \left[\int_{\varphi_1(x)}^{\varphi_2(x)} f(x, y)\, dy\right] dx,
+  \]
+  which is the desired result.
+\end{proof}
+
+\begin{corollary}
+  Let $\phi_1, \phi_2 : [c, d] \to \R$ be continuous and
+  define the Type II region
+  \[
+    D = \{(x, y) \in \R^2 : c \le y \le d,\, \phi_1(y) \le x \le \phi_2(y)\}.
+  \]
+  Assume $f$ is integrable on $D$ and for each
+  $y \in [c, d]$, $f(x, y)$ is integrable
+  on $[\phi_1(y), \phi_2(y)]$. Then
+  \[
+    \iint_D f(x, y)\, dx dy = \int_c^d \left[\int_{\phi_1(y)}^{\phi_2(y)} f(x, y)\, dx\right] dy.
+  \]
+\end{corollary}
+
+\begin{proof}
+  Repeat the same proof.
+\end{proof}
+
+\section{Applications}
+\begin{example}
+  Assume $p(x)$ is integrable on $[a, b]$ and
+  $p(x) \ge 0$, and $f(x), g(x)$ are increasing
+  on $[a, b]$. Show
+  \[
+    \int_a^b p(x)f(x)\, dx \int_a^b p(x)g(x)\, dx
+    \le \int_a^b p(x)\, dx \int_a^b p(x)f(x)g(x)\, dx.
+  \]
+\end{example}
+
+\begin{proof}
+  Let
+  \[
+  \Delta = \int_a^b p(x)f(x)g(x)\, dx \int_a^b p(x)\, dx - \int_a^b p(x)f(x)\, dx \int_a^b p(x)g(x)\, dx.
+  \]
+  Replace the integration variable from $x$ to $y$ in the
+  two parts to get
+  \[
+    \Delta = \int_a^b p(x)f(x)g(x)\, dx \int_a^b p(y)\, dy
+    - \int_a^b p(x)f(x)\, dx \int_a^b p(y)g(y)\, dy
+  .\]
+  Let $D = [a, b] \times [a, b]$, and by the previous
+  theorem we get
+  \[
+    \Delta
+    = \iint_D \left[p(x) f(x) g(x) p(y) - p(x) f(x) p(y) g(y)\right] dx dy
+    = \iint_D p(x)p(y)f(x)\left[g(x) - g(y)\right] dx dy. \tag{1}
+  \]
+  By symmetry,
+  \[
+    \Delta = \iint_D p(x)p(y)f(y) \left[g(y) - g(x)\right] dx dy \tag{2}.
+  \]
+  also. Add $(1)$ and $(2)$ and divide by $2$ to get
+  \[
+    \Delta = \frac{1}{2} \iint_D p(x) p(y) [f(x) - f(y)][g(x) - g(y)] dx dy \ge 0
+  \]
+  since $p(x) \ge 0$, and $f(x) - f(y)$ and
+  $g(x) - g(y)$ have the same sign since $f, g$ are
+  increasing.
+\end{proof}
+
+\begin{example}
+  To compute
+  \[
+    I = \int_\R e^{-x^2} \, dx,
+  \]
+  we can use a similar trick and write
+  \[
+    I^2 = \int_\R e^{-x^2} \, dx \int_\R e^{-y^2} \, dy
+    = \iint_{\R^2} e^{-(x^2 + y^2)} \, dx dy
+    = \int_0^\infty \int_0^{2\pi} e^{-r^2} r \, d\theta dr
+    = 2\pi \int_0^\infty e^{-r^2} r \, dr
+    = \pi,
+  \]
+  so we get that $I = \sqrt{\pi}$.
+\end{example}
+
+\section{Triple Integrals and Iterated Integrals in 3D}
+\begin{theorem}
+  Let $D$ be a measurable region in the $xy$-plane and
+  $\varphi_1, \varphi_2 : D \to \R$ be continuous, and
+  define
+  \[
+    V = \{(x, y, z) \in \R^3 : (x, y) \in D,\, \varphi_1(x, y) \le z \le \varphi_2(x, y)\}.
+  \]
+  If $f(x, y, z)$ is integrable on $V$ and for each
+  $(x, y) \in D$, $f(x, y, z)$ is integrable on
+  $[\varphi_1(x, y), \varphi_2(x, y)]$, then
+  \[
+    \iiint_V f(x, y, z)\, dx dy dz
+    = \iint_D dxdy \left[\int_{\varphi_1(x, y)}^{\varphi_2(x, y)} f(x, y, z)\, dz\right].
+  \]
+\end{theorem}
+
+\begin{proof}
+  Similar idea, zero-extend $f$ to a box in $\R^3$ and
+  integrate.
+\end{proof}
+
+\begin{theorem}
+  Suppose we have $D : [c, d] \to \R^2$ and a region of
+  the form
+  \[
+    V = \{(x, y, z) \in \R^3 : c \le z \le d,\, (x, y) \in D(z)\}.
+  \]
+  If $f(x, y, z)$ is integrable on $V$ and for each
+  $z \in [c, d]$, $D(z)$ is measurable and
+  $f(x, y, z)$ is integrable on $D(z)$, then
+  \[
+    \iiint_V f(x, y, z)\, dx dy dz
+    = \int_c^d dz \left[\iint_{D(z)} f(x, y, z)\, dx dy\right].
+  \]
+\end{theorem}
+
+\begin{proof}
+  Use a similar idea.
+\end{proof}
