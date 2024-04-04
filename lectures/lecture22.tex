@@ -1,0 +1,215 @@
+\chapter{Apr.~4 --- Change of Variables}
+
+\section{Change of Variables for Double Integrals}
+Consider a region $G$ in $uv$-coordinates, and define
+a transformation $T$ on $G$ to $xy$-coordinates by
+\[
+  T :
+  \begin{cases}
+    x = x(u,v) \\
+    y = y(u,v).
+  \end{cases}
+\]
+Set $\Omega = T(G)$. Assume that $T$ is injective
+and $T \in C^2(\overline{G})$.
+
+\begin{definition}
+  We define the \emph{Jacobian} of $T$ to be
+  \[
+    J(u, v) = \frac{\partial(x, y)}{\partial(u, v)}
+    = \det
+    \begin{pmatrix}
+      \partial x / \partial u & \partial x / \partial v \\
+      \partial y / \partial u & \partial y / \partial v
+    \end{pmatrix}.
+  \]
+\end{definition}
+
+\begin{remark}
+  The Jacobian $J$ does not change sign in $G$.
+\end{remark}
+
+The goal now is to show the change of variables formula
+\[
+  \iint_{\Omega} f(x, y)\, dxdy
+  = \iint_G f(x(u, v), y(u, v)) |J(u, v)|\, dudv.
+\]
+Notice the extra $|J(u, v)|$ factor on the right-hand side.
+
+\begin{remark}
+  Let $\Gamma$ be a closed curve in the counterclockwise
+  orientation that encloses $\Omega$. If $\Gamma$ is
+  piecewise continuous, then recall that
+  by Green's theorem we have
+  \[
+    \area(\Omega) = \frac{1}{2} \oint_{\Gamma} x\, dy - y\, dx.
+  \]
+\end{remark}
+
+\begin{lemma}
+  Let $G = (u_0, u_0 + h) \times (v_0, v_0 + h)$ be a
+  square region for some $h > 0$. Assume $T$ is
+  injective and $T \in C^2(\overline{G})$. Then\footnote{Recall that $m(TG)$ denotes the measure of $TG$. Also $TG$ is the image of $G$ under $T$.}
+  \[
+    m(TG) = \iint_G |J(u, v)|\, dudv.
+  \]
+\end{lemma}
+
+\begin{proof}
+  When $J > 0$, $\partial(TG)$ is counterclockwise, so by the
+  previous remark we can calculate
+  \begin{align*}
+    2 \area(TG)
+    &= \int_{u_0}^{u_0 + h} \left[x(u, v_0) \frac{\partial y(u, v_0)}{\partial u} - y(u, v_0) \frac{\partial x(u, v_0)}{\partial u}\right] du \\
+    &\quad + \int_{v_0}^{v_0 + h} \left[x(u_0 + h, v) \frac{\partial y(u_0 + h, v)}{\partial v} - y(u_0 + h, v) \frac{\partial x(u_0 + h, v)}{\partial v}\right] dv \\
+    &\quad +\int_{u_0 + h}^{u_0} \left[x(u, v_0 + h) \frac{\partial y(u, v_0 + h)}{\partial u} - y(u, v_0 + h) \frac{\partial x(u, v_0 + h)}{\partial u}\right] du \\
+    &\quad + \int_{v_0 + h}^{v_0} \left[x(u_0, v) \frac{\partial y(u_0, v)}{\partial v} - y(u_0, v) \frac{\partial x(u_0, v)}{\partial v}\right] dv \\
+    &= I + II + III + IV.
+  \end{align*}
+  By the fundamental theorem of calculus, we get
+  \begin{align*}
+    I
+    &= \int_{u_0}^{u_0 + h}
+    \left[x(u, v_0 + h) \frac{\partial(u, v_0 + h)}{\partial u} - x(u, v_0) \frac{\partial y(u, v_0)}{\partial u}\right] du \\
+    &= \int_{u_0}^{u_0 + h} du \left[\int_{v_0}^{v_0 + h} \frac{\partial x(u, v)}{\partial v} \frac{\partial y(u, v)}{\partial u} + x(u, v) \frac{\partial^2 y(u, v)}{\partial v \partial u}\right] dv
+    = \iint_G \left[\frac{\partial x}{\partial v} \frac{\partial y}{\partial u} + x \frac{\partial^2 y}{\partial v \partial u}\right] dudv.
+  \end{align*}
+  Similarly apply this to the other three sides and
+  combine to get (note that $T$ is $C^2$ on $\overline{G}$),
+  \begin{align*}
+    2\area(TG)
+    &= \iint_G \left[\frac{\partial x}{\partial u}\frac{\partial y}{\partial v} + x \frac{\partial^2 y}{\partial u \partial v}\right] dudv
+    - \iint_G \left[\frac{\partial x}{\partial v}\frac{\partial y}{\partial u} + x \frac{\partial^2 y}{\partial v \partial u}\right] dudv \\
+    &\quad + \iint_G \left[\frac{\partial y}{\partial v}\frac{\partial x}{\partial u} + y \frac{\partial^2 x}{\partial v \partial u}\right] dudv
+    - \iint_G \left[\frac{\partial y}{\partial u}\frac{\partial x}{\partial v} + y \frac{\partial^2 x}{\partial u \partial v}\right] dudv \\
+    &= 2 \iint_G \left(\frac{\partial x}{\partial u} \frac{\partial y}{\partial v} - \frac{\partial x}{\partial v} \frac{\partial y}{\partial u}\right)
+    = 2 \iint_G J(u, v)\, dudv,
+  \end{align*}
+  which is the desired result. The absolute
+  value of $J$ is necessary when $J < 0$, since
+  $\partial(TG)$ is clockwise.
+\end{proof}
+
+\begin{theorem}
+  Let $T : G \to \Omega$, where $G$ and $\Omega$ are
+  both measurable sets in $\R^2$. Suppose $T$ is
+  bijective and $T \in \C^2(\overline{G})$, (and that
+  $J(u, v) \ne 0$ in $G$).\footnote{This last condition is implied by the previous two.} If $f(x, y)$ is integrable
+  on $\overline{\Omega}$, then
+  \[
+    \iint_{\Omega} f(x, y)\, dxdy
+    = \iint_G f(x(u, v), y(u, v)) |J(u, v)|\, dudv.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Use parallel lines with distance $h$ to cut
+  $G$ into small ``rectangular'' (except
+  near the boundary) sets $\Delta \sigma_i$. Let
+  \[
+    \Delta = \{\underbrace{\Delta \sigma_1, \Delta \sigma_2, \dots, \Delta \sigma_n}_{\text{contained in $\Int G$}}, \underbrace{\Delta \sigma_{n + 1}, \dots, \Delta \sigma_{n + p}}_{\text{intersects with $\partial G$}}\}.
+  \]
+  Let $(u_i, v_i) \in \Delta \sigma_i$ with
+  $1 \le i \le n$. Then $T : \Delta \sigma_i \to T(\Delta \sigma_i)$,
+  so that $x_i = x(u_i, v_i)$ and $y_i = y(u_i, v_i)$.
+  By the lemma,
+  \[
+    m(T(\Delta \sigma_i)) = \iint_{\Delta \sigma_i} |J(u, v)|\, dudv
+    = |J(\overline{u}_i, \overline{v}_i)| m(\Delta \sigma_i)
+    = h^2 |J(\overline{u}_i, \overline{v}_i)|.
+  \]
+  for some $(\overline{u}_i, \overline{v}_i) \in \Delta \sigma_i$ by the middle value theorem
+  (also note that $m(\Delta \sigma_i) = h^2$). So if
+  $f$ is continuous on $G$, then
+  \[
+    \iint_G f\, dxdy = f(\xi) m(G)
+  \]
+  where $\xi$ is some point in $\overline{G}$. Now
+  consider a limit of the Riemann sums. We have
+  \[
+    \lim_{h \to 0} \sum_{i = 1}^n f(x(u_i, v_i), y(u_i, v_i)) \underbrace{|J(\overline{u}_i, \overline{v}_i)| m(\Delta \sigma_i)}_{= m(T(\Delta \sigma_i))}
+    = \iint_{\Omega} f(x, y)\, dxdy
+  \]
+  since for the sets near the boundary,
+  \[
+    \lim_{h \to 0} \sum_{i = n + 1}^{n + p} m(T(\Delta \sigma_i)) = 0 \implies
+    \lim_{h \to 0} \sum_{i = n + 1}^{n + p} f(x_i, y_i) m(T(\Delta \sigma_i)) = 0.
+  \]
+  and $f$ is integrable and thus bounded on $\overline{\Omega}$.
+  Now if $J(\overline{u}_i, \overline{v}_i) \to J(u_i, v_i)$,
+  then
+  \[
+    \sum_{i = 1}^n f(x(u_i, v_i), y(u_i, v_i)) |J(u_i, v_i)| m(\Delta \sigma_i)
+    \to \iint_G f(x(u, v), y(u, v)) |J(u, v)|\, dudv
+  \]
+  as $h \to 0$. To see that $J(\overline{u}_i, \overline{v}_i) \to J(u_i, v_i)$, observe that for
+  any $\epsilon > 0$, since $|J(u, v)|$ is uniformly
+  continuous on $\overline{G}$, there exists
+  $\delta > 0$ such that
+  \[
+    d((u_i, v_i), (\overline{u}_i, \overline{v}_i)) < \delta
+    \implies \left| |J(u_i, v_i)| - |J(\overline{u}_i, \overline{v}_i)| \right| < \frac{\epsilon}{M \cdot m(G)},
+  \]
+  where $|f| \le M$ on $\overline{G}$. So if
+  $h < \delta / \sqrt{2}$, then we have
+  \[
+   \left| \sum_{i = 1}^n f(x_i, y_i) |J(\overline{u}_i, \overline{v}_i)| m(\Delta \sigma_i)
+    - \sum_{i = 1}^n f(x_i, y_i) |J(u_i, v_i)| m(\Delta \sigma_i)\right|
+    \le \frac{\epsilon}{M \cdot m(G)} \cdot M \cdot m(G) = \epsilon.
+  \]
+  This finishes the desired result.
+\end{proof}
+
+\begin{remark}
+  The theorem actually also holds for $T \in C^1(\overline{G})$.
+  This is because if
+  \[
+    \iint_{G} f(x(u, v), y(u, v)) |J(u, v)|\, dudv
+    = \iint_{\Omega} f(x, y)\, dxdy
+  \]
+  for any $T \in C^2$, then we can choose $T^n \in C^2$
+  such that $|T_n - T|_{C^1} \to 0$. Then we have
+  \[
+    \iint_G f(x_n(u, v), y_n(u, v)) |J_n(u, v)|\, dudv
+    = \iint_{T_n(G)} f(x, y)\, dxdy.
+  \]
+  As $n \to \infty$, we have $T_n(G) \to T(G) = \Omega$,
+  so that
+  \[
+    \text{LHS} \to \iint_G f(x(u, v), y(u, v)) |J(u, v)|\, dudv
+    \quad \text{and} \quad
+    \text{RHS} \to  \iint_{\Omega} f(x, y)\, dxdy
+  \]
+  since we have uniform convergence.
+\end{remark}
+
+\section{Change of Variables in 3D}
+
+Let $G$ be a measurable set in $\R^3$ with $uvw$-coordinates
+and
+\[
+  T :
+  \begin{cases}
+    x = x(u, v, w) \\
+    y = y(u, v, w) \\
+    z = z(u, v, w)
+  \end{cases}.
+\]
+Set $D = T(G)$. Assume that $T$ is a homeomorphism and
+$T \in C^1(\overline{G})$. Then define
+\[
+  J(u, v, w) = \frac{\partial(x, y, z)}{\partial(u, v, w)}
+  = \det
+  \begin{pmatrix}
+    \partial x / \partial u & \partial x / \partial v & \partial x / \partial w \\
+    \partial y / \partial u & \partial y / \partial v & \partial y / \partial w \\
+    \partial z / \partial u & \partial z / \partial v & \partial z / \partial w
+  \end{pmatrix}.
+\]
+If $f$ is integrable on $\overline{D}$, then
+\[
+  \iiint_D f(x, y, z)\, dxdydz
+  = \iiint_G f(x(u, v, w), y(u, v, w), z(u, v, w)) |J(u, v, w)|\, dudvdw.
+\]
+The proof is similar to the 2D case (get a formula for
+the cube and proceed similarly).
