@@ -1,0 +1,232 @@
+\chapter{Apr.~9 --- Change of Variables, Part 2}
+
+\section{Change of Variables Examples}
+\begin{example}
+  Compute
+  \[
+    I = \iint_D \sqrt{\sqrt{x} + \sqrt{y}}\, dxdy
+  \]
+  where $D$ is enclosed by $C : \sqrt{x} + \sqrt{y} = 1$
+  and the coordinate axes.
+\end{example}
+
+\begin{proof}
+  We would like $C : x = \cos^4 t, y = \sin^4 t$
+  for $0 \le t \le \pi / 2$. So let
+  \[
+  T :
+  \begin{cases}
+    x = r \cos^4 t, & 0 \le r \le 1\\
+    y = r \sin^4 t, & 0 \le t \le \pi / 2.
+  \end{cases}
+  \]
+  This gives $T : [0, 1] \times [0, \pi / 2] \to D$
+  which sends $(r, t) \to (x, y)$. Then
+  \[
+    J(r, t) = \det
+    \begin{pmatrix}
+      \partial x / \partial r & \partial x / \partial t\\
+      \partial y / \partial r & \partial y / \partial t
+    \end{pmatrix}
+    = 4r \cos^3 t \sin^3 t.
+  \]
+  Now making the change of variables in the integral
+  gives
+  \[
+    I = \int_0^{\pi / 2} \int_0^1 r^{1 / 4} 4r \cos^3 t \sin^3 t\, drdt
+    = \int_0^1 4 r^{5 / 4}\, dr \int_0^{\pi / 2} \cos^3 t \sin^3 t\, dt
+    = \frac{2}{15}.
+  \]
+  The latter integral can be calculated by writing
+  $\sin^2 t = 1 - \cos^2 t$ and using the substitution
+  $u = \cos t$.
+\end{proof}
+
+\begin{example}
+  Let $h = \sqrt{\alpha^2 + \beta^2 + \gamma^2} > 0$
+  and $f$ be continuous on $[-h, h]$. Show that
+  \[
+    \iiint_V f(\alpha x + \beta y + \gamma z)\, dx dy dz
+    = \pi \int_{-1}^1 (1 - \zeta^2) f(h \zeta)\, d\zeta,
+  \]
+  where $V : x^2 + y^2 + z^2 \le 1$.
+\end{example}
+
+\begin{proof}
+  Setting $\alpha x + \beta y + \gamma z = 0$ defines
+  a plane passing through the origin in $\R^2$. Choose
+  the $\zeta$-axis to be normal to this plane, and let
+  $\xi, \eta$ be two orthogonal axes on the plane. Define
+  the coordinate transformation
+  $T^{-1} : (\xi, \eta, \zeta) \to (x, y, z)$ be
+  given by
+  \[
+    \begin{cases}
+      \xi = a_1 x + b_1 y + c_1 z \\
+      \eta = a_2 x + b_2 y + c_2 z \\
+      \zeta = (\alpha x + \beta y + \gamma z) / h,
+    \end{cases}
+  \]
+  where $\{(a_1, b_1, c_1)^T, (a_2, b_2, c_2)^T\}$ is an
+  orthonormal basis for the plane. Note that $(\alpha, \beta, \gamma)^T$ is the normal vector of the plane.
+  Then
+  \[
+    \frac{\partial(\xi, \eta, \zeta)}{\partial(x, y, z)}
+    = \det
+    \begin{pmatrix}
+      a_1 & b_1 & c_1 \\
+      a_2 & b_2 & c_2 \\
+      \alpha / h & \beta / h & \gamma / h
+    \end{pmatrix} = 1
+  \]
+  since this matrix is orthogonal and preserves
+  orientation by construction. This gives
+  \[
+    J(\xi, \eta, \zeta) =
+    \frac{\partial(x, y, z)}{\partial(\xi, \eta, \zeta)}
+    = \left(\frac{\partial(\xi, \eta, \zeta)}{\partial(x, y, z)}\right)^{-1} = 1.
+  \]
+  Now under the transformation $T^{-1}$, we have
+  \[
+    V : \{x^2 + y^2 + z^2 \le 1\} \xrightarrow{T^{-1}}
+    G : \{\xi^2 + \eta^2 + \zeta^2 \le 1\}.
+  \]
+  Substituting this into the integral, we get
+  \begin{align*}
+    \iiint_V f(\alpha x + \beta y + \gamma z)\, dx dy dz
+    &= \iiint_{\xi^2 + \eta^2 + \zeta^2 \le 1} f(h \zeta)\, d\xi d\eta d\zeta \\
+    &= \int_{-1}^1 d\zeta \iint_{\xi^2 + \eta^2 \le 1 - \zeta^2} f(h \zeta)\, d\xi d\eta
+    = \int_{-1}^1 f(h \zeta) \pi (1 - \zeta^2)\, d\zeta,
+  \end{align*}
+  which is the desired result.
+\end{proof}
+
+\section{The Cylindrical and Spherical Coordinate Systems}
+The \emph{cylindrical} coordinate system is the change of
+variables $(x, y, z) \to (r, \theta, z)$ given by
+\[
+  \begin{cases}
+    x = r \cos \theta \\
+    y = r \sin \theta \\
+    z = z
+  \end{cases}
+  \text{with } J(r, \theta, z) = r.
+\]
+The \emph{spherical} coordinate system is the change of
+variables $(x, y, z) \to (r, \varphi, \theta)$ given by
+\[
+\begin{cases}
+  x = r \sin \varphi \cos \theta \\
+  y = r \sin \varphi \sin \theta \\
+  z = r \cos \varphi
+\end{cases}
+\text{with } J(r, \varphi, \theta) = r^2 \sin \varphi.
+\]
+For spherical coordinates we have
+$r \ge 0$, $0 \le \varphi \le \pi$, and
+$0 \le \theta \le 2\pi$.
+
+\begin{example}
+  Find
+  \[
+    \iiint_V (x^2 + y^2 + z^2)\, dx dy dz
+  \]
+  where $V : x^2 / a^2 + y^2 / b^2 + z^2 / c^2 \le 1$.
+\end{example}
+
+\begin{proof}
+  Define the transformation
+  \[
+    T :
+    \begin{cases}
+      x = a r \sin \varphi \cos \theta \\
+      y = b r \sin \varphi \sin \theta \\
+      z = c r \cos \varphi.
+    \end{cases}
+  \]
+  Then we have
+  \[
+    \frac{\partial(x, y, z)}{\partial(r, \varphi, \theta)}
+    = abc r^2 \sin \varphi.
+  \]
+  Making the substitution, this gives
+  \begin{align*}
+    &\iiint_V (x^2 + y^2 + z^2)\, dx dy dz \\
+    &\quad = \int_0^{2\pi} d\theta \int_0^\pi d\varphi \int_0^1 (a^2 \sin^2 \varphi \cos^2 \theta + b^2 \sin^2 \varphi \sin^2 \theta + c^2 \cos^2 \varphi) abc r^4 \sin \varphi\, dr \\
+    &\quad = \frac{4}{15} abc(a^2 + b^2 + c^2) \pi
+  \end{align*}
+  as the desired result.
+\end{proof}
+
+\section{More Change of Variables Examples}
+\begin{example}
+  Find
+  \[
+    I = \int_0^\infty \frac{e^{-ax} - e^{-bx}}{x}\, dx
+  \]
+  for $a, b > 0$.
+\end{example}
+
+\begin{proof}
+  First observe that for fixed $x > 0$, we can write
+  \[
+    \frac{e^{-ax} - e^{-bx}}{x} = \left.-\frac{e^{-yx}}{x}\right|_{y = a}^{y = b}
+      = \int_a^b \frac{d}{dy} (-\frac{e^{-yx}}{x})\, dy
+      = \int_a^b e^{-xy}\, dy
+  \]
+  by the fundamental theorem of calculus.
+  This then gives
+  \[
+    I = \int_0^\infty dx \int_a^b e^{-xy}\, dy
+    = \lim_{T \to \infty} \int_0^T dx \int_a^b e^{-xy}\, dy
+  \]
+  For the latter integral, we can switch the order of
+  integration to get
+  \begin{align*}
+    \int_0^T dx \int_a^b e^{-xy}\, dy
+    &= \int_a^b dy \int_0^T e^{-xy}\, dx
+    = \int_a^b dy \left[-\frac{e^{-xy}}{y}\right]_{x = 0}^{x = T}
+    = \int_a^b \frac{1 - e^{-Ty}}{y}\, dy \\
+    &= \int_a^b \frac{1}{y}\, dy - \int_a^b \frac{e^{-Ty}}{y}\, dy
+    = \ln(b / a) - \int_{Ta}{Tb} \frac{e^{-Ty'}}{y'}\, dy',
+  \end{align*}
+  where $y' = Ty$. Letting $T \to \infty$, we have
+  \[
+    I = \lim_{T \to \infty} \int_0^T dx \int_a^b e^{-xy}\, dy
+    = \ln(b / a) - \lim_{T \to \infty} \int_{Ta}^{Tb} \frac{e^{-Ty'}}{y'}\, dy'
+    = \ln(b / a) \tag{$*$}
+  \]
+  since
+  \[
+    \int_1^\infty \frac{e^{-y}}{y}\, dy
+    \text{ converges} \quad \text{and} \quad
+    h(A) = \int_0^A \frac{e^{-y}}{y}\, dy \text{ is Cauchy in $A$},
+  \]
+  so that the latter integral in $(*)$ vanishes as
+  $T \to \infty$.
+\end{proof}
+
+\begin{remark}
+  We might have been able to just switch orders at the
+  very beginning with the improper integral, but we need
+  to argue uniform
+  convergence so that the exchange is permissible.
+\end{remark}
+
+\begin{exercise}
+  Let $f$ be differentiable on $(0, \infty)$ and suppose
+  that
+  \[
+    \int_1^\infty \frac{f(t)}{t}\, dt
+  \]
+  exists. Then for $a, b > 0$, show that
+  \[
+    I = \int_0^\infty \frac{f(ax) - f(bx)}{x}\, dx
+    = f(0) \ln(b / a).
+  \]
+\end{exercise}
+
+\begin{remark}
+  The previous example is a special case of this exercise,
+  with $f(x) = e^{-x}$.
+\end{remark}
