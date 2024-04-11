@@ -1,0 +1,155 @@
+\chapter{Apr.~11 --- Green's Theorem}
+
+\section{Midterm 2 Problems}
+The following was Problem 3 on Midterm 2:
+\begin{exercise}
+  For a given function $y(t) \in C[0, 1]$ (i.e. continuous
+  functions in $[0, 1]$) and a constant $\lambda \in \R$
+  with $|\lambda| < 1$, show that the integral equation
+  \[
+    x(t) - \lambda \int_0^1 e^{t - s} x(s)\, ds = y(t) \tag{$*$}
+  \]
+  has a unique solution $x(t) \in C[0, 1]$.
+\end{exercise}
+
+\begin{remark}
+  A common idea was to define
+  \[
+    T : x(t) \mapsto y(t) + \lambda \int_0^1 e^{t - s} x(s)\, ds.
+  \]
+  and $\rho(u, v) = \sup_{t \in [0, 1]} |u(t) - v(t)|$.
+  But we run into problems since
+  \[
+    \rho(Tu, Tv)
+    \le |\lambda| \sup_{t \in [0, 1]} \left| \int_0^1 e^{t - s} (u(s) - v(s))\, ds \right|
+    \le |\lambda| \rho(u, v) \sup_{t \in [0, 1]} e^t \int_0^1 e^{-s}\, ds
+  \]
+  But $\sup_{t \in [0, 1]} e^t = e$ and the integral
+  evaluates to $1 - e^{-1}$, so we have
+  \[
+    \rho(Tu, Tv) \le |\lambda| e (1 - e^{-1}) \rho(u, v)
+    \le |\lambda| (1 - e) \rho(u, v).
+  \]
+  This doesn't work since $(1 - e) > 1$.
+\end{remark}
+
+\begin{proof}
+  A better idea is to first transform $(*)$ by
+  multiplying by $e^{-t}$:
+  \[
+    e^{-t} x(t) - \lambda \int_0^1 e^{-s} x(s)\, ds = e^{-t} y(t)
+  \]
+  since $t$ is independent of the integral. Then set
+  $z(t) = e^{-t} x(t)$ and define
+  \[
+    T : z(t) \mapsto e^{-t} y(t) + \lambda \int_0^1 z(s)\, ds.
+  \]
+  Using this we can get
+  \[
+    d(Tu, Tv) = \lambda \sup_{t \in [0, 1]} \left|\int_0^1 u(s) - v(s)\, ds\right|
+    \le \lambda \rho(u, v),
+  \]
+  which is good enough. Then by the contraction
+  mapping principle, $T$ has a unique fixed point, and
+  multiplying by $e^t$ gives a unique solution to $(*)$.
+\end{proof}
+
+\section{Green's Theorem}
+\begin{theorem}[Green's theorem]
+  Let $D$ be a region in $\R^2$ enclosed by a finite
+  number of measurable curves, and $P(x, y), Q(x, y)$
+  be continuous on $D$ with continuous partial
+  derivatives. Then
+  \[
+    \int_{\partial D} P\, dx + Q\, dy = \iint_D \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right) dx dy. \tag{$*$}
+  \]
+  Here $\partial D$ is oriented so that $\{\vec{n}, \vec{\tau}\}$ is a right-handed coordinate
+  system, where $\vec{n}$ is the outward normal to the
+  region and $\vec{\tau}$ is the tangent vector of
+  the curve $\partial D$.\footnote{In other words, the curve $\partial D$ is oriented so that the region $D$ is to its \emph{left}.}
+\end{theorem}
+
+\begin{proof}
+  First we consider Type I domains, i.e. regions of
+  the form
+  \[
+    D = \{a \le x \le b,\, \varphi(x) \le y \le \psi(x)\}.
+  \]
+  Let $A, B, C, D$ be the four vertices of the
+  region $D$, going counterclockwise and starting
+  in the bottom-left, i.e. we have
+  \[
+    A = (a, \varphi(a)),\, B = (b, \varphi(b)),\, C = (b, \psi(b)),\, D = (a, \psi(a)).
+  \]
+  Then
+  \[
+    \int_{\widetilde{AB}} P\, dx = \int_a^b P(x, \varphi(x))\, dx,
+    \quad
+    \int_{\widetilde{CD}} P\, dx = -\int_a^b P(x, \psi(x))\, dx,
+  \]
+  and
+  \[
+    \int_{\widetilde{BC}} P\, dx = \int_{\widetilde{DA}} P\, dx = 0
+  \]
+  since $x$ is constant on $\widetilde{BC}$ and $\widetilde{DA}$. Thus
+  \[
+    \int_{\partial D} P\, dx = \int_a^b P(x, \varphi(x))\, dx - \int_a^b P(x, \psi(x))\, dx
+    = \int_a^b [P(x, \varphi(x)) - P(x, \psi(x))]\, dx.
+  \]
+  By the fundamental theorem of calculus, we have
+  \[
+    P(x, \varphi(x)) - P(x, \psi(x)) = -\int_{\varphi(x)}^{\psi(x)} \frac{\partial P}{\partial y}(x, y)\, dy,
+  \]
+  so that
+  \[
+    \int_{\partial D} P\, dx = -\int_a^b \int_{\varphi(x)}^{\psi(x)} \frac{\partial P}{\partial y}(x, y)\, dy dx
+    = -\iint_D \frac{\partial P}{\partial y}\, dx dy.
+  \]
+  For Type II domains, i.e. regions of the form
+  \[
+    D = \{c \le y \le d, \varphi(y) \le x \le \psi(y)\}.
+  \]
+  Using an identical argument,
+  \[
+    \int_{\partial D} Q\, dy = \iint_D \frac{\partial Q}{\partial x}\, dx dy.
+  \]
+  Now if $D$ is of both Type I and Type II, then we
+  have both identities
+  \[
+    \int_{\partial D} P\, dx = -\iint_D \frac{\partial P}{\partial y}\, dx dy
+    \quad \text{and} \quad
+    \int_{\partial D} Q\, dy = \iint_D \frac{\partial Q}{\partial x}\, dx dy,
+  \]
+  and adding the two gives
+  \[
+    \int_{\partial D} P\, dx + Q\, dy = \iint_D \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right) dx dy,
+  \]
+  which is precisely Green's theorem for this special
+  type of region.
+  
+  Now let $D$ be a simply connected (i.e. no holes\footnote{More formally, $D$ is \emph{simply connected} if it is path-connected and every loop can be contracted to a point.}) domain enclosed by a measurable curve. Then $D$ can be
+  domain enclosed by a measurable curve. Then we try
+  to divide $D$ by using parallel lines into
+  $D_1, \dots, D_n$ such that each $D_1, \dots, D_n$
+  is of both Type I and Type II. Each subdomain falls
+  into the previous case, so
+  \[
+    \sum_{i = 1}^n \int_{\partial D_i} P\, dx + Q\, dy = \sum_{i = 1}^n \iint_{D_i} \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right) dx dy
+    = \iint_D \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right) dx dy.
+  \]
+  Now notice that each inner part of the $\partial D_i$
+  is traversed twice since it is part of the boundary
+  of two $D_i$, so these cancel and we get
+  \[
+    \int_{\partial D} P\, dx + Q\, dy
+    = \sum_{i = 1}^n \int_{\partial D_i} P\, dx + Q\, dy
+    = \iint_D \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}\right) dx dy,
+  \]
+  which is Green's theorem for a simply connected
+  domain.
+
+  In the most general case, divide $D$ into a finite
+  number of simply connected domains, and
+  apply the previous case to each one. We still get
+  cancellation of the inner parts of the boundaries.
+\end{proof}
