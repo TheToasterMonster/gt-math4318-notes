@@ -1,0 +1,189 @@
+\chapter{Apr.~18 --- Stokes's Theorem}
+
+\section{Stokes's Theorem}
+
+\begin{definition}
+  The \emph{curl} of a vector field $\vec{v} = \langle P, Q, R \rangle$,
+  denoted $\curl \vec{v}$ or $\nabla \times \vec{v}$, is
+  \[
+    \begin{vmatrix}
+      i & j & k \\
+      \partial_x & \partial_y & \partial_z \\
+      P & Q & R
+    \end{vmatrix}
+    = \langle \partial_y R - \partial_z Q, \partial_z P - \partial_x R, \partial_x Q - \partial_y P \rangle.
+  \]
+\end{definition}
+
+\begin{theorem}
+  Let $B$ be a smooth surface in $\R^3$ and
+  $\partial B$ consist of a finite number of continuous
+  curves such that the orientation of $\partial B$
+  and $\vec{n}$ satisfy the right hand rule.
+  Then for $\vec{v} = \langle P, Q, R \rangle \in \C^1(B)$,
+  \[
+    \int_{\partial B} \vec{v} \cdot ds
+    = \iint_B (\nabla \times \vec{v}) \cdot \vec{n} \, dS.
+  \]
+\end{theorem}
+
+\begin{proof}
+  First suppose $B$ is a graph surface, i.e.
+  $z = f(x, y)$ for $(x, y) \in D$. Assume that
+  $f \in C^1(D)$ and
+  $\vec{v} = \langle P, 0, 0 \rangle$. Then by Green's
+  theorem, we have
+  \begin{align*}
+    \text{LHS}
+    = \int_{\partial B} P(x, y, z)\, dx
+    = \int_{\partial D} P(x, y, f(x, y))\, dx
+    &= - \iint_D \frac{\partial}{\partial y} P(x, y, f(x, y))\, dxdy \\
+    &= -\iint_D \left(\frac{\partial P}{\partial y} + \frac{\partial P}{\partial z} \frac{\partial f}{\partial y}\right) dxdy.
+  \end{align*}
+  Now for the right hand side,
+  \[
+    \nabla \times \vec{v} = \langle 0, \partial_z P, - \partial_y P \rangle,
+  \]
+  so that
+  \[
+    \iint_B (\nabla \times \vec{v}) \cdot \vec{n} \, dS
+    = \iint_D (\nabla \times \vec{v}) \cdot \langle -f_x, -f_y, 1 \rangle \, dxdy
+    = \iint_D (-\partial_z P f_y - \partial_y P)\, dxdy.
+  \]
+  Comparing this with the LHS, we see that the two agree
+  and thus the theorem holds in this case.
+  Observe that applying the same argument when
+  $\vec{v} = \langle 0, Q, 0 \rangle$ gives the similar
+  result that
+  \[
+    \int_{\partial B} Q\, dy
+    = \iint_B (\nabla \times \vec{v}) \cdot \vec{n} \, dS,
+  \]
+  where $\nabla \times \vec{v} = \langle -\partial_z Q, 0, \partial_x Q \rangle$.
+  Now if $B$ is a graph surface of the form
+  $x = f(y, z)$ for $(y, z) \in D$, then for
+  $\vec{v}_1 = \langle 0, Q, 0 \rangle$ and
+  $\vec{v}_2 = \langle 0, 0, R \rangle$, we have
+  \[
+    \int_{\partial B} Q\, dy
+    = \iint_B (\nabla \times \vec{v}_1) \cdot \vec{n} \, dS
+    \quad \text{and} \quad
+    \int_{\partial B} R\, dz
+    = \iint_B (\nabla \times \vec{v}_2) \cdot \vec{n} \, dS.
+  \]
+  Similarly if $B$ is a graph surface of the form
+  $y = f(z, x)$  for $(z, x) \in D$, then for
+  $\vec{v}_1 = \langle 0, 0, R \rangle$ and
+  $\vec{v}_2 = \langle P, 0, 0 \rangle$, we have
+  \[
+    \int_{\partial B} R\, dz
+    = \iint_B (\nabla \times \vec{v}_1) \cdot \vec{n} \, dS
+    \quad \text{and} \quad
+    \int_{\partial B} P\, dx
+    = \iint_B (\nabla \times \vec{v}_2) \cdot \vec{n} \, dS.
+  \]
+  The proofs for these special cases are identical to
+  the first.
+
+  Now if $B$ is a triangle in $\R^3$, then $B$ is
+  of all three of the previous types. So for
+  $\vec{v} = \langle P, Q, R \rangle$, we have
+  \[
+    \int_{\partial B} P\, dx + Q\, dy + R\, dz
+    = \iint_B (\nabla \times \vec{v}) \cdot \vec{n} \, dS,
+  \]
+  which follows by breaking $\vec{v}$ into its components
+  and applying the previous cases on each component.
+
+  For a general surface $B$, use a union of polygons
+  to approximate $B$, and furthermore each polygon
+  can be broken down into triangles. So we can approximate
+  the surface by triangles. Then since Stokes's theorem
+  holds for triangles, apply this to each triangle
+  and note the internal edges cancel out. Now taking
+  the limit to approach $B$ and $\partial B$, we
+  get Stokes's theorem for general surfaces.
+\end{proof}
+
+\begin{remark}
+  Green's theorem is a special case of Stokes's
+  theorem when the surface lies in the $xy$-plane.
+  Here $\vec{n} = \vec{k}$ and $\vec{v} = \langle P, Q, 0 \rangle$, so
+  \[
+    \nabla \times \vec{v} = (\partial_x Q - \partial_y P) \vec{k},
+  \]
+  which gives
+  \[
+    (\nabla \times \vec{v}) \cdot \vec{n} = (\partial_x Q - \partial_y P) \vec{k} \cdot \vec{k} = \partial_x Q - \partial_y P,
+  \]
+  which is precisely the integrand in the statement of
+  Green's theorem.
+\end{remark}
+
+\section{The Generalized Stokes's Theorem}
+The generalized Stokes's theorem is a generalization of
+Stokes's theorem to \emph{differential forms} on \emph{manifolds}.
+Letting $\omega = P\, dx + Q\, dy + R\, dz$ be a
+$1$-form on $\R^3$, we can write
+\[
+  \int_{\partial B} \omega = \int_B d\omega,
+\]
+where $d \omega$ is the \emph{exterior derivative} of $\omega$, given by
+\begin{align*}
+  d\omega
+  &= \left(\frac{\partial P}{\partial x}\, dx + \frac{\partial P}{\partial y}\, dy + \frac{\partial P}{\partial z}\, dz\right) \land dx
+  + \left(\frac{\partial Q}{\partial x}\, dx + \frac{\partial Q}{\partial y}\, dy + \frac{\partial Q}{\partial z}\, dz\right) \land dy \\
+  &\hspace{16em} + \left(\frac{\partial R}{\partial x}\, dx + \frac{\partial R}{\partial y}\, dy + \frac{\partial R}{\partial z}\, dz\right) \land dz \\
+  &= \left(-\frac{\partial P}{\partial y} + \frac{\partial Q}{\partial x}\right) dx \land dy
+  + \left(\frac{\partial P}{\partial z} - \frac{\partial R}{\partial x}\right) dz \land dx
+  + \left(\frac{\partial Q}{\partial z} - \frac{\partial R}{\partial y}\right) dz \land dy.
+\end{align*}
+Note that the \emph{wedge product} $\land$ is
+alternating and multilinear, so that
+$dx \land dx = 0$ and $dx \land dy = -dy \land dx$.
+Here $d\omega$ is a $2$-form,\footnote{In general, if $\omega$ is a $k$-form, then $d\omega$ is a $(k + 1)$-form.} and we can integrate
+$2$-forms by writing
+\[
+  u_1\, dy \land dz + u_2\, dz \land dx + u_3 \, dx \land dy
+  \implies \vec{u} = \langle u_1, u_2, u_3 \rangle
+  = \nabla \times \vec{v}
+\]
+where $\vec{v} = \langle P, Q, R \rangle$. Using this,
+we see that
+\[
+  \int_B d\omega = \iint_B (\nabla \times \vec{v}) \cdot \vec{n} \, dS,
+\]
+which recalls the familiar form of Stokes's theorem.
+
+Recall the divergence theorem, which says that
+\[
+  \iiint_D \nabla \cdot \vec{v} \, dV = \iint_{\partial D} \vec{v} \cdot \vec{n} \, dS.
+\]
+Here we have the $2$-form
+\[
+  \omega = v_1\, dy \land dz + v_2\, dz \land dx + v_3 \, dx \land dy
+\]
+on $\partial D$. Taking the exterior derivative
+of $\omega$ gives the $3$-form
+\begin{align*}
+  d\omega
+  &= \left(\frac{\partial v_1}{\partial x}\, dx + \frac{\partial v_1}{\partial y}\, dy + \frac{\partial v_1}{\partial z}\, dz\right) \land dy \land dz.
+  + \left(\frac{\partial v_2}{\partial x}\, dx + \frac{\partial v_2}{\partial y}\, dy + \frac{\partial v_2}{\partial z}\, dz\right) \land dz \land dx \\
+  &\hspace{19em}+ \left(\frac{\partial v_3}{\partial x}\, dx + \frac{\partial v_3}{\partial y}\, dy + \frac{\partial v_3}{\partial z}\, dz\right) \land dx \land dy \\
+  &= \frac{\partial v_1}{\partial x} dx \land dy \land dz
+  + \frac{\partial v_2}{\partial y} dy \land dz \land dx
+  + \frac{\partial v_3}{\partial z} dz \land dx \land dy
+  = \left(\frac{\partial v_1}{\partial x} + \frac{\partial v_2}{\partial y} + \frac{\partial v_3}{\partial z}\right) dx \land dy \land dz,
+\end{align*}
+which recovers the divergence of $\vec{v}$. So the
+divergence theorem is a special case of the generalized
+Stokes's theorem.
+
+In general, for a $(k - 1)$-form $\omega$
+on a $k$-manifold $B$, the generalized Stokes's theorem
+asserts that
+\[
+  \int_B d\omega = \int_{\partial B} \omega.
+\]
+All three of the vector calculus theorems are special
+cases of this.
