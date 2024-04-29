@@ -1,0 +1,372 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% writeLaTeX Example: A quick guide to LaTeX
+%
+% Source: Dave Richeson (divisbyzero.com), Dickinson College
+% 
+% A one-size-fits-all LaTeX cheat sheet. Kept to two pages, so it 
+% can be printed (double-sided) on one piece of paper
+% 
+% Feel free to distribute this example, but please keep the referral
+% to divisbyzero.com
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% How to use writeLaTeX: 
+%
+% You edit the source code here on the left, and the preview on the
+% right shows you the result within a few seconds.
+%
+% Bookmark this page and share the URL with your co-authors. They can
+% edit at the same time!
+%
+% You can upload figures, bibliographies, custom classes and
+% styles using the files menu.
+%
+% If you're new to LaTeX, the wikibook is a great place to start:
+% http://en.wikibooks.org/wiki/LaTeX
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt,landscape]{article}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathbb{F}}
+
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\id}{id}
+
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+\pagestyle{empty}
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+% -----------------------------------------------------------------------
+
+\title{MATH 4318 Final Formula Sheet}
+
+\begin{document}
+
+\raggedright
+\footnotesize
+
+\begin{center}
+     \Large{\textbf{MATH 4318 Final Formula Sheet}} \\
+\end{center}
+\begin{multicols}{3}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\section{Differentiation}
+
+\begin{theorem}[Quotient rule]
+  If $f, g : U \to \R$ are differentiable and $g(x_0) \ne 0$, then
+  \[
+    (f / g)'(x_0) = \frac{f'(x_0) g(x_0) - f(x_0) g'(x_0)}{g(x_0)^2}.
+  \]
+\end{theorem}
+
+\begin{theorem}[Cauchy's mean value theorem]
+  Let $f, g \in C([a, b])$ be differentiable in $(a, b)$.
+  If $g'(x) \ne 0$ for any $x \in (a, b)$, then there
+  exists $x_0 \in (a, b)$ such that
+  \[
+  \frac{f'(x_0)}{g'(x_0)} = \frac{f(b) - f(a)}{g(b) - g(a)}.
+  \]
+\end{theorem}
+
+\begin{theorem}
+   Let $R \in (0, \infty)$ and
+   $f \in C^\infty(x_0 - R, x_0 + R)$. If there
+   exists $M > 0$ such that for all $x \in (x_0 - R, x_0 + R)$,
+   $|f^{(n)}(x)| \le M$ for all $n \in \N$, then
+   \[
+     f(x) = \sum_{n = 0}^\infty \frac{f^{(n)}(x_0)}{n!} (x - x_0)^n
+   \]
+   for all $x \in (x_0 - R, x_0 + R)$.
+\end{theorem}
+
+\begin{theorem}[Lagrange remainder]
+  Let $f \in C^n([a, b])$ and assume that
+  $f$ is $(n + 1)$-times differentiable in $(a, b)$. Then
+  \[
+    f(x) - \sum_{k = 0}^n \frac{f^{(k)}(a)}{k!} (x - a)^k
+    = \frac{f^{(n + 1)}(\xi)}{(n + 1)!} (x - a)^{n + 1}
+  \]
+  for some $\xi \in [a, x]$.
+\end{theorem}
+
+\section{Integration}
+\begin{definition}[Riemann integrability]
+  A function $f : [a, b] \to \R$ is \emph{Riemann integrable}
+  on $[a, b]$ if there exists $A \in \R$ such that for
+  all $\epsilon > 0$, there exists $\delta > 0$ such
+  that $|S - A| < \epsilon$ whenever $S$ is any
+  Riemann sum on a partition of width $< \delta$. We
+  call $A$ the \emph{Riemann integral} of $f$ on $[a, b]$.
+\end{definition}
+
+\begin{theorem}[Cauchy criterion for integrability]
+  A function $f : [a, b] \to \R$ is integrable if
+  and only if for any $\epsilon > 0$, there exists
+  $\delta > 0$ such that $|S_1 - S_2| < \epsilon$
+  whenever $S_1$ and $S_2$ are Riemann sums for
+  partitions of width $< \delta$.
+\end{theorem}
+
+\begin{definition}[Step function]
+  We say $f : [a, b] \to \R$ is a \emph{step function}
+  if there exists a partition $a = x_0 < x_1 < \cdots < x_n = b$
+  such that $f$ is constant on each interval $(x_{i - 1}, x_i)$.
+\end{definition}
+
+\begin{theorem}
+  A function $f : [a, b] \to \R$ is integrable if and
+  only if for any $\epsilon > 0$, there exist
+  step functions $f_1, f_2$ such that
+  $f_1(x) \le f(x) \le f_2(x)$ for all $x \in [a, b]$ and
+  \[
+    \int_a^b (f_2 - f_1)\, dx < \epsilon.
+  \]
+\end{theorem}
+
+\begin{definition}[Oscillation amplitude]
+  Let $f : [a, b] \to \R$ be bounded and
+  $a = x_0 < x_1 < \cdots < x_n = b$ be a partition.
+  Then
+  \[
+    \omega_i(f) = \sup\{|f(x) - f(y)| : x, y \in [x_{i - 1}, x_i)\}
+  \]
+  is the \emph{oscillation amplitude} of $f$ on $[x_{i - 1}, x_i)$.
+\end{definition}
+
+\begin{theorem}
+  A function $f : [a, b] \to \R$ is integrable if and
+  only if for any $\epsilon > 0$, there exists
+  a partition such that
+  \[
+    \sum_{n = 1}^n \omega_i(f) (x_i - x_{i - 1}) < \epsilon.
+  \]
+\end{theorem}
+
+\begin{theorem}[Du Bois-Reymond]
+  Let $f$ be bounded on $[a, b]$. Then $f \in \mathcal{R}([a, b])$ 
+  if and only if for any $\epsilon, a > 0$, there
+  exists a partition such that the total length of
+  subintervals with $\omega_i(f) \ge \epsilon$ is $< a$.
+\end{theorem}
+
+\section{Exchange of Limit Operations}
+
+\begin{theorem}
+  Let $\{f_n\}$ be a sequence of functions on an
+  open interval $U \subseteq \R$ such that
+  each $f_n$ has a continuous derivative. Suppose
+  $\{f_n'\}$ converges uniformly on $U$ and for some
+  $a \in U$, $\{f_n'(a)\}$ converges. Then
+  $\lim_{n \to \infty} f_n = f$ exists and
+  $f$ is differentiable. Furthermore, we have
+  $f' = \lim_{n \to \infty} f_n'$.
+\end{theorem}
+
+\begin{theorem}
+  Let $f_n : [a, b] \to \R$ be continuously differentiable.
+  Suppose that $\sum_{n = 1}^\infty f_n(x)$ converges
+  pointwise on $[a, b]$ and $\sum_{n = 1}^\infty f_n'(x)$ converges
+  uniformly on $[a, b]$. Then
+  $\sum_{n = 1}^\infty f_n(x)$ converges uniformly on $[a, b]$
+  and
+  \[
+    \frac{d}{dx} \sum_{n = 1}^\infty f_n(x)
+    = \sum_{n = 1}^\infty f_n'(x).
+  \]
+\end{theorem}
+
+\section{Infinite Series}
+
+\begin{theorem}
+  If $a_n \ge 0$, then $\sum_{n = 1}^\infty a_n$
+  either converges or diverges to $\infty$.
+\end{theorem}
+
+\begin{theorem}[Alternating series test]
+  Let $\{a_n\}$ be a decreasing sequence with
+  $a_n \to 0$ as $n \to \infty$. Then the series
+  $\sum_{n = 1}^\infty (-1)^{n + 1} a_n$ converges (to $S$, say), and
+  the partial sums $S_n$ have error
+  $|S_n - S| \le a_{n + 1}$.
+\end{theorem}
+
+\begin{theorem}
+  Let $f_n \in C([a, b])$. If $\sum_{n = 1}^\infty f_n(x)$
+  converges uniformly on $(a, b)$, then it converges
+  uniformly on $[a, b]$.
+\end{theorem}
+
+\section{Power Series}
+\begin{theorem}
+  We have the following:
+  \begin{enumerate}
+    \item If $\sum_{n = 0}^\infty a_n x^n$ converges
+      at $x = x_1 \ne 0$, then it converges absolutely
+      for all $x$ with $|x| < |x_1|$.
+    \item If $\sum_{n = 0}^\infty a_n x^n$ diverges
+      at $x = x_2 \ne 0$, then it diverges for all
+      $x$ with $|x| > |x_2|$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Hadamard's formula]
+  For a power series $\sum_{n = 0}^\infty a_n x^n$,
+  let $L = \limsup_{n \to \infty} |a_n|^{1 / n}$.
+  Then its radius of convergence is $R = 1 / L$.
+\end{theorem}
+
+\begin{theorem}
+  For a series $\sum_{n = 0}^\infty a_n x^n$ with $a_n \ne 0$,
+  if $\lim_{n \to \infty} |a_{n + 1} / a_n| = L$,
+  then its radius of convergence is $R = 1 / L$.
+\end{theorem}
+
+\begin{theorem}
+  If $\sum_{n = 0}^\infty a_n x^n$ has radius of convergence
+  $R > 0$, then for any $0 < r < R$, the power
+  series $\sum_{n = 0}^\infty a_n r^n$ converges
+  uniformly on $[-r, r]$. Moreover, if
+  $\sum_{n = 0}^\infty a_n x^n$ converges at
+  $x = R < \infty$ (or $x = -R$), then $\sum_{n = 0}^\infty a_n x^n$
+  converges uniformly on $[0, R]$ (or $[-R, 0]$).
+\end{theorem}
+
+\begin{theorem}
+  If $\sum_{n = 0}^\infty a_n x^n$ has radius of
+  convergence $R > 0$, then
+  $f(x) = \sum_{n = 0}^\infty a_n x^n \in C^\infty(-R, R)$.
+\end{theorem}
+
+\begin{theorem}
+  Suppose $f(x) = \sum_{n = 0}^\infty a_n x^n$ has
+  radius of convergence $R > 0$. Then for any
+  $x \in (-R, R)$, $f \in \mathcal{R}([0, x])$
+  and
+  \[
+    \int_0^x f(t)\, dt = \sum_{n = 0}^\infty \frac{a_n}{n + 1} x^{n + 1}.
+  \]
+\end{theorem}
+
+\section{Differentiation in \texorpdfstring{$\R^n$}{Rn}}
+\begin{theorem}
+  Let $f : U \subseteq \R^n \to \R$ where $U$ is open.
+  Then $f$ is differentiable at $x = a$ if and only
+  if there exist functions $A_1, \dots, A_n$ on $U$,
+  continuous at $x = a$, such that
+  \[
+    f(x) - f(a) = A_1(x) (x_1 - a_1) + \cdots + A_n(x) (x_n - a_n)
+  \]
+  for all $x \in U$. In this case, $\partial f / \partial x_i(a) = A_i(a)$.
+\end{theorem}
+
+\begin{theorem}
+  Let $U$ be an open set in $\R^n$ and suppose that
+  $f : U \to \R$ has partial derivatives $f_1', \dots, f_n'$
+  on $U$ which are continuous on $x = a$. Then $f$ is
+  differentiable at $x = a$.
+\end{theorem}
+
+\begin{theorem}[Implicit function theorem]
+  Let $f : \R^n \times \R^m \to \R^m$ and
+  $U \times V \subseteq \R^n \times \R^m$ be a
+  neighborhood of $(x_0, y_0)$. Suppose $f$ and
+  $\partial f / \partial y$ are continuous $U \times V$,
+  and $f(x_0, y_0) = 0$ and
+  \[
+    \det\left(\frac{\partial f}{\partial y}(x_0, y_0)\right)
+    \ne 0.
+  \]
+  Then there exists a neighborhood $U_0 \times V_0 \subseteq U \times V$
+  of $(x_0, y_0)$ and a unique continuous function
+  $\varphi : U_0 \to V_0$ satisfying
+  \[
+    \begin{cases}
+      f(x, \varphi(x)) = 0, \\
+      \varphi(x_0) = y_0.
+    \end{cases}
+  \]
+\end{theorem}
+
+\begin{theorem}
+  Let $f : [a, b] \times [c, d] \to \R$ be continuous
+  and suppose that $\partial f / \partial y$ exists
+  and is continuous on $[a, b] \times [c, d]$. Then
+  \[
+    \frac{d}{dy} \int_a^b f(x, y)\, dx = \int_a^b \frac{\partial f}{\partial y}(x, y)\, dx.
+  \]
+\end{theorem}
+
+\section{Integration in \texorpdfstring{$\R^n$}{Rn}}
+\begin{theorem}[Lebesgue's criterion for Riemann integrability]
+  Let $A \subseteq \R^n$ be a set with volume and
+  let $f : A \to \R$ be a bounded function that is
+  continuous except on a subset of $A$ with zero volume.
+  Then $f$ is integrable on $A$.
+\end{theorem}
+
+\begin{theorem}
+  Suppose $f(x, y)$ is integrable on
+  $D = [a, b] \times [c, d]$ and for each $x \in [a, b]$,
+  $f(x, y)$ is integrable on $[c, d]$. Then
+  \[
+    \int_a^b dx \left[\int_c^d f(x, y)\, dy\right]
+    = \iint_D f(x, y)\, dxdy
+  \]
+\end{theorem}
+
+\section{Reverse Triangle Inequality}
+\begin{proposition}
+  For all $x, y \in \R$, we have
+  $\left| |x| - |y| \right| \le |x - y|$.
+\end{proposition}
+
+\vfill
+\hrule
+~\\
+Frank Qiang, Georgia Institute of Technology, Spring 2024
+\end{multicols}
+
+\end{document}
+
